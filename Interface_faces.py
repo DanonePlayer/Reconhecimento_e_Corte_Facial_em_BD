@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import SUNKEN, PhotoImage
 from PIL import Image, ImageTk
-# import os
+import os
 # import recorte
 # import extrair
 
@@ -92,19 +92,19 @@ class Interface_rostos:
         # self.button_login.place(x=1, y=233)
 
 
-        self.button_Rosto = tk.Button(self.frm_seleção, text="Rosto" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0, command="self.Rosto")
+        self.button_Rosto = tk.Button(self.frm_seleção, text="Rosto" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0, command=self.Rosto)
         self.button_Rosto.place(x=1, y=202)
 
 
-        self.button_Olhos = tk.Button(self.frm_seleção, text="Olhos" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0, command="self.Olhos")
+        self.button_Olhos = tk.Button(self.frm_seleção, text="Olhos" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0, command=self.Olhos)
         self.button_Olhos.place(x=1, y=233)
 
 
-        self.button_Nariz = tk.Button(self.frm_seleção, text="Nariz" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0, command="self.Nariz")
+        self.button_Nariz = tk.Button(self.frm_seleção, text="Nariz" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0, command=self.Nariz)
         self.button_Nariz.place(x=1, y=264)
 
 
-        self.button_Boca = tk.Button(self.frm_seleção, text="Boca" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0, command="self.Boca")
+        self.button_Boca = tk.Button(self.frm_seleção, text="Boca" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0, command=self.Boca)
         self.button_Boca.place(x=1, y=295)
 
 
@@ -129,8 +129,129 @@ class Interface_rostos:
         self.button_login = tk.Button(self.frm_salvamento, text="Novo" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0)
         self.button_login.place(x=1, y=91)
 
+        self.começa = 0
+        self.termina = 6
 
 
+
+    def Gerador(self):
+        "extrair.Gerador_imagens()"
+
+
+    def recortes(self):
+        'recorte.recortes("M")'
+        'recorte.recortes("F")'
+
+
+    def Rosto(self):
+        Parte = "Rosto"
+        self.ImgsClick(Parte)
+
+    def Nariz(self):
+        Parte = "Nariz"
+        self.ImgsClick(Parte)
+
+    def Boca(self):
+        Parte = "Boca"
+        self.ImgsClick(Parte)
+
+    def Olhos(self):
+        Parte = "Olhos"
+        self.ImgsClick(Parte)
+
+
+
+
+
+
+    def StartImgs(self, Parte):           
+        rostos = os.listdir(f"IMAGENS-M")
+        self.vetor_rostos = []
+        for rosto in range(self.começa, self.termina):
+            self.vetor_rostos.append(rostos[rosto])
+        # print(self.vetor_rostos)
+
+        self.imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[0]}"))
+        self.arq_Image_1 = (f"{Parte}-M/{self.vetor_rostos[0]}")
+        self.imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[1]}"))
+        self.arq_Image_2 = (f"{Parte}-M/{self.vetor_rostos[1]}")
+        self.imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[2]}"))
+        self.arq_Image_3 = (f"{Parte}-M/{self.vetor_rostos[2]}")
+        self.imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[3]}"))
+        self.arq_Image_4 = (f"{Parte}-M/{self.vetor_rostos[3]}")
+        self.imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[4]}"))
+        self.arq_Image_5 = (f"{Parte}-M/{self.vetor_rostos[4]}")
+        self.imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[5]}"))
+        self.arq_Image_6 = (f"{Parte}-M/{self.vetor_rostos[5]}")
+
+
+    def ImgsClick(self, Parte):
+        self.StartImgs(Parte)
+
+        self.janela2 = tk.Toplevel()
+        self.janela2.title(Parte)
+        self.janela2.resizable(width=False, height=False )
+
+
+        self.frm_rosto1 = tk.Frame(self.janela2, width=321, height=380, bg="#44284c")
+        self.frm_rosto1.grid(column=0, row=0)
+        self.lbl_rosto1 = tk.Label(self.frm_rosto1, image=self.imagem1, width=341, height= 400)
+        self.lbl_rosto1.bind("<Button-1>", lambda argumento_necesario = self.imagem1: self.Click_Photo(self.imagem1, Parte, self.arq_Image_1))
+        self.lbl_rosto1.pack()
+
+
+
+        self.frm_rosto2 = tk.Frame(self.janela2, width=321, height=380, bg="#6A5ACD")
+        self.frm_rosto2.grid(column=0, row=1)
+        self.lbl_rosto2 = tk.Label(self.frm_rosto2, image=self.imagem2, width=341, height= 400)
+        self.lbl_rosto2.bind("<Button-1>", lambda argumento_necesario = self.imagem1: self.Click_Photo(self.imagem2, Parte, self.arq_Image_2))
+        self.lbl_rosto2.pack()
+
+
+
+        self.frm_rosto3 = tk.Frame(self.janela2, width=321, height=380, bg="#87CEFA")
+        self.frm_rosto3.grid(column=1, row=0)
+        self.lbl_rosto3 = tk.Label(self.frm_rosto3, image=self.imagem3, width=341, height= 400)
+        self.lbl_rosto3.bind("<Button-1>", lambda argumento_necesario = self.imagem1: self.Click_Photo(self.imagem3, Parte, self.arq_Image_3))
+        self.lbl_rosto3.pack()
+
+
+
+        self.frm_rosto4 = tk.Frame(self.janela2, width=321, height=380, bg="#00FF7F")
+        self.frm_rosto4.grid(column=1, row=1)
+        self.lbl_rosto4 = tk.Label(self.frm_rosto4, image=self.imagem4, width=341, height= 400)
+        self.lbl_rosto4.bind("<Button-1>", lambda argumento_necesario = self.imagem1: self.Click_Photo(self.imagem4, Parte, self.arq_Image_4))
+        self.lbl_rosto4.pack()
+
+
+
+        self.frm_rosto5 = tk.Frame(self.janela2, width=321, height=380, bg="#8B4513")
+        self.frm_rosto5.grid(column=2, row=0)
+        self.lbl_rosto5 = tk.Label(self.frm_rosto5, image=self.imagem5, width=341, height= 400)
+        self.lbl_rosto5.bind("<Button-1>", lambda argumento_necesario = self.imagem1: self.Click_Photo(self.imagem5, Parte, self.arq_Image_5))
+        self.lbl_rosto5.pack()
+
+
+
+        self.frm_rosto6 = tk.Frame(self.janela2, width=321, height=380, bg="#FFFF00")
+        self.frm_rosto6.grid(column=2, row=1)
+        self.lbl_rosto6 = tk.Label(self.frm_rosto6, image=self.imagem6, width=341, height= 400)
+        self.lbl_rosto6.bind("<Button-1>", lambda argumento_necesario = self.imagem1: self.Click_Photo(self.imagem6, Parte, self.arq_Image_6))
+        self.lbl_rosto6.pack()
+
+
+        self.lbl_rosto1.configure(image=self.imagem1)
+        self.lbl_rosto1.image=self.imagem1
+        self.lbl_rosto2.configure(image=self.imagem2)
+        self.lbl_rosto2.image=self.imagem2
+        self.lbl_rosto3.configure(image=self.imagem3)
+        self.lbl_rosto3.image=self.imagem3
+        self.lbl_rosto4.configure(image=self.imagem4)
+        self.lbl_rosto4.image=self.imagem4
+        self.lbl_rosto5.configure(image=self.imagem5)
+        self.lbl_rosto5.image=self.imagem5
+        self.lbl_rosto6.configure(image=self.imagem6)
+        self.lbl_rosto6.image=self.imagem6
         
 janela = tk.Tk()
 Interface_rostos(janela)

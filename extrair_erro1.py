@@ -15,7 +15,7 @@ imageIndex = 0
 # loop através de formas
 for shape in shapes :
     shape = shape.as_shape()
-    if (shape.has_image) :
+    if (shape.has_image):
 
         # definir o nome do arquivo de imagem
         imageFileName = f"Image.ExportImages.{imageIndex}_{aw.FileFormatUtil.image_type_to_extension(shape.image_data.image_type)}"
