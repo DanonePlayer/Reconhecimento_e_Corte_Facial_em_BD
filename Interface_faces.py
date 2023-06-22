@@ -325,7 +325,10 @@ class Interface_rostos:
 
 
     def Click_Photo(self, event, Parte, arq):
-        pass
+        print(self)
+        print(event)
+        print(Parte)
+        print(arq)
         
 janela = tk.Tk()
 Interface_rostos(janela)
