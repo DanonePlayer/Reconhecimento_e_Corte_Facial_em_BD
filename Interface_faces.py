@@ -253,6 +253,75 @@ class Interface_rostos:
         self.lbl_rosto6.configure(image=self.imagem6)
         self.lbl_rosto6.image=self.imagem6
 
+        Parte = Parte
+        imagem = tk.PhotoImage(file="duas-setas-para-a-esquerda.png")
+        self.button_pass_esquerdo = tk.Button(self.janela2, image=imagem, command=lambda: [self.passa_esquerda(Parte)])
+        self.button_pass_esquerdo.config(image=imagem)
+        self.button_pass_esquerdo.imagem = imagem
+        self.button_pass_esquerdo.grid(column=1, row=2, sticky=tk.W, padx=100)
+
+        imagem = tk.PhotoImage(file="avanco-rapido.png")
+        self.button_pass_direito = tk.Button(self.janela2, image=imagem, command=lambda: [self.passa_direita(Parte)])
+        self.button_pass_direito.config(image=imagem)
+        self.button_pass_direito.imagem = imagem
+        self.button_pass_direito.grid(column=1, row=2, sticky=tk.E, padx=100)
+
+        #print(self.chave_nariz, self.chave_boca, self.chave_olhos)
+
+ 
+    def passa_direita(self, Parte):
+        self.começa += 6
+        self.termina += 6
+        self.StartImgs(Parte)
+
+        imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[0]}"))
+        imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[1]}"))
+        imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[2]}"))
+        imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[3]}"))
+        imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[4]}"))
+        imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[5]}"))
+
+        self.lbl_rosto1.configure(image=imagem1)
+        self.lbl_rosto1.image=imagem1
+        self.lbl_rosto2.configure(image=imagem2)
+        self.lbl_rosto2.image=imagem2
+        self.lbl_rosto3.configure(image=imagem3)
+        self.lbl_rosto3.image=imagem3
+        self.lbl_rosto4.configure(image=imagem4)
+        self.lbl_rosto4.image=imagem4
+        self.lbl_rosto5.configure(image=imagem5)
+        self.lbl_rosto5.image=imagem5
+        self.lbl_rosto6.configure(image=imagem6)
+        self.lbl_rosto6.image=imagem6
+
+    def passa_esquerda(self, Parte):
+        if self.começa == 0:
+            print("Num pode")
+        
+        else:
+            self.começa -= 6
+            self.termina -= 6 
+            self.StartImgs(Parte)
+            
+            imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[0]}"))
+            imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[1]}"))
+            imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[2]}"))
+            imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[3]}"))
+            imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[4]}"))
+            imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[5]}"))
+
+            self.lbl_rosto1.configure(image=imagem1)
+            self.lbl_rosto1.image=imagem1
+            self.lbl_rosto2.configure(image=imagem2)
+            self.lbl_rosto2.image=imagem2
+            self.lbl_rosto3.configure(image=imagem3)
+            self.lbl_rosto3.image=imagem3
+            self.lbl_rosto4.configure(image=imagem4)
+            self.lbl_rosto4.image=imagem4
+            self.lbl_rosto5.configure(image=imagem5)
+            self.lbl_rosto5.image=imagem5
+            self.lbl_rosto6.configure(image=imagem6)
+            self.lbl_rosto6.image=imagem6
 
 
     def Click_Photo(self, event, Parte, arq):
