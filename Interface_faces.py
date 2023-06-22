@@ -252,6 +252,11 @@ class Interface_rostos:
         self.lbl_rosto5.image=self.imagem5
         self.lbl_rosto6.configure(image=self.imagem6)
         self.lbl_rosto6.image=self.imagem6
+
+
+
+    def Click_Photo(self, event, Parte, arq):
+        pass
         
 janela = tk.Tk()
 Interface_rostos(janela)
