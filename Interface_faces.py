@@ -325,10 +325,20 @@ class Interface_rostos:
 
 
     def Click_Photo(self, event, Parte, arq):
-        print(self)
-        print(event)
-        print(Parte)
-        print(arq)
+            if Parte == "Rosto":
+                self.lbl_d.configure(image=event)
+                self.lbl_d.image=event
+                self.janela2.destroy()
+                self.imagem_d = arq
+
+                self.Rosto_salva = f"{arq}"
+                #print(arq)
+
+
+
+
+    def Salvar(self):
+        print(self.Rosto_salva)
         
 janela = tk.Tk()
 Interface_rostos(janela)
