@@ -335,10 +335,9 @@ class Interface_rostos:
                 #print(arq)
 
 
-
-
     def Salvar(self):
         print(self.Rosto_salva)
+
         
 janela = tk.Tk()
 Interface_rostos(janela)
