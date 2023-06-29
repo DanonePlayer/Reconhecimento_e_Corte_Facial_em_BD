@@ -270,35 +270,34 @@ class Interface_rostos:
 
  
     def passa_direita(self, Parte):
-        self.começa += 6
-        self.termina += 6
-        self.StartImgs(Parte)
+        if len(self.vetor_rostos) > self.termina:
+            self.começa += 6
+            self.termina += 6
+            self.StartImgs(Parte)
 
-        imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[0]}"))
-        imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[1]}"))
-        imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[2]}"))
-        imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[3]}"))
-        imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[4]}"))
-        imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[5]}"))
+            imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[0]}"))
+            imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[1]}"))
+            imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[2]}"))
+            imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[3]}"))
+            imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[4]}"))
+            imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[5]}"))
 
-        self.lbl_rosto1.configure(image=imagem1)
-        self.lbl_rosto1.image=imagem1
-        self.lbl_rosto2.configure(image=imagem2)
-        self.lbl_rosto2.image=imagem2
-        self.lbl_rosto3.configure(image=imagem3)
-        self.lbl_rosto3.image=imagem3
-        self.lbl_rosto4.configure(image=imagem4)
-        self.lbl_rosto4.image=imagem4
-        self.lbl_rosto5.configure(image=imagem5)
-        self.lbl_rosto5.image=imagem5
-        self.lbl_rosto6.configure(image=imagem6)
-        self.lbl_rosto6.image=imagem6
+            self.lbl_rosto1.configure(image=imagem1)
+            self.lbl_rosto1.image=imagem1
+            self.lbl_rosto2.configure(image=imagem2)
+            self.lbl_rosto2.image=imagem2
+            self.lbl_rosto3.configure(image=imagem3)
+            self.lbl_rosto3.image=imagem3
+            self.lbl_rosto4.configure(image=imagem4)
+            self.lbl_rosto4.image=imagem4
+            self.lbl_rosto5.configure(image=imagem5)
+            self.lbl_rosto5.image=imagem5
+            self.lbl_rosto6.configure(image=imagem6)
+            self.lbl_rosto6.image=imagem6
 
     def passa_esquerda(self, Parte):
-        if self.começa == 0:
-            print("Num pode")
-        
-        else:
+        if self.começa != 0:
+            
             self.começa -= 6
             self.termina -= 6 
             self.StartImgs(Parte)
