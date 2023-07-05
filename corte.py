@@ -1,8 +1,19 @@
 import cv2
 import numpy as np
+from PIL import Image 
+
+#Aqui onseguimos redimensionar
+# img_redim = Image.open('Rosto-M/formato_de_rosto_quadrado.png')
+
+# img_redim = img_redim.resize((321, 380))
+
+# img_redim.save("TesteRedimensao/teste.png")
+
+
+#Usar esse mesmo sistema, porem junto com o sistema de reconhecimento, que se encontra no arquivo "Estagio.py"
 
 # Carrega a imagem
-img = cv2.imread('Image.ExportImages.0_.png')
+img = cv2.imread("TesteRedimensao/teste.png")
 
 # Define os pontos dos vértices
 pts = np.array( [[120, 260],[120, 170],[370, 170],[370, 260], [290, 260], [290, 320], [310, 320], [310, 375], [160, 375], [160, 260]], np.int32)
