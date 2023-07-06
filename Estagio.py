@@ -1,11 +1,12 @@
+#USA O javier-bardem3.jpg.png COMO EXEMPLO DE TESTE, ELE É MAIS COMO UMA BASE, É PARECIDO COM MUITAS DAS IMAGENS DA BASE QUE VAMOS USAR
 import cv2
 from PIL import Image 
 import os
 from os.path import join as pjoin
 import numpy as np
 
-classificador = cv2.CascadeClassifier(r"anexos/nose.xml")
-img = cv2.imread("hascas/rosto.png")
+classificador = cv2.CascadeClassifier(r"anexos/mouth.xml")
+img = cv2.imread("javier/javier-bardem3.jpg.png")
 
 
 imgGray = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
