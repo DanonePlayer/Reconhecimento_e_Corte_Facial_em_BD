@@ -8,7 +8,7 @@ class Interface:
         self.main = master
         self.main.title('Programa de Recorte e Reconhecimento Facial.exe')
         self.main.geometry("1280x720")
-        self.main.resizable(width=False, height=False)
+        ##self.main.resizable(width=False, height=False)
         self.main.configure(bg='#8F8B8B')
 
         self.frm_left = tk.Frame(self.main, bg='#474444', width=150, height=720)
