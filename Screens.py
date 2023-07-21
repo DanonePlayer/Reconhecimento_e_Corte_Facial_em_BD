@@ -78,18 +78,18 @@ class Interface:
         self.frm_center_main.pack(fill=tk.BOTH, expand=True)
 
 
-        self.label_programa = tk.Label(self.frm_center_main, text="PROGRAMA DE RECORTE", font=('Arial', 20), bg='#303030',fg='white')
+        self.label_programa = tk.Label(self.frm_center_main, text="PROGRAMA DE RECORTE E RECONHECIMENTO", font=('Arial', 20), bg='#303030',fg='white')
         self.label_programa.pack(pady=(50, 0))
 
         self.label_versao = tk.Label(self.frm_center_main, text="Versão BETA", font=('Arial', 16), bg='#303030', fg='white')
-        self.label_versao.pack(pady=(0, 50))
+        self.label_versao.pack(pady=(0, 40))
 
 
         self.image_label1 = tk.Label(self.frm_center_main, bg='white', width=41, height= 30)
-        self.image_label1.pack(padx=50, pady=(10,30),side=tk.LEFT)
+        self.image_label1.pack(padx=50, pady=(10,70),side=tk.LEFT)
 
         self.image_label2 = tk.Label(self.frm_center_main, bg='white',width=41, height= 30)
-        self.image_label2.pack(padx=50, pady=(10,30),side=tk.RIGHT)
+        self.image_label2.pack(padx=50, pady=(10,70),side=tk.RIGHT)
 
         self.label_imagem_original = tk.Label(self.frm_center_main, text="IMAGEM ORIGINAL", bg='#303030', fg='white',width=41, height= 30)
         self.label_imagem_original.pack(in_=self.image_label1, pady=(0, 5))
