@@ -71,7 +71,7 @@ class Interface:
         btn_13 = tk.Button(self.frm_left, width=15, height=1, bg='#5B5A5A', borderwidth=0, text='Novo', font=('Arial',10, 'bold'), fg='#fff')
         btn_13.grid(row=14, column=0, padx=30, pady=5)
 
-        btn_14 = tk.Button(self.frm_left, width=15, height=1, bg='#5B5A5A', borderwidth=0, text='Sair',font=('Arial', 10, 'bold'), fg='#fff', command=self.Sair)
+        btn_14 = tk.Button(self.frm_left, width=15, height=1, bg='#5B5A5A', borderwidth=0, text='Sair', font=('Arial', 10, 'bold'), fg='#fff', command=self.Sair)
         btn_14.grid(row=15, column=0, padx=30, pady=5)
 
 
