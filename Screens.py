@@ -97,10 +97,10 @@ class Interface:
         self.image_label2 = tk.Label(self.frm_center_main, bg='white',width=41, height= 30)
         self.image_label2.pack(padx=50, pady=(10,70),side=tk.RIGHT)
 
-        self.label_imagem_original = tk.Label(self.frm_center_main, text="IMAGEM ORIGINAL", bg='#303030', fg='white',width=41, height= 30)
+        self.label_imagem_original = tk.Label(self.frm_center_main, text="IMAGEM ORIGINAL", bg='#303030', fg='white',width=51, height= 40)
         self.label_imagem_original.pack(in_=self.image_label1, pady=(0, 5))
 
-        self.label_recorde = tk.Label(self.frm_center_main, text="RECORTE", bg='#303030', fg='white',width=41, height= 30)
+        self.label_recorde = tk.Label(self.frm_center_main, text="RECORTE", bg='#303030', fg='white',width=51, height= 40)
         self.label_recorde.pack(in_=self.image_label2, pady=(0, 5))
 
 janela = tk.Tk()
