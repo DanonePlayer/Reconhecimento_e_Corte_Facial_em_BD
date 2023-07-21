@@ -9,6 +9,7 @@ class Interface:
         self.main.title('Tela Principal')
         self.main.geometry("1280x720")
         self.main.resizable(width=False, height=False)
+        self.main.configure(bg='#8F8B8B')
 
         self.frm_left = tk.Frame(self.main, bg='#474444', width=150, height=720)
         self.frm_left.pack(side=tk.LEFT, fill=tk.Y)
@@ -84,10 +85,10 @@ class Interface:
         self.frm_center_main.pack(fill=tk.BOTH, expand=True)
 
 
-        self.label_programa = tk.Label(self.frm_center_main, text="PROGRAMA DE RECORTE E RECONHECIMENTO", font=('Arial', 20), bg='#303030',fg='white')
+        self.label_programa = tk.Label(self.frm_center_main, text="PROGRAMA DE RECORTE E RECONHECIMENTO", font=('Roboto', 20), bg='#303030',fg='white')
         self.label_programa.pack(pady=(50, 0))
 
-        self.label_versao = tk.Label(self.frm_center_main, text="Versão BETA", font=('Arial', 16), bg='#303030', fg='white')
+        self.label_versao = tk.Label(self.frm_center_main, text="Versão BETA", font=('Roboto', 16), bg='#303030', fg='white')
         self.label_versao.pack(pady=(0, 40))
 
 
