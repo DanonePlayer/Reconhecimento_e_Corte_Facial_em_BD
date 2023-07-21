@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import SUNKEN, PhotoImage
-from PIL import Image, ImageTk
+##from PIL import Image, ImageTk
 import os
 
 class Interface:
@@ -70,7 +70,7 @@ class Interface:
         btn_13 = tk.Button(self.frm_left, width=15, height=1, bg='#5B5A5A', borderwidth=0, text='Novo', font=('Arial',10, 'bold'), fg='#fff')
         btn_13.grid(row=14, column=0, padx=30, pady=5)
 
-        btn_14 = tk.Button(self.frm_left, width=15, height=1, bg='#5B5A5A', borderwidth=0, text='Sair',font=('Arial', 10, 'bold'), fg='#fff')
+        btn_14 = tk.Button(self.frm_left, width=15, height=1, bg='#5B5A5A', borderwidth=0, text='Sair',font=('Arial', 10, 'bold'), fg='#fff',command=self.Sair)
         btn_14.grid(row=15, column=0, padx=30, pady=5)
 
 
@@ -104,6 +104,10 @@ class Interface:
 
         self.label_recorde = tk.Label(self.frm_center_main, text="RECORTE", bg='#303030', fg='white',width=51, height= 40)
         self.label_recorde.pack(in_=self.image_label2, pady=(0, 5))
+
+    def Sair(self):
+        self.main.destroy()
+
 
 janela = tk.Tk()
 Interface(janela)
