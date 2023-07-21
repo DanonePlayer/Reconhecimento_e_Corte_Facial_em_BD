@@ -92,6 +92,7 @@ class Interface:
         self.label_versao.pack(pady=(0, 40))
 
 
+
         self.image_label1 = tk.Label(self.frm_center_main, bg='white', width=41, height= 30)
         self.image_label1.pack(padx=50, pady=(10,70),side=tk.LEFT)
 
