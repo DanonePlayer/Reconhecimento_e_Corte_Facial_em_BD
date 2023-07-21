@@ -11,6 +11,7 @@ class Interface:
         ##self.main.resizable(width=False, height=False)
         self.main.configure(bg='#8F8B8B')
 
+
         self.frm_left = tk.Frame(self.main, bg='#474444', width=150, height=720)
         self.frm_left.pack(side=tk.LEFT, fill=tk.Y)
 
