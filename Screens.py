@@ -49,7 +49,7 @@ class Interface:
         btn_07 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9',borderwidth=0, text='Boca', font=('Arial',10, 'bold'), fg='#474444')
         btn_07.grid(row=8, column=0, padx=30, pady=5)
 
-        #Funcções_04
+        #Funções_04
 
         btn_08 = tk.Button(self.frm_left, width=15, height=1, bg='#969696',borderwidth=0, text='Masculino', font=('Arial',10, 'bold'), fg='#fff')
         btn_08.grid(row=9, column=0, padx=30, pady=(30, 5))
