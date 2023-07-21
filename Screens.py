@@ -88,7 +88,7 @@ class Interface:
         self.label_programa = tk.Label(self.frm_center_main, text="PROGRAMA DE RECORTE E RECONHECIMENTO", font=('Roboto', 20), bg='#303030',fg='white')
         self.label_programa.pack(pady=(50, 0))
 
-        self.label_versao = tk.Label(self.frm_center_main, text="Versão BETA", font=('Roboto', 16), bg='#303030', fg='white')
+        self.label_versao = tk.Label(self.frm_center_main, text="Versão ALFA", font=('Roboto', 16), bg='#303030', fg='white')
         self.label_versao.pack(pady=(0, 40))
 
 
