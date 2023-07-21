@@ -6,7 +6,7 @@ import os
 class Interface:
     def __init__(self, master):
         self.main = master
-        self.main.title('Tela Principal')
+        self.main.title('Programa de Recorte e Reconhecimento Facial.exe')
         self.main.geometry("1280x720")
         self.main.resizable(width=False, height=False)
         self.main.configure(bg='#8F8B8B')
@@ -17,7 +17,7 @@ class Interface:
 
         ##Funções 01
 
-        self.lbl_01 = tk.Label(self.frm_left,text="MENU",font=('Lato',16,'bold'), fg='#000', bg='#474444')
+        self.lbl_01 = tk.Label(self.frm_left,text="MENU",font=('Lato',16,'bold'), fg='#FFF', bg='#474444')
         self.lbl_01.grid(row=0, column=0, padx=30, pady=(30, 5))
 
         btn = tk.Button(self.frm_left,width=15,height=1, bg='#D9D9D9',borderwidth=0, text='Word', font=('Arial',10,'bold'), fg='#474444')
@@ -70,7 +70,7 @@ class Interface:
         btn_13 = tk.Button(self.frm_left, width=15, height=1, bg='#5B5A5A', borderwidth=0, text='Novo', font=('Arial',10, 'bold'), fg='#fff')
         btn_13.grid(row=14, column=0, padx=30, pady=5)
 
-        btn_14 = tk.Button(self.frm_left, width=15, height=1, bg='#5B5A5A', borderwidth=0, text='Sair',font=('Arial', 10, 'bold'), fg='#fff',command=self.Sair)
+        btn_14 = tk.Button(self.frm_left, width=15, height=1, bg='#5B5A5A', borderwidth=0, text='Sair',font=('Arial', 10, 'bold'), fg='#fff', command=self.Sair)
         btn_14.grid(row=15, column=0, padx=30, pady=5)
 
 
