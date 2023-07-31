@@ -1,7 +1,9 @@
+import os
 import tkinter as tk
 from tkinter import SUNKEN, PhotoImage
+
 from PIL import Image, ImageTk
-import os
+
 # import recorte
 # import extrair
 
@@ -9,23 +11,21 @@ import os
 class Interface_rostos:
     def __init__(self, master):
         self.janelaprincipal = master
-
-        
         self.janelaprincipal.title("Rawn")
-        self.janelaprincipal.configure()
-        self.janelaprincipal.geometry("1280x720")
-        self.janelaprincipal.resizable(width=False, height=False )
+        self.janelaprincipal.configure(bg='#8F8B8B')
+        self.janelaprincipal.geometry("1366x920")
+        self.janelaprincipal.resizable(width=False, height=False)
 
 
 
-        self.espaço = tk.Label(self.janelaprincipal)
-        self.espaço.grid(column=0, row=0, padx=115)
+        self.espaço = tk.Label(self.janelaprincipal, bg='#8F8B8B')
+        self.espaço.grid(column=0, row=0, padx=60)
 
-        self.espaço1 = tk.Label(self.janelaprincipal, width=60, height=10 )
+        self.espaço1 = tk.Label(self.janelaprincipal, width=60, height=10, bg='#8F8B8B' )
         self.espaço1.grid(column=1, row=0)
 
-        self.frm_direito = tk.Frame(self.janelaprincipal, width=321, height=380, bg="#44284c")
-        self.frm_direito.grid(column=1, row=1, padx=40)
+        self.frm_direito = tk.Frame(self.janelaprincipal, width=341, height=400, bg='#8F8B8B')
+        self.frm_direito.grid(column=2, row=1, padx=40)
 
         self.imagem_d = (f"Rosto_Inicial.png")
         self.imagem_d_lbl = ImageTk.PhotoImage(Image.open(self.imagem_d))
@@ -35,28 +35,40 @@ class Interface_rostos:
         self.lbl_d.configure(image=self.imagem_d_lbl)
         self.lbl_d.image=self.imagem_d_lbl
 
+        self.button_gerar_miniatura = tk.Button(self.janelaprincipal, text="Gerar Miniatura", command=self.gerar_miniatura)
+        self.button_gerar_miniatura.place(x=850, y=570)
 
-        self.frm_esquerdo = tk.Frame(self.janelaprincipal, width=321, height=380, bg="#44284c")
-        self.frm_esquerdo.grid(column=2, row=1)
+        self.frm_esquerdo = tk.Frame(self.janelaprincipal, width=341, height=400, bg='#8F8B8B')
+        self.frm_esquerdo.grid(column=1, row=1)
 
         self.imagem_e_lbl = ImageTk.PhotoImage(Image.open(f"Rosto_Inicial.png"))
-        self.lbl_e = tk.Label(self.frm_esquerdo, image=self.imagem_e_lbl, width=341, height= 400)
+        self.lbl_e = tk.Label(self.frm_esquerdo, image=self.imagem_e_lbl, width=341, height=400)
         self.lbl_e.pack()
 
         self.lbl_e.configure(image=self.imagem_e_lbl)
         self.lbl_e.image=self.imagem_e_lbl
 
 
-        self.frm_seleção = tk.Frame(self.janelaprincipal, width=90, height=400)
-        self.frm_seleção.grid(column=3, row=1, padx=60)
+        self.frm_baixo = tk.Frame(self.janelaprincipal, width=400, height=400, bg='#8F8B8B')
+        self.frm_baixo.grid(column=1, row=2, columnspan=2)
 
+        self.lbl_baixo1 = tk.Label(self.frm_baixo)
+        self.lbl_baixo1.pack(side=tk.LEFT, padx=40)
+        self.lbl_baixo2 = tk.Label(self.frm_baixo)
+        self.lbl_baixo2.pack(side=tk.LEFT)
+        self.lbl_baixo3 = tk.Label(self.frm_baixo)
+        self.lbl_baixo3.pack(side=tk.LEFT, padx=40)
+        self.lbl_baixo4 = tk.Label(self.frm_baixo)
+        self.lbl_baixo4.pack(side=tk.LEFT)
 
         self.button_gerar_img_and_word = tk.Button(self.espaço1, text="Gerar Img and Word", command="self.Gerador")
-        self.button_gerar_img_and_word.place(x=1, y=1)
+        self.button_gerar_img_and_word.place(x=1, y=50)
 
         self.button_gerar_corte = tk.Button(self.espaço1, text="Gerar Cortes", command="self.recortes")
-        self.button_gerar_corte.place(x=220, y=1)
+        self.button_gerar_corte.place(x=220, y=50  )
 
+        self.frm_seleção = tk.Frame(self.janelaprincipal, width=90, height=400, bg='#8F8B8B')
+        self.frm_seleção.grid(column=3, row=1, padx=60)
 
         self.button_login = tk.Button(self.frm_seleção, text="Específico" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0)
         self.button_login.place(x=1, y=1)
@@ -109,29 +121,28 @@ class Interface_rostos:
 
 
 
-        self.frm_salvamento = tk.Frame(self.janelaprincipal, width=90, height=400)
+        self.frm_salvamento = tk.Frame(self.janelaprincipal, width=90, height=400, bg='#8F8B8B')
         self.frm_salvamento.grid(column=3, row=2, padx=10)
 
 
 
-        self.button_login = tk.Button(self.frm_salvamento, text="Exportar" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0)
+        self.button_login = tk.Button(self.frm_salvamento, text="Exportar", width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0)
         self.button_login.place(x=1, y=1)
 
 
-        self.button_login = tk.Button(self.frm_salvamento, text="Salvar" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0, command="self.Salvar")
+        self.button_login = tk.Button(self.frm_salvamento, text="Salvar", width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0, command="self.Salvar")
         self.button_login.place(x=1, y=31)
 
 
-        self.button_login = tk.Button(self.frm_salvamento, text="Carregar" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0)
+        self.button_login = tk.Button(self.frm_salvamento, text="Carregar", width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0)
         self.button_login.place(x=1, y=61)
 
 
-        self.button_login = tk.Button(self.frm_salvamento, text="Novo" ,width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0)
+        self.button_login = tk.Button(self.frm_salvamento, text="Novo", width=10, overrelief=tk.RIDGE, bd=3, activebackground="blue", underline=0)
         self.button_login.place(x=1, y=91)
 
         self.começa = 0
         self.termina = 6
-
 
 
     def Gerador(self):
@@ -333,6 +344,17 @@ class Interface_rostos:
                 self.Rosto_salva = f"{arq}"
                 #print(arq)
 
+    def gerar_miniatura(self):
+            img = Image.open(self.Rosto_salva)
+            img_resized = img.resize((190, 249))
+            # img_resized.show()
+            Imagem = ImageTk.PhotoImage(img_resized)
+            self.lbl_baixo1.configure(image=Imagem)
+            self.lbl_baixo1.image=Imagem
+            
+            # self.imagem_d = arq
+
+            # self.Rosto_salva = f"{arq}"
 
     def Salvar(self):
         print(self.Rosto_salva)
