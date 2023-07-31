@@ -52,14 +52,28 @@ class Interface_rostos:
         self.frm_baixo = tk.Frame(self.janelaprincipal, width=400, height=400, bg='#8F8B8B')
         self.frm_baixo.grid(column=1, row=2, columnspan=2)
 
-        self.lbl_baixo1 = tk.Label(self.frm_baixo)
+        self.padr_baixo = ("Lula.png")
+        self.padr_baixo_arq = ImageTk.PhotoImage(Image.open(self.padr_baixo))
+
+        self.count_photo_baixo = 1
+
+        self.lbl_baixo1 = tk.Label(self.frm_baixo, image=self.padr_baixo_arq)
         self.lbl_baixo1.pack(side=tk.LEFT, padx=40)
-        self.lbl_baixo2 = tk.Label(self.frm_baixo)
+        self.lbl_baixo2 = tk.Label(self.frm_baixo, image=self.padr_baixo_arq)
         self.lbl_baixo2.pack(side=tk.LEFT)
-        self.lbl_baixo3 = tk.Label(self.frm_baixo)
+        self.lbl_baixo3 = tk.Label(self.frm_baixo, image=self.padr_baixo_arq)
         self.lbl_baixo3.pack(side=tk.LEFT, padx=40)
-        self.lbl_baixo4 = tk.Label(self.frm_baixo)
+        self.lbl_baixo4 = tk.Label(self.frm_baixo, image=self.padr_baixo_arq)
         self.lbl_baixo4.pack(side=tk.LEFT)
+
+        self.lbl_baixo1.configure(image=self.padr_baixo_arq)
+        self.lbl_baixo1.image=self.padr_baixo_arq
+        self.lbl_baixo2.configure(image=self.padr_baixo_arq)
+        self.lbl_baixo2.image=self.padr_baixo_arq
+        self.lbl_baixo3.configure(image=self.padr_baixo_arq)
+        self.lbl_baixo3.image=self.padr_baixo_arq
+        self.lbl_baixo4.configure(image=self.padr_baixo_arq)
+        self.lbl_baixo4.image=self.padr_baixo_arq
 
         self.button_gerar_img_and_word = tk.Button(self.espaço1, text="Gerar Img and Word", command="self.Gerador")
         self.button_gerar_img_and_word.place(x=1, y=50)
@@ -169,10 +183,6 @@ class Interface_rostos:
     def Olhos(self):
         Parte = "Olhos"
         self.ImgsClick(Parte)
-
-
-
-
 
 
     def StartImgs(self, Parte):           
@@ -345,16 +355,45 @@ class Interface_rostos:
                 #print(arq)
 
     def gerar_miniatura(self):
+        
+        if self.count_photo_baixo == 1:
+
             img = Image.open(self.Rosto_salva)
             img_resized = img.resize((190, 249))
+            # img_resized.save("IMAGENS-M/Lula.png")
             # img_resized.show()
             Imagem = ImageTk.PhotoImage(img_resized)
             self.lbl_baixo1.configure(image=Imagem)
             self.lbl_baixo1.image=Imagem
-            
-            # self.imagem_d = arq
 
-            # self.Rosto_salva = f"{arq}"
+            self.count_photo_baixo +=1
+
+        elif self.count_photo_baixo == 2:
+
+            img = Image.open(self.Rosto_salva)
+            img_resized = img.resize((190, 249))
+            Imagem = ImageTk.PhotoImage(img_resized)
+            self.lbl_baixo2.configure(image=Imagem)
+            self.lbl_baixo2.image=Imagem
+
+            self.count_photo_baixo +=1
+
+        elif self.count_photo_baixo == 3:
+
+            img = Image.open(self.Rosto_salva)
+            img_resized = img.resize((190, 249))
+            Imagem = ImageTk.PhotoImage(img_resized)
+            self.lbl_baixo3.configure(image=Imagem)
+            self.lbl_baixo3.image=Imagem
+
+            self.count_photo_baixo +=1
+             
+        else:
+            img = Image.open(self.Rosto_salva)
+            img_resized = img.resize((190, 249))
+            Imagem = ImageTk.PhotoImage(img_resized)
+            self.lbl_baixo4.configure(image=Imagem)
+            self.lbl_baixo4.image=Imagem
 
     def Salvar(self):
         print(self.Rosto_salva)
