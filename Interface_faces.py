@@ -21,7 +21,7 @@ class Interface_rostos:
         self.espaço = tk.Label(self.janelaprincipal, bg='#8F8B8B')
         self.espaço.grid(column=0, row=0, padx=60)
 
-        self.espaço1 = tk.Label(self.janelaprincipal, width=60, height=10, bg='#8F8B8B' )
+        self.espaço1 = tk.Label(self.janelaprincipal, width=60, height=10, bg='#8F8B8B')
         self.espaço1.grid(column=1, row=0)
 
         self.frm_direito = tk.Frame(self.janelaprincipal, width=341, height=400, bg='#8F8B8B')
@@ -55,7 +55,19 @@ class Interface_rostos:
         self.padr_baixo = ("Lula.png")
         self.padr_baixo_arq = ImageTk.PhotoImage(Image.open(self.padr_baixo))
 
-        self.count_photo_baixo = 1
+        self.baixo1 = False
+        self.baixo2 = False
+        self.baixo3 = False
+        self.baixo4 = False
+
+        self.button_lixeira_miniatura1 = tk.Button(self.frm_baixo, width=1, command=lambda: self.excluir_miniaturas(1))
+        self.button_lixeira_miniatura1.place(x=20, y=0)
+        self.button_lixeira_miniatura2 = tk.Button(self.frm_baixo, width=1, command=lambda: self.excluir_miniaturas(2))
+        self.button_lixeira_miniatura2.place(x=250, y=0)
+        self.button_lixeira_miniatura3 = tk.Button(self.frm_baixo, width=1, command=lambda: self.excluir_miniaturas(3))
+        self.button_lixeira_miniatura3.place(x=485, y=0)
+        self.button_lixeira_miniatura4 = tk.Button(self.frm_baixo, width=1, command=lambda: self.excluir_miniaturas(4))
+        self.button_lixeira_miniatura4.place(x=720, y=0)
 
         self.lbl_baixo1 = tk.Label(self.frm_baixo, image=self.padr_baixo_arq)
         self.lbl_baixo1.pack(side=tk.LEFT, padx=40)
@@ -211,7 +223,7 @@ class Interface_rostos:
 
         self.janela2 = tk.Toplevel()
         self.janela2.title(Parte)
-        self.janela2.resizable(width=False, height=False )
+        self.janela2.resizable(width=False, height=False)
 
 
         self.frm_rosto1 = tk.Frame(self.janela2, width=321, height=380, bg="#44284c")
@@ -355,45 +367,68 @@ class Interface_rostos:
                 #print(arq)
 
     def gerar_miniatura(self):
-        
-        if self.count_photo_baixo == 1:
+        for count_photo_baixo in range(1, 5):
+            print(count_photo_baixo)
+            if count_photo_baixo == 1 and self.baixo1 == False:
 
-            img = Image.open(self.Rosto_salva)
-            img_resized = img.resize((190, 249))
-            # img_resized.save("IMAGENS-M/Lula.png")
-            # img_resized.show()
-            Imagem = ImageTk.PhotoImage(img_resized)
-            self.lbl_baixo1.configure(image=Imagem)
-            self.lbl_baixo1.image=Imagem
+                img = Image.open(self.Rosto_salva)
+                img_resized = img.resize((190, 249))
+                # img_resized.save("IMAGENS-M/Lula.png")
+                # img_resized.show()
+                Imagem = ImageTk.PhotoImage(img_resized)
+                self.lbl_baixo1.configure(image=Imagem)
+                self.lbl_baixo1.image=Imagem
+                self.baixo1 = True
+                break
 
-            self.count_photo_baixo +=1
+            elif count_photo_baixo == 2 and self.baixo2 == False:
 
-        elif self.count_photo_baixo == 2:
+                img = Image.open(self.Rosto_salva)
+                img_resized = img.resize((190, 249))
+                Imagem = ImageTk.PhotoImage(img_resized)
+                self.lbl_baixo2.configure(image=Imagem)
+                self.lbl_baixo2.image=Imagem
+                self.baixo2 = True
+                break
 
-            img = Image.open(self.Rosto_salva)
-            img_resized = img.resize((190, 249))
-            Imagem = ImageTk.PhotoImage(img_resized)
-            self.lbl_baixo2.configure(image=Imagem)
-            self.lbl_baixo2.image=Imagem
+            elif count_photo_baixo == 3 and self.baixo3 == False:
 
-            self.count_photo_baixo +=1
-
-        elif self.count_photo_baixo == 3:
-
-            img = Image.open(self.Rosto_salva)
-            img_resized = img.resize((190, 249))
-            Imagem = ImageTk.PhotoImage(img_resized)
-            self.lbl_baixo3.configure(image=Imagem)
-            self.lbl_baixo3.image=Imagem
-
-            self.count_photo_baixo +=1
-             
+                img = Image.open(self.Rosto_salva)
+                img_resized = img.resize((190, 249))
+                Imagem = ImageTk.PhotoImage(img_resized)
+                self.lbl_baixo3.configure(image=Imagem)
+                self.lbl_baixo3.image=Imagem
+                self.baixo3 = True
+                break
+                
+            elif count_photo_baixo == 4 and self.baixo4 == False:
+                img = Image.open(self.Rosto_salva)
+                img_resized = img.resize((190, 249))
+                Imagem = ImageTk.PhotoImage(img_resized)
+                self.lbl_baixo4.configure(image=Imagem)
+                self.lbl_baixo4.image=Imagem
+                self.baixo4 = True
+                
+    
+    def excluir_miniaturas(self, escolha):
+        if escolha == 1:
+            self.lbl_baixo1.configure(image=self.padr_baixo_arq)
+            self.lbl_baixo1.image=self.padr_baixo_arq
+            self.baixo1 = False
+        elif escolha == 2:
+            self.lbl_baixo2.configure(image=self.padr_baixo_arq)
+            self.lbl_baixo2.image=self.padr_baixo_arq
+            self.baixo2 = False
+        elif escolha == 3:
+            self.lbl_baixo3.configure(image=self.padr_baixo_arq)
+            self.lbl_baixo3.image=self.padr_baixo_arq
+            self.baixo3 = False
         else:
-            img = Image.open(self.Rosto_salva)
-            img_resized = img.resize((190, 249))
-            Imagem = ImageTk.PhotoImage(img_resized)
-            self.lbl_baixo4.configure(image=Imagem)
-            self.lbl_baixo4.image=Imagem
+            self.lbl_baixo4.configure(image=self.padr_baixo_arq)
+            self.lbl_baixo4.image=self.padr_baixo_arq
+            self.baixo4 = False
+
+
 
     def Salvar(self):
         print(self.Rosto_salva)
