@@ -1,7 +1,7 @@
 ##from PIL import Image, ImageTk
-import os
 import tkinter as tk
 from tkinter import SUNKEN, PhotoImage
+
 
 
 class Interface:
