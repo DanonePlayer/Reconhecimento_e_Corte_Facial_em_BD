@@ -23,7 +23,10 @@ for x,y,l,a in objetos:
 # olho_direito = objetos[2]
 
 # # img = cv2.imread("hascas/rosto.png")
-# pts = np.array( [[olho_direito[0], olho_direito[1]],  [olho_direito[0], olho_direito[1]+olho_direito[3]], [olho_esquerdo[0]+[olho_esquerdo[2]], olho_esquerdo[1]+olho_esquerdo[3]], [olho_esquerdo[0]+[olho_esquerdo[2]], olho_esquerdo[1]]], np.int32)
+# pts = np.array( [[olho_direito[0], olho_direito[1]],  
+#                  [olho_direito[0], olho_direito[1]+olho_direito[3]], 
+#                  [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
+#                  [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]], np.int32)
 
 # # Cria uma máscara com os pontos
 # mask = np.zeros_like(img)
