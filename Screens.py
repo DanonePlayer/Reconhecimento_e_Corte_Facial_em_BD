@@ -111,13 +111,19 @@ class Interface:
         self.frm_bottom = tk.Frame(self.main, bg='#303030')
         self.frm_bottom.pack(side=tk.BOTTOM, expand=True, fill=tk.BOTH, padx=20, pady=20)
 
+        self.label_image = tk.Label(self.frm_center_main, text="RECORTE", bg='#303030', fg='white',width=51, height= 40)
+        self.label_recorde.pack(in_=self.image_label2, pady=(0, 5))
+
+
         image_labels = []
         clear_buttons = []
 
         for i in range(4):
             label = tk.Label(self.frm_bottom, bg='white',height=10,width=20)
             label.pack(side=tk.TOP, padx=30,pady=10,expand=True,fill=tk.BOTH)
-            image_labels.append(label)
+
+            label_image = tk.Label(self.frm_bottom, text="RECORTE", bg='#303030', fg='white', width=20,height=10)
+            label_image.pack(in_=label)
 
             clear_button = tk.Button(self.frm_bottom, text='Limpar',borderwidth=0,font=('Arial',10, 'bold'), fg='#fff',bg='#5B5A5A')
             clear_button.pack(side=tk.TOP, padx=10,pady=7,)
