@@ -8,9 +8,10 @@ class Interface:
     def __init__(self, master):
         self.main = master
         self.main.title('Programa de Recorte e Reconhecimento Facial.exe')
-        self.main.geometry("1280x720")
+        self.main.geometry("1580x920")
         ##self.main.resizable(width=False, height=False)
         self.main.configure(bg='#8F8B8B')
+        #self.main.attributes('-fullscreen', True)
 
 
         self.frm_left = tk.Frame(self.main, bg='#474444', width=150, height=720)
@@ -80,7 +81,7 @@ class Interface:
         self.frm_left.pack_propagate(False)
 
         self.frm_center = tk.Frame(self.main)
-        self.frm_center.pack(side=tk.LEFT, expand=True,fill=tk.BOTH,padx=40,pady=40)
+        self.frm_center.pack(side=tk.LEFT,fill=tk.BOTH,padx=(40,20),pady=40,expand=True)
 
 
         self.frm_center_main = tk.Frame(self.frm_center, bg='#303030')
@@ -106,6 +107,21 @@ class Interface:
 
         self.label_recorde = tk.Label(self.frm_center_main, text="RECORTE", bg='#303030', fg='white',width=51, height= 40)
         self.label_recorde.pack(in_=self.image_label2, pady=(0, 5))
+
+        self.frm_bottom = tk.Frame(self.main, bg='#303030')
+        self.frm_bottom.pack(side=tk.BOTTOM, expand=True, fill=tk.BOTH, padx=20, pady=20)
+
+        image_labels = []
+        clear_buttons = []
+
+        for i in range(4):
+            label = tk.Label(self.frm_bottom, bg='white',height=10,width=20)
+            label.pack(side=tk.TOP, padx=30,pady=10,expand=True,fill=tk.BOTH)
+            image_labels.append(label)
+
+            clear_button = tk.Button(self.frm_bottom, text='Limpar',borderwidth=0,font=('Arial',10, 'bold'), fg='#fff',bg='#5B5A5A')
+            clear_button.pack(side=tk.TOP, padx=10,pady=7,)
+            clear_buttons.append(clear_button)
 
     def Sair(self):
         self.main.destroy()
