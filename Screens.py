@@ -97,16 +97,22 @@ class Interface:
 
 
         self.image_label1 = tk.Label(self.frm_center_main, bg='white', width=41, height= 30)
-        self.image_label1.pack(padx=50, pady=(10,70),side=tk.LEFT)
+        self.image_label1.pack(padx=50, pady=(10,70),side=tk.LEFT,fill=tk.BOTH)
 
         self.image_label2 = tk.Label(self.frm_center_main, bg='white',width=41, height= 30)
-        self.image_label2.pack(padx=50, pady=(10,70),side=tk.RIGHT)
+        self.image_label2.pack(padx=50, pady=(10,70),side=tk.RIGHT,fill=tk.BOTH)
 
         self.label_imagem_original = tk.Label(self.frm_center_main, text="IMAGEM ORIGINAL", bg='#303030', fg='white',width=51, height= 40)
         self.label_imagem_original.pack(in_=self.image_label1, pady=(0, 5))
 
+        self.btn = tk.Button(self.image_label1, text='Miniatura',borderwidth=0,font=('Arial',14, 'bold'), fg='#fff',bg='#5B5A5A')
+        self.btn.pack(side=tk.BOTTOM,expand=True,pady=(0, 5))
+
         self.label_recorde = tk.Label(self.frm_center_main, text="RECORTE", bg='#303030', fg='white',width=51, height= 40)
         self.label_recorde.pack(in_=self.image_label2, pady=(0, 5))
+
+        self.btn2 = tk.Button(self.image_label2, text='Limpar', borderwidth=0, font=('Arial', 14, 'bold'), fg='#fff',bg='#5B5A5A')
+        self.btn2.pack(side=tk.BOTTOM, expand=True, pady=(0, 5))
 
         self.frm_bottom = tk.Frame(self.main, bg='#303030')
         self.frm_bottom.pack(side=tk.BOTTOM, expand=True, fill=tk.BOTH, padx=20, pady=20)
