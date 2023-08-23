@@ -174,4 +174,4 @@ def Gerador_imagens():
             contador +=1
 
 
-# Gerador_imagens()
+Gerador_imagens()

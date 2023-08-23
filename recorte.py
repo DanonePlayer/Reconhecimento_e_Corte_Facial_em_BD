@@ -15,7 +15,7 @@ def recortes(genero):
         img = Image.open(f"IMAGENS-{genero}/{imgi}")
         # tranforma o tamanho da imagem, (redimensiona)
         if img.width != 321 or img.height != 380:
-            print(img + "Precisa Redimensionar")
+            print(f"{img} + Precisa Redimensionar")
 
             # Redimensiona
             img_resized = img.resize((321, 380))
@@ -118,7 +118,7 @@ def recortes(genero):
         rgba.save(f"Rosto-{genero}\{imgi}", "PNG")
         print(imgi)
 
-
+recortes("M")
 
         # imagens = os.listdir(f"Tronco-{genero}")
         # img = imagens[n_imagen]

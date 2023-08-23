@@ -41,12 +41,12 @@ class Interface_rostos:
         self.frm_esquerdo = tk.Frame(self.janelaprincipal, width=341, height=400, bg='#8F8B8B')
         self.frm_esquerdo.grid(column=1, row=1)
 
-        self.imagem_e_lbl = ImageTk.PhotoImage(Image.open(f"Rosto_Inicial.png"))
-        self.lbl_e = tk.Label(self.frm_esquerdo, image=self.imagem_e_lbl, width=341, height=400)
+        self.imagem_e = ImageTk.PhotoImage(Image.open(f"Rosto_Inicial.png"))
+        self.lbl_e = tk.Label(self.frm_esquerdo, image=self.imagem_e, width=341, height=400)
         self.lbl_e.pack()
 
-        self.lbl_e.configure(image=self.imagem_e_lbl)
-        self.lbl_e.image=self.imagem_e_lbl
+        self.lbl_e.configure(image=self.imagem_e)
+        self.lbl_e.image=self.imagem_e
 
 
         self.frm_baixo = tk.Frame(self.janelaprincipal, width=400, height=400, bg='#8F8B8B')
