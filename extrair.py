@@ -8,75 +8,84 @@ from pdf2docx import Converter
 
 
 def Gerador_imagens():
+    #pegando as pastas destinos e listando os arquivos dentro delas
     Pdfs = os.listdir("Pdfs")
     Docx = os.listdir("Docx")
 
-    i = 0 
+    contador_arqs = 0 
+
+    #verifica se há arquivos dentro da pasta PDF
     if Pdfs == []:
         messagebox.showerror(title="Erro", message="Sem Arquivos no Pdf")
+
     else:
-
+        #PEGANDO ARQUIVO POR ARQUIVO DE DENTRO DE PDFS
         for Pdf in Pdfs:
-
+            #Sempre atualizando a listagem das pastas
             Pdfs = os.listdir("Pdfs")
             Docx = os.listdir("Docx")
+            #verifica se há arquivos dentro da pasta WORD
             if Docx == []:
                 # print(Pdf)
-                # convert pdf to docx
+                # converte pdf para docx
                 cv = Converter(f"Pdfs/{Pdf}")
+                #tira das pastas de dentro de pdf o tipo do arquivo, no caso o ".pdf"
                 Pdf = Pdf.translate(str.maketrans("", "", ".pdf"))
-                cv.convert(f"Docx/{Pdf}.docx")      # all pages by default
+                #Onde irei guardar e qual a sua extensão
+                cv.convert(f"Docx/{Pdf}.docx")
                 cv.close()
+                # Novamente atualizando a listagem da pasta DOCX
                 Docx = os.listdir("Docx")
-                a = Pdfs[i]
-                b = Docx[i]
-            
+                #guarda os arquivos que estão sendo processados no momento e verfica se as duas pastas tem a mesma quantidade de arquivos
+                a = Pdfs[contador_arqs]
+                b = Docx[contador_arqs]
             else:
                 try:
-                    a = Pdfs[i]
-                    b = Docx[i]
+                    # verificar se a quantidade de contador_arqs em pdfs é igual a de docxs
+                    a = Pdfs[contador_arqs]
+                    b = Docx[contador_arqs]
                 except:
-                    print("Erro")
-                    print(i)
+                    #caso não for apenas printa para não parar o codigo
+                    print("Erro, há uma pasta a mais em pdf")
+                    print(contador_arqs)
 
                 
 
-
+                # print(a,b)
                 retira = ".docx.pdf"
                 pdf = a.translate(str.maketrans("", "", retira))
                 doc = b.translate(str.maketrans("", "", retira))
 
 
-
+                
                 if doc != pdf:
-                    # print(i)
+                    # print(contador_arqs)
                     print(doc)
                     print(pdf)
                     
 
 
                     # print(Pdf)
-                    # convert pdf to docx
                     cv = Converter(f"Pdfs/{Pdf}")
-                    cv.convert(f"Docx/{pdf}.docx")      # all pages by default
+                    cv.convert(f"Docx/{pdf}.docx") 
                     cv.close()
 
-            i += 1
+            contador_arqs += 1
 
-        # imageIndex = 0
-
+        #converter os docx em img e pega palavras dentro de PDF
         Docx = os.listdir("Docx")
         contador = 0
 
         for Docx_name in Docx:
             # print(Docx_name)
-            # load the Word document
-
+            
+            # carrega o documento Word
             doc = aw.Document(f"Docx/{Docx_name}")
 
-            # retrieve all shapes
+            
+            # buscando todas as formas gráficas no documento.
             shapes = doc.get_child_nodes(aw.NodeType.SHAPE, True)
-
+            # print(shapes)
             Pdf = Pdfs[contador]
 
             # Abre o arquivo pdf 
@@ -96,26 +105,33 @@ def Gerador_imagens():
             #extrai apenas o texto
             page_content = page.extractText()
 
-            # faz a junção das linhas 
+            # faz a junção das linhas
             parsed = ''.join(page_content)
 
             # print("Sem eliminar as quebras")
             # print(parsed)
 
+            #cria uma lista das palavras
             pagi = parsed.split()
 
             for palavras in pagi:
                 if palavras == "MASCULINO":
                     # print(Docx_name)
                     cont = 0 
-                    # loop through shapes
+                    # Percorre todas as formas gráficas no documento.
                     for shape in shapes :
+                        #transformando o objeto em uma representação mais formal ou específica de uma forma gráfica.
                         shape = shape.as_shape()
+                        #Verifica se é uma imagem
                         if (shape.has_image) :
                             cont +=1
-
+                            #pega a imagem 2
                             if cont == 2:
 
+                                # esse trecho de código estar trabalhando para limpar e normalizar o nome de um arquivo,
+                                # removendo acentos, caracteres especiais e caracteres não ASCII,
+                                # a fim de obter um nome de arquivo mais padronizado e
+                                # compatível com sistemas que não suportam esses caracteres. 
                                 retira = ".docx.pdf"
                                 Docx_name = Docx_name.translate(str.maketrans("", "", retira))
 
@@ -124,13 +140,15 @@ def Gerador_imagens():
                                 Docx_name = Docx_name.decode("utf-8")
 
 
-                                # set image file's name
+                                # definir o nome do arquivo de imagem
+                                # recebe um tipo de imagem (como JPEG, PNG etc.) como argumento e retorna a extensão de arquivo
+                                # associada a esse tipo de imagem.
                                 imageFileName = f"{Docx_name}{aw.FileFormatUtil.image_type_to_extension(shape.image_data.image_type)}"
                                 # print(imageFileName)
-                                # save image
 
+                                # save image
                                 shape.image_data.save(f"IMAGENS-M/{imageFileName}")
-                                # imageIndex += 1
+
                 elif palavras == "FEMININO":
                     cont = 0
                     # loop through shapes
@@ -149,11 +167,11 @@ def Gerador_imagens():
                                 Docx_name = Docx_name.decode("utf-8")
 
 
-                                # set image file's name
                                 imageFileName = f"{Docx_name}{aw.FileFormatUtil.image_type_to_extension(shape.image_data.image_type)}"
                                 # print(imageFileName)
-                                # save image
 
                                 shape.image_data.save(f"IMAGENS-F/{imageFileName}")
-                                # imageIndex += 1
             contador +=1
+
+
+# Gerador_imagens()
