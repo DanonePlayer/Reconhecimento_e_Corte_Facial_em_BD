@@ -23,7 +23,7 @@ for imgi in imagens:
     for x,y,l,a in objetos:
         pass
         # print(objetos)
-        cv2.rectangle(img,(x,y-90),(x+l,y+a),(255, 0, 0), 2)
+        cv2.rectangle(img,(x,y-120),(x+l,y+a),(255, 0, 0), 2)
 
     try:
         Nariz = objetos[0]
