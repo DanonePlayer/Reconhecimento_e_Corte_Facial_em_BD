@@ -30,14 +30,32 @@ for imgi in imagens:
     except:
         print("vixx")
         cont = 0
+        img_corte = Image.open(f"IMAGENS-{genero}/{imgi}")
+        # tranforma o tamanho da imagem, (redimensiona)
+        if img_corte.width > 659 or img_corte.height > 711:
+            print(f"{img_corte} + Precisa Redimensionar")
+            widht = img_corte.width - 100
+            height = img_corte.height - 10
+            # Redimensiona
+            img_resized = img_corte.resize((widht, height))
+            #salva
+            img_resized.save(f"IMAGENS-{genero}/{imgi}")
+        elif img_corte.width < 659 or img_corte.height < 711:
+            print(f"{img_corte} + Precisa Redimensionar")
+            widht = img_corte.width + 50
+            height = img_corte.height + 50
+            # Redimensiona
+            img_resized = img_corte.resize((widht, height))
+            #salva
+            img_resized.save(f"IMAGENS-{genero}/{imgi}")
 
     if cont == 1:
 
         # img = cv2.imread("hascas/rosto.png")
-        pts = np.array( [[boca[0], boca[1]],  
-                        [boca[0], boca[1]+boca[3]], 
-                        [boca[0]+boca[2], boca[1]+boca[3]], 
-                        [boca[0]+boca[2], boca[1]]], np.int32)
+        pts = np.array( [[boca[0]-40, boca[1]],  
+                        [boca[0]-40, boca[1]+boca[3]], 
+                        [(boca[0]+40)+boca[2], boca[1]+boca[3]],
+                        [(boca[0]+40)+boca[2], boca[1]]], np.int32)
 
         # Cria uma máscara com os pontos
         mask = np.zeros_like(img)
@@ -58,8 +76,8 @@ for imgi in imagens:
 
 
 
-    plt.imshow(img)
-    # plt.imshow(img_cortada)
+    # plt.imshow(img)
+    plt.imshow(img_cortada)
     # plt.imshow(part_cortada)
     plt.axis('off')
     plt.show()
