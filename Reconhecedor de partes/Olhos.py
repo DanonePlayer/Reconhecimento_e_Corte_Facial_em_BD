@@ -26,8 +26,8 @@ for imgi in imagens:
         cv2.rectangle(img,(x,y),(x+l,y+a),(255, 0, 0), 2)
 
     try:
-        olho_esquerdo = objetos[1]
-        olho_direito = objetos[0]
+        olho_esquerdo = objetos[0]
+        olho_direito = objetos[1]
     except:
         print('vixx')
             # img = img
@@ -67,7 +67,8 @@ for imgi in imagens:
 
     # # Aplica a máscara na imagem original
     img_cortada = cv2.bitwise_and(img, mask)
-    # part_cortada = cv2.bitwise_and(img, cv2.bitwise_not(mask))
+    part_cortada = cv2.bitwise_and(img, cv2.bitwise_not(mask))
+
 
 
 
@@ -76,14 +77,14 @@ for imgi in imagens:
 
     # Converta a imagem para o formato RGB para exibição com matplotlib
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    # img_cortada = cv2.cvtColor(img_cortada, cv2.COLOR_BGR2RGB)
-    # part_cortada = cv2.cvtColor(part_cortada, cv2.COLOR_BGR2RGB)
+    img_cortada = cv2.cvtColor(img_cortada, cv2.COLOR_BGR2RGB)
+    part_cortada = cv2.cvtColor(part_cortada, cv2.COLOR_BGR2RGB)
 
 
 
 
-    plt.imshow(img)
-    # plt.imshow(img_cortada)
+    # plt.imshow(img)
+    plt.imshow(img_cortada)
     # plt.imshow(part_cortada)
     plt.axis('off')
     plt.show()
