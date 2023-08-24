@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 
-genero = "F"
+genero = "M"
 imagens = os.listdir(f"IMAGENS-{genero}")
 for imgi in imagens:
 
@@ -34,8 +34,8 @@ for imgi in imagens:
         # tranforma o tamanho da imagem, (redimensiona)
         if img_corte.width > 659 or img_corte.height > 711:
             print(f"{img_corte} + Precisa Redimensionar")
-            widht = img_corte.width - 100
-            height = img_corte.height - 10
+            widht = img_corte.width - 50
+            height = img_corte.height - 50
             # Redimensiona
             img_resized = img_corte.resize((widht, height))
             #salva

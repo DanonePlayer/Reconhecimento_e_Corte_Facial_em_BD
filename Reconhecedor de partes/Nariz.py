@@ -23,7 +23,7 @@ for imgi in imagens:
     for x,y,l,a in objetos:
         pass
         # print(objetos)
-        cv2.rectangle(img,(x,y-120),(x+l+15,y+a),(255, 0, 0), 2)
+        cv2.rectangle(img,(x,y-120),(x+l,y+a),(255, 0, 0), 2)
 
     try:
         Nariz = objetos[0]
@@ -35,8 +35,8 @@ for imgi in imagens:
         # tranforma o tamanho da imagem, (redimensiona)
         if img_corte.width > 659 or img_corte.height > 711:
             print(f"{img_corte} + Precisa Redimensionar")
-            widht = img_corte.width - 100
-            height = img_corte.height - 10
+            widht = img_corte.width - 50
+            height = img_corte.height - 50
             # Redimensiona
             img_resized = img_corte.resize((widht, height))
             #salva
@@ -77,8 +77,8 @@ for imgi in imagens:
 
 
 
-    plt.imshow(img)
-    # plt.imshow(img_cortada)
+    # plt.imshow(img)
+    plt.imshow(img_cortada)
     # plt.imshow(part_cortada)
     plt.axis('off')
     plt.show()

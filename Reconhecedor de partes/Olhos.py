@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 
-genero = "F"
+genero = "M"
 imagens = os.listdir(f"IMAGENS-{genero}")
 for imgi in imagens:
 
@@ -57,10 +57,21 @@ for imgi in imagens:
                         [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
                         [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]], np.int32)
 
-        print([[olho_direito[0], olho_direito[1]],  
+        pontos = [[olho_direito[0], olho_direito[1]],  
                         [olho_direito[0], olho_direito[1]+olho_direito[3]], 
                         [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
-                        [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]])
+                        [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]]
+        # print(pontos[0][0])
+
+        if pontos[0][0] > pontos[0][1]:
+            
+            olho_esquerdo = objetos[1]
+            olho_direito = objetos[0]
+            pts = np.array( [[olho_direito[0], olho_direito[1]],  
+                [olho_direito[0], olho_direito[1]+olho_direito[3]], 
+                [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
+                [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]], np.int32)
+
 
         # # Cria uma máscara com os pontos
         mask = np.zeros_like(img)
@@ -86,8 +97,8 @@ for imgi in imagens:
 
 
 
-    plt.imshow(img)
-    # plt.imshow(img_cortada)
+    # plt.imshow(img)
+    plt.imshow(img_cortada)
     # plt.imshow(part_cortada)
     plt.axis('off')
     plt.show()
