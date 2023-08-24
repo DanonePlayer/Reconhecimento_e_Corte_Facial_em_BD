@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 
-genero = "M"
+genero = "F"
 imagens = os.listdir(f"IMAGENS-{genero}")
 for imgi in imagens:
 
@@ -83,8 +83,8 @@ for imgi in imagens:
 
 
 
-    # plt.imshow(img)
-    plt.imshow(img_cortada)
+    plt.imshow(img)
+    # plt.imshow(img_cortada)
     # plt.imshow(part_cortada)
     plt.axis('off')
     plt.show()

@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 
-genero = "M"
+genero = "F"
 imagens = os.listdir(f"IMAGENS-{genero}")
 for imgi in imagens:
 
@@ -24,7 +24,10 @@ for imgi in imagens:
     for x,y,l,a in objetos:
         cv2.rectangle(img,(x-40,y),((x+40)+l,y+a),(255, 0, 0), 2)
 
-    boca = objetos[0]
+    try:
+        boca = objetos[0]
+    except:
+        print("vixx")
 
     # img = cv2.imread("hascas/rosto.png")
     pts = np.array( [[boca[0], boca[1]],  
