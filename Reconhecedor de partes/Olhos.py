@@ -18,7 +18,7 @@ for imgi in imagens:
 
     imgGray = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
     # cv2.imshow('Imagem Cinza', imgGray)
-    objetos = classificador.detectMultiScale(imgGray, minSize=(90,90), scaleFactor=1.1, minNeighbors=10) # ou maxSize
+    objetos = classificador.detectMultiScale(imgGray, minSize=(120,120), scaleFactor=1.1, minNeighbors=10, maxSize=(950,220))
     # print(objetos)
 
     for x,y,l,a in objetos:
@@ -28,8 +28,10 @@ for imgi in imagens:
     try:
         olho_esquerdo = objetos[0]
         olho_direito = objetos[1]
+        cont = 1
     except:
-        print('vixx')
+        print("vixx")
+        cont = 0
             # img = img
             # # tranforma o tamanho da imagem, (redimensiona)
             # if img.width > 659 or img.height > 711:
@@ -48,26 +50,25 @@ for imgi in imagens:
             #     img_resized = img.resize((widht, height))
             #     #salva
             #     img_resized.save(f"IMAGENS-{genero}/{imgi}")
+   if cont == 1:
+        pts = np.array( [[olho_direito[0], olho_direito[1]],  
+                        [olho_direito[0], olho_direito[1]+olho_direito[3]], 
+                        [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
+                        [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]], np.int32)
 
-    # # img = cv2.imread("hascas/rosto.png")
-    pts = np.array( [[olho_direito[0], olho_direito[1]],  
-                    [olho_direito[0], olho_direito[1]+olho_direito[3]], 
-                    [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
-                    [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]], np.int32)
+        print([[olho_direito[0], olho_direito[1]],  
+                        [olho_direito[0], olho_direito[1]+olho_direito[3]], 
+                        [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
+                        [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]])
 
-    print([[olho_direito[0], olho_direito[1]],  
-                    [olho_direito[0], olho_direito[1]+olho_direito[3]], 
-                    [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
-                    [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]])
-
-    # # Cria uma máscara com os pontos
-    mask = np.zeros_like(img)
-    cv2.fillPoly(mask, [pts], (255, 255, 255))
+        # # Cria uma máscara com os pontos
+        mask = np.zeros_like(img)
+        cv2.fillPoly(mask, [pts], (255, 255, 255))
 
 
-    # # Aplica a máscara na imagem original
-    img_cortada = cv2.bitwise_and(img, mask)
-    part_cortada = cv2.bitwise_and(img, cv2.bitwise_not(mask))
+        # # Aplica a máscara na imagem original
+        img_cortada = cv2.bitwise_and(img, mask)
+        part_cortada = cv2.bitwise_and(img, cv2.bitwise_not(mask))
 
 
 
@@ -76,9 +77,10 @@ for imgi in imagens:
 
 
     # Converta a imagem para o formato RGB para exibição com matplotlib
+        img_cortada = cv2.cvtColor(img_cortada, cv2.COLOR_BGR2RGB)
+        part_cortada = cv2.cvtColor(part_cortada, cv2.COLOR_BGR2RGB)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    img_cortada = cv2.cvtColor(img_cortada, cv2.COLOR_BGR2RGB)
-    part_cortada = cv2.cvtColor(part_cortada, cv2.COLOR_BGR2RGB)
+
 
 
 

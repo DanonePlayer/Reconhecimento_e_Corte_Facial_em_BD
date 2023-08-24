@@ -26,35 +26,40 @@ for imgi in imagens:
 
     try:
         boca = objetos[0]
+        cont = 1
     except:
         print("vixx")
+        cont = 0
 
-    # img = cv2.imread("hascas/rosto.png")
-    pts = np.array( [[boca[0], boca[1]],  
-                    [boca[0], boca[1]+boca[3]], 
-                    [boca[0]+boca[2], boca[1]+boca[3]], 
-                    [boca[0]+boca[2], boca[1]]], np.int32)
+    if cont == 1:
 
-    # Cria uma máscara com os pontos
-    mask = np.zeros_like(img)
-    cv2.fillPoly(mask, [pts], (255, 255, 255))
+        # img = cv2.imread("hascas/rosto.png")
+        pts = np.array( [[boca[0], boca[1]],  
+                        [boca[0], boca[1]+boca[3]], 
+                        [boca[0]+boca[2], boca[1]+boca[3]], 
+                        [boca[0]+boca[2], boca[1]]], np.int32)
+
+        # Cria uma máscara com os pontos
+        mask = np.zeros_like(img)
+        cv2.fillPoly(mask, [pts], (255, 255, 255))
 
 
-    # # Aplica a máscara na imagem original
-    img_cortada = cv2.bitwise_and(img, mask)
-    part_cortada = cv2.bitwise_and(img, cv2.bitwise_not(mask))
+        # # Aplica a máscara na imagem original
+        img_cortada = cv2.bitwise_and(img, mask)
+        part_cortada = cv2.bitwise_and(img, cv2.bitwise_not(mask))
 
 
 
     # Converta a imagem para o formato RGB para exibição com matplotlib
+        img_cortada = cv2.cvtColor(img_cortada, cv2.COLOR_BGR2RGB)
+        part_cortada = cv2.cvtColor(part_cortada, cv2.COLOR_BGR2RGB)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    img_cortada = cv2.cvtColor(img_cortada, cv2.COLOR_BGR2RGB)
-    part_cortada = cv2.cvtColor(part_cortada, cv2.COLOR_BGR2RGB)
 
 
 
-    # plt.imshow(img)
-    plt.imshow(img_cortada)
+
+    plt.imshow(img)
+    # plt.imshow(img_cortada)
     # plt.imshow(part_cortada)
     plt.axis('off')
     plt.show()
