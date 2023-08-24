@@ -94,16 +94,16 @@ def Gerador_imagens():
             pdf_file = open(f"Pdfs/{Pdf}", 'rb')
 
             #Faz a leitura usando a biblioteca
-            read_pdf = PyPDF2.PdfFileReader(pdf_file)
+            read_pdf = PyPDF2.PdfReader(pdf_file)
 
             # pega o numero de páginas
-            number_of_pages = read_pdf.getNumPages()
+            number_of_pages = len(read_pdf.pages)
 
             #lê a primeira página completa
-            page = read_pdf.getPage(0)
+            page = read_pdf.pages[0]
 
             #extrai apenas o texto
-            page_content = page.extractText()
+            page_content = page.extract_text()
 
             # faz a junção das linhas
             parsed = ''.join(page_content)
@@ -115,6 +115,7 @@ def Gerador_imagens():
             pagi = parsed.split()
 
             for palavras in pagi:
+                # print(palavras)
                 if palavras == "MASCULINO":
                     # print(Docx_name)
                     cont = 0 
@@ -126,7 +127,7 @@ def Gerador_imagens():
                         if (shape.has_image) :
                             cont +=1
                             #pega a imagem 2
-                            if cont == 2:
+                            if cont == 1:
 
                                 # esse trecho de código estar trabalhando para limpar e normalizar o nome de um arquivo,
                                 # removendo acentos, caracteres especiais e caracteres não ASCII,
@@ -157,7 +158,7 @@ def Gerador_imagens():
                         if (shape.has_image) :
                             cont +=1
 
-                            if cont == 2:
+                            if cont == 1:
 
                                 retira = ".docx.pdf"
                                 Docx_name = Docx_name.translate(str.maketrans("", "", retira))

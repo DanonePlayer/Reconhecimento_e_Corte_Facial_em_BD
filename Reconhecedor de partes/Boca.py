@@ -7,17 +7,17 @@ import numpy as np
 from PIL import Image
 
 classificador = cv2.CascadeClassifier(r"anexos/mouth.xml")
-img = cv2.imread("IMAGENS-M/Rihanna-1-930x620.png")
+img = cv2.imread("IMAGENS-M/Teste-1.png")
 
 
 imgGray = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
 # cv2.imshow('Imagem Cinza', imgGray)
-objetos = classificador.detectMultiScale(imgGray, minSize=(90,90), scaleFactor=1.1, minNeighbors=90) # ou maxSize
+objetos = classificador.detectMultiScale(imgGray, minSize=(90,90), scaleFactor=1.1, minNeighbors=190, maxSize=(950,220)) # ou maxSize
 
 print(objetos)
 
 for x,y,l,a in objetos:
-    cv2.rectangle(img,(x,y),(x+l,y+a),(255, 0, 0), 2)
+    cv2.rectangle(img,(x-40,y),((x+40)+l,y+a),(255, 0, 0), 2)
 
 # olho_esquerdo = objetos[1]
 # olho_direito = objetos[2]
