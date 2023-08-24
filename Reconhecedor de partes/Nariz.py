@@ -23,7 +23,7 @@ for imgi in imagens:
     for x,y,l,a in objetos:
         pass
         # print(objetos)
-        cv2.rectangle(img,(x,y-120),(x+l,y+a),(255, 0, 0), 2)
+        cv2.rectangle(img,(x,y-120),(x+l+15,y+a),(255, 0, 0), 2)
 
     try:
         Nariz = objetos[0]
@@ -77,8 +77,8 @@ for imgi in imagens:
 
 
 
-    # plt.imshow(img)
-    plt.imshow(img_cortada)
+    plt.imshow(img)
+    # plt.imshow(img_cortada)
     # plt.imshow(part_cortada)
     plt.axis('off')
     plt.show()
