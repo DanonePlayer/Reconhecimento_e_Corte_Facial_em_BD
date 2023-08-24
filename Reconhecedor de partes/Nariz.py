@@ -53,10 +53,10 @@ for imgi in imagens:
     if cont == 1:
     
         # img = cv2.imread("hascas/rosto.png")
-        pts = np.array( [[Nariz[0], Nariz[1]],  
+        pts = np.array( [[Nariz[0], Nariz[1]-120],  
                         [Nariz[0], Nariz[1]+Nariz[3]], 
                         [Nariz[0]+Nariz[2], Nariz[1]+Nariz[3]], 
-                        [Nariz[0]+Nariz[2], Nariz[1]]], np.int32)
+                        [Nariz[0]+Nariz[2], Nariz[1]-120]], np.int32)
 
         # Cria uma máscara com os pontos
         mask = np.zeros_like(img)
@@ -77,8 +77,8 @@ for imgi in imagens:
 
 
 
-    plt.imshow(img)
-    # plt.imshow(img_cortada)
+    # plt.imshow(img)
+    plt.imshow(img_cortada)
     # plt.imshow(part_cortada)
     plt.axis('off')
     plt.show()
