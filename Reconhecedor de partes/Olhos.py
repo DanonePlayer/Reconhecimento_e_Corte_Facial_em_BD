@@ -64,7 +64,6 @@ for imgi in imagens:
         # print(pontos[0][0])
 
         if pontos[0][0] > pontos[0][1]:
-            
             olho_esquerdo = objetos[1]
             olho_direito = objetos[0]
             pts = np.array( [[olho_direito[0], olho_direito[1]],  
