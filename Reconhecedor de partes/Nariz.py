@@ -33,7 +33,7 @@ for imgi in imagens:
         cont = 0
         img_corte = Image.open(f"IMAGENS-{genero}/{imgi}")
         # tranforma o tamanho da imagem, (redimensiona)
-        if img_corte.width > 659 or img_corte.height > 711:
+        if img_corte.width > 659 and img_corte.height > 711:
             print(f"{img_corte} + Precisa Redimensionar")
             widht = img_corte.width - 50
             height = img_corte.height - 50
@@ -41,7 +41,7 @@ for imgi in imagens:
             img_resized = img_corte.resize((widht, height))
             #salva
             img_resized.save(f"IMAGENS-{genero}/{imgi}")
-        elif img_corte.width < 659 or img_corte.height < 711:
+        elif img_corte.width < 659 and img_corte.height < 711:
             print(f"{img_corte} + Precisa Redimensionar")
             widht = img_corte.width + 50
             height = img_corte.height + 50

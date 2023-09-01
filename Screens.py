@@ -139,22 +139,19 @@ class Interface:
             clear_button = tk.Button(self.frm_bottom, text='Limpar',borderwidth=0,font=('Arial',10, 'bold'), fg='#fff',bg='#5B5A5A')
             clear_button.pack(side=tk.TOP, padx=10,pady=7,)
             clear_buttons.append(clear_button)
+            
         self.começa = 0
         self.termina = 6
 
     def Sair(self):
         self.main.destroy()
 
-
-
     def Gerador(self):
         "extrair.Gerador_imagens()"
-
 
     def recortes(self):
         'recorte.recortes("M")'
         'recorte.recortes("F")'
-
 
     def Rosto(self):
         Parte = "Rosto"
@@ -171,7 +168,6 @@ class Interface:
     def Olhos(self):
         Parte = "Olhos"
         self.ImgsClick(Parte)
-
 
     def StartImgs(self, Parte):           
         rostos = os.listdir(f"IMAGENS-M")
