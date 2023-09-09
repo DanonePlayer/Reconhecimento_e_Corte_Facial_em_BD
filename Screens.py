@@ -125,11 +125,6 @@ class Interface:
         self.label_image = tk.Label(self.frm_center_main, text="RECORTE", bg='#303030', fg='white',width=51, height= 40)
         self.label_recorde.pack(in_=self.image_label2, pady=(0, 5))
 
-
-        image_labels = []
-        clear_buttons = []
-
-
         label_01 = tk.Label(self.frm_bottom, bg='white',height=5,width=10)
         label_01.pack(side=tk.TOP, padx=30,pady=10,expand=True,fill=tk.BOTH)
 
