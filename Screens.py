@@ -90,39 +90,42 @@ class Interface:
         self.label_versao = tk.Label(self.frm_center_main, text="Versão ALFA", font=('Roboto', 16), bg='#303030', fg='white')
         self.label_versao.pack(pady=(0, 40))
 
-
-        self.image_label2 = tk.Label(self.frm_center_main, bg='white',width=41, height= 30)
-        self.image_label2.pack(padx=50, pady=(10,70),side=tk.RIGHT,fill=tk.BOTH)
-
         self.imagem_d = (f"Rosto_Inicial.png")
         self.imagem_d_lbl = ImageTk.PhotoImage(Image.open(self.imagem_d))
+
         self.image_label1 = tk.Label(self.frm_center_main, image=self.imagem_d_lbl, bg='white', width=321, height= 321)
         self.image_label1.pack(padx=50, pady=(10,70),side=tk.LEFT)
-        # self.label_imagem_original = tk.Label(self.frm_center_main, text="IMAGEM ORIGINAL", bg='#303030', fg='white',width=51, height= 40)
-        # self.label_imagem_original.pack(in_=self.image_label1, pady=(0, 5))
 
         self.image_label1.configure(image=self.imagem_d_lbl)
         self.image_label1.image=self.imagem_d_lbl
 
+        self.imagem_e = ImageTk.PhotoImage(Image.open(f"Rosto_Inicial.png"))
+
+        self.image_label2 = tk.Label(self.frm_center_main, image=self.imagem_e, width=321, height= 321)
+        self.image_label2.pack(padx=50, pady=(10,70),side=tk.RIGHT)
+
+        self.image_label2.configure(image=self.imagem_e)
+        self.image_label2.image=self.imagem_e
+
+        # self.label_imagem_original = tk.Label(self.frm_center_main, text="IMAGEM ORIGINAL", bg='#303030', fg='white',width=51, height= 40)
+        # self.label_imagem_original.pack(in_=self.image_label1, pady=(0, 5))
+
         # self.btn = tk.Button(self.image_label1, text='Miniatura',borderwidth=0,font=('Arial',14, 'bold'), fg='#fff',bg='#5B5A5A')
         # self.btn.pack(side=tk.BOTTOM,expand=True,pady=(0, 5))
 
-        self.imagem_e = ImageTk.PhotoImage(Image.open(f"Rosto_Inicial.png"))
+        
 
-        self.label_recorde = tk.Label(self.frm_center_main, image=self.imagem_e, text="RECORTE", bg='#303030', fg='white',width=51, height= 40)
-        self.label_recorde.pack(in_=self.image_label2, pady=(0, 5))
+        # self.label_recorde = tk.Label(self.frm_center_main, image=self.imagem_e, text="RECORTE", bg='#303030', fg='white',width=51, height= 40)
+        # self.label_recorde.pack(in_=self.image_label2, pady=(0, 5))
 
-        self.label_recorde.configure(image=self.imagem_e)
-        self.label_recorde.image=self.imagem_e
-
-        self.btn2 = tk.Button(self.image_label2, text='Limpar', borderwidth=0, font=('Arial', 14, 'bold'), fg='#fff',bg='#5B5A5A')
-        self.btn2.pack(side=tk.BOTTOM, expand=True, pady=(0, 5))
+        # self.btn2 = tk.Button(self.image_label2, text='Limpar', borderwidth=0, font=('Arial', 14, 'bold'), fg='#fff',bg='#5B5A5A')
+        # self.btn2.pack(side=tk.BOTTOM, expand=True, pady=(0, 5))
 
         self.frm_bottom = tk.Frame(self.main, bg='#303030')
         self.frm_bottom.pack(side=tk.BOTTOM, expand=True, fill=tk.BOTH, padx=20, pady=20)
 
-        self.label_image = tk.Label(self.frm_center_main, text="RECORTE", bg='#303030', fg='white',width=51, height= 40)
-        self.label_recorde.pack(in_=self.image_label2, pady=(0, 5))
+        # self.label_image = tk.Label(self.frm_center_main, text="RECORTE", bg='#303030', fg='white',width=51, height= 40)
+        # self.label_image.pack(in_=self.image_label2, pady=(0, 5))
 
         label_01 = tk.Label(self.frm_bottom, bg='white',height=5,width=10)
         label_01.pack(side=tk.TOP, padx=30,pady=10,expand=True,fill=tk.BOTH)
