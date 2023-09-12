@@ -366,6 +366,140 @@ class Interface_rostos:
                 self.Rosto_salva = f"{arq}"
                 #print(arq)
 
+
+                self.chave_olhos = 0 
+                self.chave_boca = 0
+                self.chave_nariz = 0
+
+                
+            elif Parte == "Nariz":
+                if self.chave_boca == 1 or self.chave_olhos == 1 or self.chave_nariz == 1:
+                    # Abrir imagem frontal
+                    frontImage = arq
+                    
+                    # Abrir imagem de fundo
+                    frontImage = Image.open(frontImage)
+
+                    background = self.imagem_d
+                    
+                    # Converter imagem para RGBA
+                    frontImage = frontImage.convert("RGBA")
+                    
+                    # Converter imagem para RGBA
+                    background = background.convert("RGBA")
+                    
+                    # Calcula a largura para estar no centro
+                    width = (background.width - frontImage.width) // 2
+                    
+                    # Calcula a altura para estar no centro
+                    height = (background.height - frontImage.height) // 2
+                    
+                    # Cole o frontImage em (largura, altura)
+                    background.paste(frontImage, (width, height), frontImage)
+
+                    imagem = ImageTk.PhotoImage(background)
+
+                    self.imagem_d = background
+
+                    self.lbl_d.configure(image=imagem)
+                    self.lbl_d.image=imagem
+                    self.janela2.destroy()
+
+
+                    self.Nariz_salva = f"{arq}"
+
+                else:      
+                    print("é zero no nariz")
+                    img_front = arq
+                    
+                    img_back = self.imagem_d
+                    
+                    frontImage = Image.open(img_front)
+
+                    background = Image.open(img_back)
+                    
+                    frontImage = frontImage.convert("RGBA")
+                    
+                    background = background.convert("RGBA")
+                    
+                    width = (background.width - frontImage.width) // 2
+
+                    height = (background.height - frontImage.height) // 2
+                    
+                    background.paste(frontImage, (width, height), frontImage)
+
+                    imagem = ImageTk.PhotoImage(background)
+
+                    self.imagem_d = background
+
+                    self.lbl_d.configure(image=imagem)
+                    self.lbl_d.image=imagem
+                    self.chave_nariz = 1
+
+                    self.Nariz_salva = f"{arq}"
+
+
+
+            elif Parte == "Olhos":
+                if self.chave_boca == 1 or self.chave_nariz == 1 or self.chave_olhos == 1:
+                    background = self.imagem_d
+                    olho = Image.open(arq)
+                    background.paste(olho, (85, 123))
+
+                    imagem = ImageTk.PhotoImage(background)
+                    self.lbl_d.configure(image=imagem)
+                    self.lbl_d.image=imagem
+                    self.janela2.destroy()
+                    self.imagem_d = background
+
+                    self.Olho_salva = f"{arq}"
+
+                else:
+                    print("é zero nos zoi")
+                    background = Image.open(self.imagem_d)
+                    olho = Image.open(arq)
+                    background.paste(olho, (85, 123))
+
+                    imagem = ImageTk.PhotoImage(background)
+                    self.lbl_d.configure(image=imagem)
+                    self.lbl_d.image=imagem
+                    self.janela2.destroy()
+                    self.imagem_d = background
+                    self.chave_olhos = 1
+
+                    self.Olho_salva = f"{arq}"
+
+
+
+            elif Parte == "Boca":
+                if self.chave_nariz == 1 or self.chave_olhos == 1 or self.chave_boca == 1:
+                    background = self.imagem_d
+                    boca = Image.open(arq)
+                    background.paste(boca, (112, 235))
+
+                    imagem = ImageTk.PhotoImage(background)
+                    self.lbl_d.configure(image=imagem)
+                    self.lbl_d.image=imagem
+                    self.janela2.destroy()
+                    self.imagem_d = background
+
+                    self.Boca_salva = f"{arq}"
+
+                else:
+                    print("é zero na boca")
+                    background =Image.open(self.imagem_d)
+                    boca = Image.open(arq)
+                    background.paste(boca, (112, 235))
+
+                    imagem = ImageTk.PhotoImage(background)
+                    self.lbl_d.configure(image=imagem)
+                    self.lbl_d.image=imagem
+                    self.janela2.destroy()
+                    self.imagem_d = background
+                    self.chave_boca = 1
+
+                    self.Boca_salva = f"{arq}"
+
     def gerar_miniatura(self):
         for count_photo_baixo in range(1, 5):
             print(count_photo_baixo)
@@ -432,6 +566,9 @@ class Interface_rostos:
 
     def Salvar(self):
         print(self.Rosto_salva)
+        print(self.Olho_salva)        
+        print(self.Nariz_salva)
+        print(self.Boca_salva)
 
         
 janela = tk.Tk()

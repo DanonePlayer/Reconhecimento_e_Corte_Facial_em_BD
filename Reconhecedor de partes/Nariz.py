@@ -85,10 +85,32 @@ for imgi in imagens:
 
 
 
+    #aqui iremos transforma o redor da imagem em transparente
+    # Crie uma imagem Pillow (PIL) a partir da imagem RGB
+    img = Image.fromarray(img_cortada)
+    #convertida para o modo RGBA que significa que ela terá canais vermelho, verde, azul e alfa (transparência).
+    rgba = img.convert("RGBA")
+    # Isso obtém os dados de pixel da imagem, que incluirão informações sobre a cor e transparência de cada pixel.
+    datas = rgba.getdata()
+    
+    newData = []
+    for item in datas:
+        # encontrando a cor preta pelo seu valor RGB
+        if item[0] == 0 and item[1] == 0 and item[2] == 0:  
+            # Se o pixel for preto, ele é substituído por um pixel totalmente transparente
+            #  (branco com alfa 0), indicando que ele será tornando transparente.
+            newData.append((255, 255, 255, 0))
+        else:
+            # outras cores permanecem inalteradas
+            newData.append(item)  
+    # Aqui, os novos dados de pixel são aplicados à imagem RGBA.
+    rgba.putdata(newData)
+    #A imagem editada é salva
+    rgba.save(f"Nariz-{genero}\{imgi}", "PNG")
 
 
     # plt.imshow(img)
-    plt.imshow(img_cortada)
+    # plt.imshow(img_cortada)
     # plt.imshow(part_cortada)
-    plt.axis('off')
-    plt.show()
+    # plt.axis('off')
+    # plt.show()
