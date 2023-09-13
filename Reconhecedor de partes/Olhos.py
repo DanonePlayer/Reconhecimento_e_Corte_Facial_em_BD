@@ -36,7 +36,7 @@ for imgi in imagens:
             # Redimensiona
             img_corte = img_corte.resize((659, 711))
             #salva
-            img_corte.save(f"IMAGENS-{genero}/{imgi}")
+            # img_corte.save(f"IMAGENS-{genero}/{imgi}")
 
         croppedIm = img_corte.crop((159, 246, 524, 384)) 
         # croppedIm.show()
@@ -55,9 +55,9 @@ for imgi in imagens:
             croppedIm = img.crop((olho_direito[0], olho_direito[1], olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]))
             path_to_file = pjoin(f"Olhos-{genero}",imgi)
             croppedIm.save(path_to_file)
-        except:
-            # print(pontos)
+            print(pontos)
             # print(pontos[0][0])
+        except:
             if pontos[0][0] > pontos[0][1]:
                 olho_esquerdo = objetos[1]
                 olho_direito = objetos[0]
@@ -68,7 +68,7 @@ for imgi in imagens:
                 croppedIm = img.crop((olho_direito[0], olho_direito[1], olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3])) 
                 path_to_file = pjoin(f"Olhos-{genero}",imgi)
                 croppedIm.save(path_to_file)
-            # print(pontos)
+            print(pontos)
 
 
     # plt.imshow(img)

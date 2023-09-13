@@ -25,10 +25,10 @@ janela = tk.Tk()
 janela.title("Colocar e Mover Olhos e Boca")
 
 # Abrir imagem frontal
-img_front = "Olhos-M/Teste-1.png"
+img_front = "IMAGENS-M/Teste-1.png"
 
 # Abrir imagem de fundo
-img_back = "Rosto-M/Teste-1.png"
+img_back = "IMAGENS-M/Teste-1.png"
 
 frontImage = Image.open(img_front)
 frontImage = frontImage.resize((350, 400))
