@@ -86,10 +86,6 @@ for imgi in imagens:
     part_cortada = cv2.cvtColor(part_cortada, cv2.COLOR_BGR2RGB)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-
-
-
-
     #aqui iremos transforma o redor da imagem em transparente
     # Crie uma imagem Pillow (PIL) a partir da imagem RGB
     img = Image.fromarray(img_cortada)

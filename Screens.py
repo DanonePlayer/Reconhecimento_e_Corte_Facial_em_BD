@@ -194,29 +194,31 @@ class Interface:
             self.vetor_rostos.append(rostos[rosto])
         # print(self.vetor_rostos)
 
+        self.width = 350
+        self.height = 400
 
         image1 = (Image.open(f"{Parte}-M/{self.vetor_rostos[0]}"))
-        image1 = image1.resize((350, 400))
+        image1 = image1.resize((self.width, self.height))
         self.imagem1 = ImageTk.PhotoImage(image1)
         self.arq_Image_1 = (f"{Parte}-M/{self.vetor_rostos[0]}")
         image2 = (Image.open(f"{Parte}-M/{self.vetor_rostos[1]}"))
-        image2 = image2.resize((350, 400))
+        image2 = image2.resize((self.width, self.height))
         self.imagem2 = ImageTk.PhotoImage(image2)
         self.arq_Image_2 = (f"{Parte}-M/{self.vetor_rostos[1]}")
         image3 = (Image.open(f"{Parte}-M/{self.vetor_rostos[2]}"))
-        image3 = image3.resize((350, 400))
+        image3 = image3.resize((self.width, self.height))
         self.imagem3 = ImageTk.PhotoImage(image3)
         self.arq_Image_3 = (f"{Parte}-M/{self.vetor_rostos[2]}")
         image4 = (Image.open(f"{Parte}-M/{self.vetor_rostos[3]}"))
-        image4 = image4.resize((350, 400))
+        image4 = image4.resize((self.width, self.height))
         self.imagem4 = (ImageTk.PhotoImage(image4))
         self.arq_Image_4 = (f"{Parte}-M/{self.vetor_rostos[3]}")
         image5 = (Image.open(f"{Parte}-M/{self.vetor_rostos[4]}"))
-        image5 = image5.resize((350, 400))
+        image5 = image5.resize((self.width, self.height))
         self.imagem5 = ImageTk.PhotoImage(image5)
         self.arq_Image_5 = (f"{Parte}-M/{self.vetor_rostos[4]}")
         image6 = (Image.open(f"{Parte}-M/{self.vetor_rostos[5]}"))
-        image6 = image6.resize((350, 400))
+        image6 = image6.resize((self.width, self.height))
         self.imagem6 = ImageTk.PhotoImage(image6)
         self.arq_Image_6 = (f"{Parte}-M/{self.vetor_rostos[5]}")
 
@@ -382,9 +384,9 @@ class Interface:
                     img_back = self.Rosto_salva 
 
                     frontImage = Image.open(img_front)
-                    frontImage = frontImage.resize((350, 400))
+                    frontImage = frontImage.resize((self.width, self.height))
                     # background = Image.open(img_back)
-                    background = img_back.resize((350, 400))
+                    background = img_back.resize((self.width, self.height))
 
                     # Converter imagem para RGBA
                     frontImage = frontImage.convert("RGBA")
@@ -416,9 +418,9 @@ class Interface:
                     img_back = self.Rosto_salva 
                     
                     frontImage = Image.open(img_front)
-                    frontImage = frontImage.resize((350, 400))
+                    frontImage = frontImage.resize((self.width, self.height))
                     background = Image.open(img_back)
-                    background = background.resize((350, 400))
+                    background = background.resize((self.width, self.height))
 
                     frontImage = frontImage.convert("RGBA")
                     
@@ -442,9 +444,9 @@ class Interface:
             elif Parte == "Olhos":
                 if self.chave_boca == 1 or self.chave_nariz == 1 or self.chave_olhos == 1:
                     background = self.Rosto_salva
-                    background = background.resize((350, 400))
+                    background = background.resize((self.width, self.height))
                     olho = Image.open(arq)
-                    olho = olho.resize((350, 400))
+                    olho = olho.resize((self.width, self.height))
                     background.paste(olho, (85, 123))
 
                     imagem = ImageTk.PhotoImage(background)
@@ -458,9 +460,9 @@ class Interface:
                 else:
                     print("é zero nos zoi")
                     background = Image.open(self.Rosto_salva)
-                    background = background.resize((350, 400))
+                    background = background.resize((self.width, self.height))
                     olho = Image.open(arq)
-                    olho = olho.resize((350, 400))
+                    olho = olho.resize((self.width, self.height))
                     background.paste(olho, (85, 123))
 
                     imagem = ImageTk.PhotoImage(background)
@@ -477,9 +479,9 @@ class Interface:
             elif Parte == "Boca":
                 if self.chave_nariz == 1 or self.chave_olhos == 1 or self.chave_boca == 1:
                     background = self.Rosto_salva
-                    background = background.resize((350, 400))
+                    background = background.resize((self.width, self.height))
                     boca = Image.open(arq)
-                    boca = boca.resize((350, 400))
+                    boca = boca.resize((self.width, self.height))
                     background.paste(boca, (112, 235))
 
                     imagem = ImageTk.PhotoImage(background)
@@ -493,9 +495,9 @@ class Interface:
                 else:
                     print("é zero na boca")
                     background =Image.open(self.Rosto_salva)
-                    background = background.resize((350, 400))
+                    background = background.resize((self.width, self.height))
                     boca = Image.open(arq)
-                    boca = boca.resize((350, 400))
+                    boca = boca.resize((self.width, self.height))
                     background.paste(boca, (112, 235))
 
                     imagem = ImageTk.PhotoImage(background)

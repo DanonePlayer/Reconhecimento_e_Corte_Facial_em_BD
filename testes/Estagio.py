@@ -8,7 +8,7 @@ from PIL import Image
 
 classificador = cv2.CascadeClassifier(r"anexos/right_eye2.xml")
 ##img = cv2.imread("IMAGENS-M/Rihanna-1-930x620.png")
-img = cv2.imread("hascas/rosto.png")
+img = cv2.imread("IMAGENS-M/Teste-1.png")
 
 
 

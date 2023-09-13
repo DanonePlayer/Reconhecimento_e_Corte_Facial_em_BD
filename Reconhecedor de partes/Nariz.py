@@ -41,7 +41,7 @@ for imgi in imagens:
             #salva
             img_resized.save(f"IMAGENS-{genero}/{imgi}")
 
-        img = cv2.imread(f"IMAGENS-{genero}/{imgi}")
+        # img = cv2.imread(f"IMAGENS-{genero}/{imgi}")
 
         # Define os pontos dos vértices
         pts = np.array([[226, 221], [226, 498], [415, 498], [415, 221]], np.int32)
