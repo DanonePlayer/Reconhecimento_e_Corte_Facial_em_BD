@@ -4,18 +4,24 @@ import os
 import cv2
 import numpy as np
 from PIL import Image
+from ProgressBar import Atualiza_ProgressBar
 
 
 def reconhecimento_e_corte_boca():
     genero = "M"
     imagens = os.listdir(f"IMAGENS-{genero}")
-    barra_carregamento = len(imagens) * 4
-    print(barra_carregamento)
+    barra_carregamento_max = len(imagens) * 4
+    
+    cont_barra_de_carregamento = 0
+
     for imgi in imagens:
+
+        cont_barra_de_carregamento +=1
+        valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (100 - 0)  # Mapeia para 0 a 100
+
         print(imgi)
         classificador = cv2.CascadeClassifier(r"anexos/mouth.xml")
         img = cv2.imread(f"IMAGENS-{genero}/{imgi}")
-
 
         imgGray = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
         # cv2.imshow('Imagem Cinza', imgGray)
@@ -112,8 +118,7 @@ def reconhecimento_e_corte_boca():
         rgba.save(f"Boca-{genero}\{imgi}", "PNG")
 
 
-
-
+        # Screens.Interface.Atualiza_ProgressBar(1)
 
 
 

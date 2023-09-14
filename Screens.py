@@ -176,6 +176,7 @@ class Interface:
         self.Miniatura_03.image=self.image_miniatura
         self.Miniatura_04.configure(image=self.image_miniatura)
         self.Miniatura_04.image=self.image_miniatura
+
         self.começa = 0
         self.termina = 6
 
@@ -187,7 +188,6 @@ class Interface:
 
     def recortes(self):
         Boca.reconhecimento_e_corte_boca()
-        self.ProgressBar()
 
     def Rosto(self):
         Parte = "Rosto"
@@ -204,14 +204,6 @@ class Interface:
     def Olhos(self):
         Parte = "Olhos"
         self.ImgsClick(Parte)
-
-
-    def ProgressBar(self):
-        self.janela_progresso = tk.Toplevel()
-        self.janela_progresso.title("Janela de Progresso")
-        progresso = ttk.Progressbar(self.janela_progresso, mode="indeterminate", length=200)
-        progresso.pack()
-        progresso.start()
 
 
     def StartImgs(self, Parte):           
