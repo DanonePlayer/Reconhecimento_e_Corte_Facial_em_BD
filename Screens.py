@@ -1,9 +1,11 @@
 # flake8: noqa
 import os
 import tkinter as tk
-from tkinter import SUNKEN, PhotoImage
+from tkinter import SUNKEN, PhotoImage, ttk
 
 from PIL import Image, ImageTk
+
+from Reconhecedor_de_partes import Boca, Nariz, Olhos, Rosto
 
 
 class Interface:
@@ -26,7 +28,7 @@ class Interface:
         btn = tk.Button(self.frm_left,width=15,height=1, bg='#D9D9D9',borderwidth=0, text='Word', font=('Arial',10,'bold'), fg='#474444', command='')
         btn.grid(row=1, column=0, padx=30, pady=(30, 5))
 
-        btn_01 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9',borderwidth=0, text='Corte', font=('Arial',10,'bold'), fg='#474444', command='')
+        btn_01 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9',borderwidth=0, text='Corte', font=('Arial',10,'bold'), fg='#474444', command=self.recortes)
         btn_01.grid(row=2, column=0, padx=30, pady=5)
 
         ##Funções02
@@ -174,7 +176,6 @@ class Interface:
         self.Miniatura_03.image=self.image_miniatura
         self.Miniatura_04.configure(image=self.image_miniatura)
         self.Miniatura_04.image=self.image_miniatura
-
         self.começa = 0
         self.termina = 6
 
@@ -185,8 +186,8 @@ class Interface:
         "extrair.Gerador_imagens()"
 
     def recortes(self):
-        'recorte.recortes("M")'
-        'recorte.recortes("F")'
+        Boca.reconhecimento_e_corte_boca()
+        self.ProgressBar()
 
     def Rosto(self):
         Parte = "Rosto"
@@ -203,6 +204,15 @@ class Interface:
     def Olhos(self):
         Parte = "Olhos"
         self.ImgsClick(Parte)
+
+
+    def ProgressBar(self):
+        self.janela_progresso = tk.Toplevel()
+        self.janela_progresso.title("Janela de Progresso")
+        progresso = ttk.Progressbar(self.janela_progresso, mode="indeterminate", length=200)
+        progresso.pack()
+        progresso.start()
+
 
     def StartImgs(self, Parte):           
         rostos = os.listdir(f"IMAGENS-M")
