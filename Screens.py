@@ -1,4 +1,4 @@
-##from PIL import Image, ImageTk
+# flake8: noqa
 import os
 import tkinter as tk
 from tkinter import SUNKEN, PhotoImage
@@ -90,106 +90,91 @@ class Interface:
         self.label_versao = tk.Label(self.frm_center_main, text="Versão ALFA", font=('Roboto', 16), bg='#303030', fg='white')
         self.label_versao.pack(pady=(0, 40))
 
-        img_corte = Image.open(f"IMAGENS-M/Teste-1.png")
-        self.imagem_d = img_corte.resize((350, 400))
-        self.imagem_d_lbl = ImageTk.PhotoImage(self.imagem_d)
-
-        self.image_label1 = tk.Label(self.frm_center_main, image=self.imagem_d_lbl, bg='white', width=350, height= 400)
+        img_image_label1 = Image.open(f"Images_Interface/Rosto_inicial.png")
+        self.img_image_label1_corte = img_image_label1.resize((350, 400))
+        self.img_image_label1_e = ImageTk.PhotoImage(self.img_image_label1_corte)
+        self.image_label1 = tk.Label(self.frm_center_main, image=self.img_image_label1_e, bg='white', width=350, height= 400)
         self.image_label1.pack(padx=50, pady=(10,5),side=tk.LEFT)
+        self.image_label1.configure(image=self.img_image_label1_e)
+        self.image_label1.image=self.img_image_label1_e
 
-        self.image_label1.configure(image=self.imagem_d_lbl)
-        self.image_label1.image=self.imagem_d_lbl
-
-        img_corte = Image.open(f"IMAGENS-M/Teste-1.png")
-        self.imagem_e = img_corte.resize((350, 400))
-        self.imagem_e_lbl = ImageTk.PhotoImage(self.imagem_e)
-
-        self.image_label2 = tk.Label(self.frm_center_main, image=self.imagem_e_lbl, width=350, height= 400)
+        img_image_label2 = Image.open(f"Images_Interface/Rosto_inicial.png")
+        self.img_image_label2_corte = img_image_label2.resize((350, 400))
+        self.img_image_label2_d = ImageTk.PhotoImage(self.img_image_label2_corte)
+        self.image_label2 = tk.Label(self.frm_center_main, image=self.img_image_label2_d, width=350, height= 400)
         self.image_label2.pack(padx=50, pady=(10,5),side=tk.RIGHT)
+        self.image_label2.configure(image=self.img_image_label2_d)
+        self.image_label2.image=self.img_image_label2_d
 
-        self.image_label2.configure(image=self.imagem_e_lbl)
-        self.image_label2.image=self.imagem_e_lbl
+        self.frame_down = tk.Frame(self.frm_center, bg='#303030')
+        self.frame_down.pack(fill=tk.BOTH, expand=True,side=tk.TOP)
+        self.btn = tk.Button(self.frame_down, text='Miniatura',borderwidth=0,font=('Arial',12, 'bold'), fg='#fff',bg='#5B5A5A', command=self.gerar_miniatura)
+        self.btn.pack(side=tk.LEFT,expand=True,pady=(0, 10),padx=50)
+        self.btn2 = tk.Button(self.frame_down, text='Limpar', borderwidth=0, font=('Arial', 12, 'bold'), fg='#fff',bg='#5B5A5A')
+        self.btn2.pack(side=tk.RIGHT, expand=True, pady=(0, 10),padx=50)
+
+
+        img_image_miniatura = Image.open(f"Images_Interface/Rosto_inicial.png")
+        self.image_miniatura_corte = img_image_miniatura.resize((110, 130))
+        self.image_miniatura = ImageTk.PhotoImage(self.image_miniatura_corte)
+
+        img_botão_adiciona_miniatura = Image.open(f"Images_Interface/adicionar-botao.png")
+        self.botão_adiciona_miniatura_corte = img_botão_adiciona_miniatura.resize((28,28))
+        self.botão_adiciona_miniatura = ImageTk.PhotoImage(self.botão_adiciona_miniatura_corte)
+
+        self.baixo1 = False
+        self.baixo2 = False
+        self.baixo3 = False
+        self.baixo4 = False
 
         self.frm_bottom = tk.Frame(self.main, bg='#303030')
         self.frm_bottom.pack(side=tk.BOTTOM, expand=True, fill=tk.BOTH, padx=20, pady=20)
 
-        self.frame_down = tk.Frame(self.frm_center, bg='#303030')
-        self.frame_down.pack(fill=tk.BOTH, expand=True,side=tk.TOP)
-
-        self.btn = tk.Button(self.frame_down, text='Miniatura',borderwidth=0,font=('Arial',12, 'bold'), fg='#fff',bg='#5B5A5A')
-        self.btn.pack(side=tk.LEFT,expand=True,pady=(0, 10),padx=50)
-
-        self.btn2 = tk.Button(self.frame_down, text='Limpar', borderwidth=0, font=('Arial', 12, 'bold'), fg='#fff',bg='#5B5A5A')
-        self.btn2.pack(side=tk.RIGHT, expand=True, pady=(0, 10),padx=50)
-
-        img_corte = Image.open(f"IMAGENS-M/Teste-1.png")
-        self.imagem_c = img_corte.resize((100, 150))
-        self.imagem_c_lbl = ImageTk.PhotoImage(self.imagem_c)
-
-        label_01 = tk.Label(self.frm_bottom, bg='#474444',image=self.imagem_c_lbl)
-        label_01.pack(side=tk.TOP, padx=30,pady=10,expand=True,fill=tk.BOTH)
-
-        #label_image_01 = tk.Label(self.frm_bottom, text="RECORTE", bg='#303030', fg='white', width=20,height=10)
-        #label_image_01.pack(in_=label_01)
-
+        self.Miniatura_01 = tk.Label(self.frm_bottom, bg='#474444',image=self.image_miniatura)
+        self.Miniatura_01.pack(side=tk.TOP, padx=30,pady=10, expand=True)
         self.frame_bttn_01 = tk.Frame(self.frm_bottom,bg='#303030')
         self.frame_bttn_01.pack(side=tk.TOP, padx=10,pady=7,)
-
-        clear_button_01 = tk.Button(self.frame_bttn_01, text='Limpar',borderwidth=0,font=('Arial',10, 'bold'), fg='#fff',bg='#5B5A5A')
+        add_button_01 = tk.Button(self.frame_bttn_01,image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A',borderwidth=0)
+        add_button_01.pack(side=tk.RIGHT, padx=10, pady=7,expand=True)
+        clear_button_01 = tk.Button(self.frame_bttn_01, text='Limpar',borderwidth=0,font=('Arial',10, 'bold'), fg='#fff',bg='#5B5A5A', command=lambda: self.excluir_miniaturas(1))
         clear_button_01.pack(side=tk.LEFT, padx=10,pady=7,)
 
-        self.img_corte_01 = Image.open(f"Images/adicionar-botao.png")
-        self.imagem_c = self.img_corte_01.resize((28,28))
-        self.imagem_b_label = ImageTk.PhotoImage(self.imagem_c)
-
-        add_button_01 = tk.Button(self.frame_bttn_01,image=self.imagem_b_label, fg='#fff',bg='#5B5A5A',borderwidth=0)
-        add_button_01.pack(side=tk.RIGHT, padx=10, pady=7,expand=True)
-
-        label_02 = tk.Label(self.frm_bottom, bg='#474444', image=self.imagem_c_lbl)
-        label_02.pack(side=tk.TOP, padx=30, pady=10, expand=True, fill=tk.BOTH)
-
-        #label_image_02 = tk.Label(self.frm_bottom, text="RECORTE", bg='#303030', fg='white', width=20, height=10)
-        #label_image_02.pack(in_=label_02)
-
+        self.Miniatura_02 = tk.Label(self.frm_bottom, bg='#474444', image=self.image_miniatura)
+        self.Miniatura_02.pack(side=tk.TOP, padx=30, pady=10, expand=True)
         self.frame_bttn_02 = tk.Frame(self.frm_bottom, bg='#303030')
         self.frame_bttn_02.pack(side=tk.TOP, padx=10, pady=7, )
-
-        clear_button_02 = tk.Button(self.frame_bttn_02, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A')
+        clear_button_02 = tk.Button(self.frame_bttn_02, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A', command=lambda: self.excluir_miniaturas(2))
         clear_button_02.pack(side=tk.LEFT, padx=10, pady=7, )
-
-        add_button_02 = tk.Button(self.frame_bttn_02, image=self.imagem_b_label, fg='#fff', bg='#5B5A5A', borderwidth=0)
+        add_button_02 = tk.Button(self.frame_bttn_02, image=self.botão_adiciona_miniatura, fg='#fff', bg='#5B5A5A', borderwidth=0)
         add_button_02.pack(side=tk.RIGHT, padx=10, pady=7, expand=True)
 
-        label_03 = tk.Label(self.frm_bottom, bg='#474444', image=self.imagem_c_lbl)
-        label_03.pack(side=tk.TOP, padx=30, pady=10, expand=True, fill=tk.BOTH)
-
-        #label_image_03 = tk.Label(self.frm_bottom, text="RECORTE", bg='#303030', fg='white', width=20, height=10)
-        #label_image_03.pack(in_=label_03)
-
+        self.Miniatura_03 = tk.Label(self.frm_bottom, bg='#474444', image=self.image_miniatura)
+        self.Miniatura_03.pack(side=tk.TOP, padx=30, pady=10, expand=True)
         self.frame_bttn_03 = tk.Frame(self.frm_bottom, bg='#303030')
         self.frame_bttn_03.pack(side=tk.TOP, padx=10, pady=7, )
-
-        clear_button_03 = tk.Button(self.frame_bttn_03, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A')
+        clear_button_03 = tk.Button(self.frame_bttn_03, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A', command=lambda: self.excluir_miniaturas(3))
         clear_button_03.pack(side=tk.LEFT, padx=10, pady=7, )
-
-        add_button_03 = tk.Button(self.frame_bttn_03, image=self.imagem_b_label, fg='#fff', bg='#5B5A5A', borderwidth=0)
+        add_button_03 = tk.Button(self.frame_bttn_03, image=self.botão_adiciona_miniatura, fg='#fff', bg='#5B5A5A', borderwidth=0)
         add_button_03.pack(side=tk.RIGHT, padx=10, pady=7, expand=True)
 
-        label_04 = tk.Label(self.frm_bottom, bg='#474444', image=self.imagem_c_lbl)
-        label_04.pack(side=tk.TOP, padx=30, pady=10, expand=True, fill=tk.BOTH)
-
-        #label_image_04 = tk.Label(self.frm_bottom, text="RECORTE", bg='#303030', fg='white', width=20, height=10)
-        #label_image_04.pack(in_=label_04)
-
+        self.Miniatura_04 = tk.Label(self.frm_bottom, bg='#474444', image=self.image_miniatura)
+        self.Miniatura_04.pack(side=tk.TOP, padx=30, pady=10, expand=True)
         self.frame_bttn_04 = tk.Frame(self.frm_bottom, bg='#303030')
         self.frame_bttn_04.pack(side=tk.TOP, padx=10, pady=7, )
-
-        clear_button_04 = tk.Button(self.frame_bttn_04, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A')
+        clear_button_04 = tk.Button(self.frame_bttn_04, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A', command=lambda: self.excluir_miniaturas(4))
         clear_button_04.pack(side=tk.LEFT, padx=10, pady=7, )
-
-        add_button_04 = tk.Button(self.frame_bttn_04, image=self.imagem_b_label, fg='#fff', bg='#5B5A5A', borderwidth=0)
+        add_button_04 = tk.Button(self.frame_bttn_04, image=self.botão_adiciona_miniatura, fg='#fff', bg='#5B5A5A', borderwidth=0)
         add_button_04.pack(side=tk.RIGHT, padx=10, pady=7, expand=True)
-            
+
+        self.Miniatura_01.configure(image=self.image_miniatura)
+        self.Miniatura_01.image=self.image_miniatura
+        self.Miniatura_02.configure(image=self.image_miniatura)
+        self.Miniatura_02.image=self.image_miniatura
+        self.Miniatura_03.configure(image=self.image_miniatura)
+        self.Miniatura_03.image=self.image_miniatura
+        self.Miniatura_04.configure(image=self.image_miniatura)
+        self.Miniatura_04.image=self.image_miniatura
+
         self.começa = 0
         self.termina = 6
 
@@ -324,13 +309,13 @@ class Interface:
         self.lbl_rosto6.image=self.imagem6
 
         Parte = Parte
-        imagem = tk.PhotoImage(file="duas-setas-para-a-esquerda.png")
+        imagem = tk.PhotoImage(file="Images_Interface/duas-setas-para-a-esquerda.png")
         self.button_pass_esquerdo = tk.Button(self.janela2, image=imagem, command=lambda: [self.passa_esquerda(Parte)])
         self.button_pass_esquerdo.config(image=imagem)
         self.button_pass_esquerdo.imagem = imagem
         self.button_pass_esquerdo.grid(column=1, row=2, sticky=tk.W, padx=100)
 
-        imagem = tk.PhotoImage(file="avanco-rapido.png")
+        imagem = tk.PhotoImage(file="Images_Interface/avanco-rapido.png")
         self.button_pass_direito = tk.Button(self.janela2, image=imagem, command=lambda: [self.passa_direita(Parte)])
         self.button_pass_direito.config(image=imagem)
         self.button_pass_direito.imagem = imagem
@@ -445,62 +430,71 @@ class Interface:
         for count_photo_baixo in range(1, 5):
             print(count_photo_baixo)
             if count_photo_baixo == 1 and self.baixo1 == False:
-
-                img = Image.open(self.Rosto_salva)
-                img_resized = img.resize((190, 249))
+                try:
+                    self.Rosto_salva = Image.open(self.Rosto_salva)
+                except:
+                    pass
+                img_resized = self.Rosto_salva.resize((110, 130))
                 # img_resized.save("IMAGENS-M/Lula.png")
                 # img_resized.show()
                 Imagem = ImageTk.PhotoImage(img_resized)
-                self.lbl_baixo1.configure(image=Imagem)
-                self.lbl_baixo1.image=Imagem
+                self.Miniatura_01.configure(image=Imagem)
+                self.Miniatura_01.image=Imagem
                 self.baixo1 = True
                 break
 
             elif count_photo_baixo == 2 and self.baixo2 == False:
-
-                img = Image.open(self.Rosto_salva)
-                img_resized = img.resize((190, 249))
+                try:
+                    self.Rosto_salva = Image.open(self.Rosto_salva)
+                except:
+                    pass
+                img_resized = self.Rosto_salva.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
-                self.lbl_baixo2.configure(image=Imagem)
-                self.lbl_baixo2.image=Imagem
+                self.Miniatura_02.configure(image=Imagem)
+                self.Miniatura_02.image=Imagem
                 self.baixo2 = True
                 break
 
             elif count_photo_baixo == 3 and self.baixo3 == False:
-
-                img = Image.open(self.Rosto_salva)
-                img_resized = img.resize((190, 249))
+                try:
+                    self.Rosto_salva = Image.open(self.Rosto_salva)
+                except:
+                    pass
+                img_resized = self.Rosto_salva.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
-                self.lbl_baixo3.configure(image=Imagem)
-                self.lbl_baixo3.image=Imagem
+                self.Miniatura_03.configure(image=Imagem)
+                self.Miniatura_03.image=Imagem
                 self.baixo3 = True
                 break
                 
             elif count_photo_baixo == 4 and self.baixo4 == False:
-                img = Image.open(self.Rosto_salva)
-                img_resized = img.resize((190, 249))
+                try:
+                    self.Rosto_salva = Image.open(self.Rosto_salva)
+                except:
+                    pass
+                img_resized = self.Rosto_salva.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
-                self.lbl_baixo4.configure(image=Imagem)
-                self.lbl_baixo4.image=Imagem
+                self.Miniatura_04.configure(image=Imagem)
+                self.Miniatura_04.image=Imagem
                 self.baixo4 = True
                 
     
     def excluir_miniaturas(self, escolha):
         if escolha == 1:
-            self.lbl_baixo1.configure(image=self.padr_baixo_arq)
-            self.lbl_baixo1.image=self.padr_baixo_arq
+            self.Miniatura_01.configure(image=self.image_miniatura)
+            self.Miniatura_01.image=self.image_miniatura
             self.baixo1 = False
         elif escolha == 2:
-            self.lbl_baixo2.configure(image=self.padr_baixo_arq)
-            self.lbl_baixo2.image=self.padr_baixo_arq
+            self.Miniatura_02.configure(image=self.image_miniatura)
+            self.Miniatura_02.image=self.image_miniatura
             self.baixo2 = False
         elif escolha == 3:
-            self.lbl_baixo3.configure(image=self.padr_baixo_arq)
-            self.lbl_baixo3.image=self.padr_baixo_arq
+            self.Miniatura_03.configure(image=self.image_miniatura)
+            self.Miniatura_03.image=self.image_miniatura
             self.baixo3 = False
         else:
-            self.lbl_baixo4.configure(image=self.padr_baixo_arq)
-            self.lbl_baixo4.image=self.padr_baixo_arq
+            self.Miniatura_04.configure(image=self.image_miniatura)
+            self.Miniatura_04.image=self.image_miniatura
             self.baixo4 = False
 
 
