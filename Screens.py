@@ -122,41 +122,73 @@ class Interface:
         self.btn2 = tk.Button(self.frame_down, text='Limpar', borderwidth=0, font=('Arial', 12, 'bold'), fg='#fff',bg='#5B5A5A')
         self.btn2.pack(side=tk.RIGHT, expand=True, pady=(0, 10),padx=50)
 
-        label_01 = tk.Label(self.frm_bottom, bg='white',height=5,width=10)
+        img_corte = Image.open(f"IMAGENS-M/Teste-1.png")
+        self.imagem_c = img_corte.resize((100, 150))
+        self.imagem_c_lbl = ImageTk.PhotoImage(self.imagem_c)
+
+        label_01 = tk.Label(self.frm_bottom, bg='#474444',image=self.imagem_c_lbl)
         label_01.pack(side=tk.TOP, padx=30,pady=10,expand=True,fill=tk.BOTH)
 
-        label_image_01 = tk.Label(self.frm_bottom, text="RECORTE", bg='#303030', fg='white', width=20,height=10)
-        label_image_01.pack(in_=label_01)
+        #label_image_01 = tk.Label(self.frm_bottom, text="RECORTE", bg='#303030', fg='white', width=20,height=10)
+        #label_image_01.pack(in_=label_01)
 
-        clear_button_01 = tk.Button(self.frm_bottom, text='Limpar',borderwidth=0,font=('Arial',10, 'bold'), fg='#fff',bg='#5B5A5A')
-        clear_button_01.pack(side=tk.TOP, padx=10,pady=7,)
+        self.frame_bttn_01 = tk.Frame(self.frm_bottom,bg='#303030')
+        self.frame_bttn_01.pack(side=tk.TOP, padx=10,pady=7,)
 
-        label_02 = tk.Label(self.frm_bottom, bg='white', height=10, width=20)
+        clear_button_01 = tk.Button(self.frame_bttn_01, text='Limpar',borderwidth=0,font=('Arial',10, 'bold'), fg='#fff',bg='#5B5A5A')
+        clear_button_01.pack(side=tk.LEFT, padx=10,pady=7,)
+
+        self.img_corte_01 = Image.open(f"Images/adicionar-botao.png")
+        self.imagem_c = self.img_corte_01.resize((28,28))
+        self.imagem_b_label = ImageTk.PhotoImage(self.imagem_c)
+
+        add_button_01 = tk.Button(self.frame_bttn_01,image=self.imagem_b_label, fg='#fff',bg='#5B5A5A',borderwidth=0)
+        add_button_01.pack(side=tk.RIGHT, padx=10, pady=7,expand=True)
+
+        label_02 = tk.Label(self.frm_bottom, bg='#474444', image=self.imagem_c_lbl)
         label_02.pack(side=tk.TOP, padx=30, pady=10, expand=True, fill=tk.BOTH)
 
-        label_image_02 = tk.Label(self.frm_bottom, text="RECORTE", bg='#303030', fg='white', width=20, height=10)
-        label_image_02.pack(in_=label_02)
+        #label_image_02 = tk.Label(self.frm_bottom, text="RECORTE", bg='#303030', fg='white', width=20, height=10)
+        #label_image_02.pack(in_=label_02)
 
-        clear_button_02 = tk.Button(self.frm_bottom, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A')
-        clear_button_02.pack(side=tk.TOP, padx=10, pady=7, )
+        self.frame_bttn_02 = tk.Frame(self.frm_bottom, bg='#303030')
+        self.frame_bttn_02.pack(side=tk.TOP, padx=10, pady=7, )
 
-        label_03 = tk.Label(self.frm_bottom, bg='white', height=10, width=20)
+        clear_button_02 = tk.Button(self.frame_bttn_02, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A')
+        clear_button_02.pack(side=tk.LEFT, padx=10, pady=7, )
+
+        add_button_02 = tk.Button(self.frame_bttn_02, image=self.imagem_b_label, fg='#fff', bg='#5B5A5A', borderwidth=0)
+        add_button_02.pack(side=tk.RIGHT, padx=10, pady=7, expand=True)
+
+        label_03 = tk.Label(self.frm_bottom, bg='#474444', image=self.imagem_c_lbl)
         label_03.pack(side=tk.TOP, padx=30, pady=10, expand=True, fill=tk.BOTH)
 
-        label_image_03 = tk.Label(self.frm_bottom, text="RECORTE", bg='#303030', fg='white', width=20, height=10)
-        label_image_03.pack(in_=label_03)
+        #label_image_03 = tk.Label(self.frm_bottom, text="RECORTE", bg='#303030', fg='white', width=20, height=10)
+        #label_image_03.pack(in_=label_03)
 
-        clear_button_03 = tk.Button(self.frm_bottom, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A')
-        clear_button_03.pack(side=tk.TOP, padx=10, pady=7, )
+        self.frame_bttn_03 = tk.Frame(self.frm_bottom, bg='#303030')
+        self.frame_bttn_03.pack(side=tk.TOP, padx=10, pady=7, )
 
-        label_04 = tk.Label(self.frm_bottom, bg='white', height=10, width=20)
+        clear_button_03 = tk.Button(self.frame_bttn_03, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A')
+        clear_button_03.pack(side=tk.LEFT, padx=10, pady=7, )
+
+        add_button_03 = tk.Button(self.frame_bttn_03, image=self.imagem_b_label, fg='#fff', bg='#5B5A5A', borderwidth=0)
+        add_button_03.pack(side=tk.RIGHT, padx=10, pady=7, expand=True)
+
+        label_04 = tk.Label(self.frm_bottom, bg='#474444', image=self.imagem_c_lbl)
         label_04.pack(side=tk.TOP, padx=30, pady=10, expand=True, fill=tk.BOTH)
 
-        label_image_04 = tk.Label(self.frm_bottom, text="RECORTE", bg='#303030', fg='white', width=20, height=10)
-        label_image_04.pack(in_=label_04)
+        #label_image_04 = tk.Label(self.frm_bottom, text="RECORTE", bg='#303030', fg='white', width=20, height=10)
+        #label_image_04.pack(in_=label_04)
 
-        clear_button_04 = tk.Button(self.frm_bottom, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A')
-        clear_button_04.pack(side=tk.TOP, padx=10, pady=7, )
+        self.frame_bttn_04 = tk.Frame(self.frm_bottom, bg='#303030')
+        self.frame_bttn_04.pack(side=tk.TOP, padx=10, pady=7, )
+
+        clear_button_04 = tk.Button(self.frame_bttn_04, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A')
+        clear_button_04.pack(side=tk.LEFT, padx=10, pady=7, )
+
+        add_button_04 = tk.Button(self.frame_bttn_04, image=self.imagem_b_label, fg='#fff', bg='#5B5A5A', borderwidth=0)
+        add_button_04.pack(side=tk.RIGHT, padx=10, pady=7, expand=True)
             
         self.começa = 0
         self.termina = 6
