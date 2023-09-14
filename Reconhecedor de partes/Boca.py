@@ -68,7 +68,7 @@ for imgi in imagens:
                         [(boca[0]+40)+boca[2], boca[1]+boca[3]],
                         [(boca[0]+40)+boca[2], boca[1]]]
         
-        print(pontos)
+        # print(pontos)
 
         # Cria uma máscara com os pontos
         mask = np.zeros_like(img)

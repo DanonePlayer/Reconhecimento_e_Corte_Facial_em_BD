@@ -33,7 +33,7 @@ for imgi in imagens:
         img_corte = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
         # tranforma o tamanho da imagem, (redimensiona)
         if img_corte.width != 659 and img_corte.height != 711:
-            print(f"{img_corte} + Precisa Redimensionar")
+            print(f"{imgi} + Precisa Redimensionar")
 
             # Redimensiona
             img_corte = img_corte.resize((659, 711))
