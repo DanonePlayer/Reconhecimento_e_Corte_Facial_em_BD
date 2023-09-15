@@ -5,7 +5,7 @@ from tkinter import SUNKEN, PhotoImage, ttk
 
 from PIL import Image, ImageTk
 
-from Reconhecedor_de_partes import Boca, Nariz, Olhos, Rosto
+from Reconhecedor_de_partes import Boca
 
 
 class Interface:
@@ -176,7 +176,6 @@ class Interface:
         self.Miniatura_03.image=self.image_miniatura
         self.Miniatura_04.configure(image=self.image_miniatura)
         self.Miniatura_04.image=self.image_miniatura
-
         self.começa = 0
         self.termina = 6
 
@@ -187,7 +186,10 @@ class Interface:
         "extrair.Gerador_imagens()"
 
     def recortes(self):
-        Boca.reconhecimento_e_corte_boca()
+        
+        self.ProgressBar()
+        Boca.reconhecimento_e_corte_boca(self.progress_bar)
+        
 
     def Rosto(self):
         Parte = "Rosto"
@@ -205,6 +207,10 @@ class Interface:
         Parte = "Olhos"
         self.ImgsClick(Parte)
 
+    def ProgressBar(self):
+        self.progress_bar = ttk.Progressbar(self.frm_center_main, mode="determinate", maximum=100, length=150)
+        self.progress_bar.pack(padx=20, pady=20)
+        self.progress_bar["value"] = 0
 
     def StartImgs(self, Parte):           
         rostos = os.listdir(f"IMAGENS-M")

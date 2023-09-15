@@ -4,25 +4,27 @@ import os
 import cv2
 import numpy as np
 from PIL import Image
-from ProgressBar import Atualiza_ProgressBar
+
+from Reconhecedor_de_partes import Nariz
 
 
-def reconhecimento_e_corte_boca():
+def reconhecimento_e_corte_boca(progressbar):
     genero = "M"
     imagens = os.listdir(f"IMAGENS-{genero}")
     barra_carregamento_max = len(imagens) * 4
     
     cont_barra_de_carregamento = 0
-
     for imgi in imagens:
-
-        cont_barra_de_carregamento +=1
-        valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (100 - 0)  # Mapeia para 0 a 100
-
         print(imgi)
+        cont_barra_de_carregamento +=1
+        valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
+        print(valor_mapeado)
+        progressbar["value"] = valor_mapeado
+        progressbar.update() 
+        
+        # ProgressBar.iniciar_processamento(valor_mapeado)
         classificador = cv2.CascadeClassifier(r"anexos/mouth.xml")
         img = cv2.imread(f"IMAGENS-{genero}/{imgi}")
-
         imgGray = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
         # cv2.imshow('Imagem Cinza', imgGray)
         objetos = classificador.detectMultiScale(imgGray, minSize=(90,90), scaleFactor=1.1, minNeighbors=190, maxSize=(950,220)) # ou maxSize
@@ -118,12 +120,10 @@ def reconhecimento_e_corte_boca():
         rgba.save(f"Boca-{genero}\{imgi}", "PNG")
 
 
-        # Screens.Interface.Atualiza_ProgressBar(1)
-
-
-
         # plt.imshow(img)
         # plt.imshow(img_cortada)
         # plt.imshow(part_cortada)
         # plt.axis('off')
         # plt.show()
+
+    Nariz.reconhecimento_e_corte_Nariz(progressbar, valor_mapeado)

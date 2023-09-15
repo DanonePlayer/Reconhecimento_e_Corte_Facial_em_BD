@@ -5,12 +5,24 @@ import cv2
 import numpy as np
 from PIL import Image
 
+from Reconhecedor_de_partes import Olhos
 
-def reconhecimento_e_corte_Nariz():
+
+def reconhecimento_e_corte_Nariz(progressbar, valor):
     genero = "M"
     imagens = os.listdir(f"IMAGENS-{genero}")
+    barra_carregamento_max = len(imagens) * 4
+    
+    cont_barra_de_carregamento = 0
     for imgi in imagens:
         print(imgi)
+        cont_barra_de_carregamento +=1
+        valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
+        valor_mapeado += valor
+        print(valor_mapeado)
+        progressbar["value"] = valor_mapeado
+        progressbar.update() 
+
         classificador = cv2.CascadeClassifier(r"anexos/nose.xml")
         img = cv2.imread(f"IMAGENS-{genero}/{imgi}")
 
@@ -114,3 +126,5 @@ def reconhecimento_e_corte_Nariz():
         # plt.imshow(part_cortada)
         # plt.axis('off')
         # plt.show()
+    
+    Olhos.reconhecimento_e_corte_Olhos(progressbar, valor_mapeado)

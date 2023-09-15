@@ -6,11 +6,21 @@ import numpy as np
 from PIL import Image
 
 
-def reconhecimento_e_corte_Rosto():
+def reconhecimento_e_corte_Rosto(progressbar, valor):
     genero = "M"
     imagens = os.listdir(f"IMAGENS-{genero}")
+    barra_carregamento_max = len(imagens) * 4
+    
+    cont_barra_de_carregamento = 0
     for imgi in imagens:
         print(imgi)
+        cont_barra_de_carregamento +=1
+        valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
+        valor_mapeado += valor
+        print(valor_mapeado)
+        progressbar["value"] = valor_mapeado
+        progressbar.update() 
+
         classificador = cv2.CascadeClassifier(r"anexos/right_eye2.xml")
         img = cv2.imread(f"IMAGENS-{genero}/{imgi}")
         imgGray = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
@@ -227,9 +237,5 @@ def reconhecimento_e_corte_Rosto():
         # plt.imshow(part_cortada)
         # plt.axis('off')
         # plt.show()
-
-
-
-        # Melhores hass
-
-        # olhos = right_eye2
+    
+    progressbar.destroy()
