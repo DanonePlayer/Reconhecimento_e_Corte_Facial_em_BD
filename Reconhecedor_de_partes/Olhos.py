@@ -15,11 +15,11 @@ def reconhecimento_e_corte_Olhos(progressbar, valor):
     
     cont_barra_de_carregamento = 0
     for imgi in imagens:
-        print(imgi)
+        # print(imgi)
         cont_barra_de_carregamento +=1
         valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
         valor_mapeado += valor
-        print(valor_mapeado)
+        # print(valor_mapeado)
         progressbar["value"] = valor_mapeado
         progressbar.update() 
 
@@ -40,12 +40,12 @@ def reconhecimento_e_corte_Olhos(progressbar, valor):
             olho_direito = objetos[1]
             cont = 1
         except:
-            print("vixx")
+            # print("vixx")
             cont = 0
             img_corte = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
             # tranforma o tamanho da imagem, (redimensiona)
             if img_corte.width != 659 and img_corte.height != 711:
-                print(f"{imgi} + Precisa Redimensionar")
+                # print(f"{imgi} + Precisa Redimensionar")
 
                 # Redimensiona
                 img_corte = img_corte.resize((659, 711))

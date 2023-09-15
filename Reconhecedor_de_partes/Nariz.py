@@ -15,11 +15,11 @@ def reconhecimento_e_corte_Nariz(progressbar, valor):
     
     cont_barra_de_carregamento = 0
     for imgi in imagens:
-        print(imgi)
+        # print(imgi)
         cont_barra_de_carregamento +=1
         valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
         valor_mapeado += valor
-        print(valor_mapeado)
+        # print(valor_mapeado)
         progressbar["value"] = valor_mapeado
         progressbar.update() 
 
@@ -41,12 +41,12 @@ def reconhecimento_e_corte_Nariz(progressbar, valor):
             Nariz = objetos[0]
             cont = 1
         except:
-            print("vixx")
+            # print("vixx")
             cont = 0
             img_corte = Image.open(f"IMAGENS-{genero}/{imgi}")
             # tranforma o tamanho da imagem, (redimensiona)
             if img_corte.width != 659 and img_corte.height != 711:
-                print(f"{img_corte} + Precisa Redimensionar")
+                # print(f"{img_corte} + Precisa Redimensionar")
 
                 # Redimensiona
                 img_resized = img_corte.resize((659, 711))

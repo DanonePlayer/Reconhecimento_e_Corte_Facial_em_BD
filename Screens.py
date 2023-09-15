@@ -213,11 +213,11 @@ class Interface:
         self.progress_bar["value"] = 0
 
     def StartImgs(self, Parte):           
-        rostos = os.listdir(f"IMAGENS-M")
+        self.rostos_in_pasta = os.listdir(f"IMAGENS-M")
         self.vetor_rostos = []
         for rosto in range(self.começa, self.termina):
-            self.vetor_rostos.append(rostos[rosto])
-        # print(self.vetor_rostos)
+            self.vetor_rostos.append(self.rostos_in_pasta[rosto])
+        # print(len(self.vetor_rostos))
 
         self.width = 350
         self.height = 400
@@ -333,17 +333,17 @@ class Interface:
 
  
     def passa_direita(self, Parte):
-        if len(self.vetor_rostos) > self.termina:
+        if len(self.rostos_in_pasta) > self.termina:
             self.começa += 6
             self.termina += 6
             self.StartImgs(Parte)
 
-            imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[0]}"))
-            imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[1]}"))
-            imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[2]}"))
-            imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[3]}"))
-            imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[4]}"))
-            imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[5]}"))
+            imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[0]}").resize((self.width, self.height)))
+            imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[1]}").resize((self.width, self.height)))
+            imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[2]}").resize((self.width, self.height)))
+            imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[3]}").resize((self.width, self.height)))
+            imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[4]}").resize((self.width, self.height)))
+            imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[5]}").resize((self.width, self.height)))
 
             self.lbl_rosto1.configure(image=imagem1)
             self.lbl_rosto1.image=imagem1
@@ -365,12 +365,12 @@ class Interface:
             self.termina -= 6 
             self.StartImgs(Parte)
             
-            imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[0]}"))
-            imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[1]}"))
-            imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[2]}"))
-            imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[3]}"))
-            imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[4]}"))
-            imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[5]}"))
+            imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[0]}").resize((self.width, self.height)))
+            imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[1]}").resize((self.width, self.height)))
+            imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[2]}").resize((self.width, self.height)))
+            imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[3]}").resize((self.width, self.height)))
+            imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[4]}").resize((self.width, self.height)))
+            imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[5]}").resize((self.width, self.height)))
 
             self.lbl_rosto1.configure(image=imagem1)
             self.lbl_rosto1.image=imagem1
