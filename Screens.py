@@ -112,7 +112,7 @@ class Interface:
         self.frame_down.pack(fill=tk.BOTH, expand=True,side=tk.TOP)
         self.btn = tk.Button(self.frame_down, text='Miniatura',borderwidth=0,font=('Arial',12, 'bold'), fg='#fff',bg='#5B5A5A', command=self.gerar_miniatura)
         self.btn.pack(side=tk.LEFT,expand=True,pady=(0, 10),padx=50)
-        self.btn2 = tk.Button(self.frame_down, text='Limpar', borderwidth=0, font=('Arial', 12, 'bold'), fg='#fff',bg='#5B5A5A')
+        self.btn2 = tk.Button(self.frame_down, text='Limpar', borderwidth=0, font=('Arial', 12, 'bold'), fg='#fff',bg='#5B5A5A', command=self.excluir_image)
         self.btn2.pack(side=tk.RIGHT, expand=True, pady=(0, 10),padx=50)
 
 
@@ -387,52 +387,55 @@ class Interface:
 
 
     def Click_Photo(self, event, Parte, arq):
-            if Parte == "Rosto":
-                self.image_label2.configure(image=event)
-                self.image_label2.image=event
-                self.janela2.destroy()
+        if Parte == "Rosto":
+            self.image_label2.configure(image=event)
+            self.image_label2.image=event
+            self.janela2.destroy()
 
-                self.Rosto_salva = f"{arq}"
-                #print(arq)
-                
-            else:
-                # Abrir imagem frontal
-                img_front = arq
-                
-                # Abrir imagem de fundo
-                img_back = self.Rosto_salva 
+            self.Rosto_salva = f"{arq}"
+            #print(arq)
+            
+        else:
+            # Abrir imagem frontal
+            img_front = arq
+            
+            # Abrir imagem de fundo
+            img_back = self.Rosto_salva 
 
-                frontImage = Image.open(img_front)
-                frontImage = frontImage.resize((self.width, self.height))
-                try:
-                    img_back = Image.open(img_back)
-                except:
-                    pass
-                background = img_back.resize((self.width, self.height))
+            frontImage = Image.open(img_front)
+            frontImage = frontImage.resize((self.width, self.height))
+            try:
+                img_back = Image.open(img_back)
+            except:
+                pass
+            background = img_back.resize((self.width, self.height))
 
-                # Converter imagem para RGBA
-                frontImage = frontImage.convert("RGBA")
-                
-                # Converter imagem para RGBA
-                background = background.convert("RGBA")
-                
-                # Calcula a largura para estar no centro
-                width = (background.width - frontImage.width) // 2
-                
-                # Calcula a altura para estar no centro
-                height = (background.height - frontImage.height) // 2
-                
-                # Cole o frontImage em (largura, altura)
-                background.paste(frontImage, (width, height), frontImage)
+            # Converter imagem para RGBA
+            frontImage = frontImage.convert("RGBA")
+            
+            # Converter imagem para RGBA
+            background = background.convert("RGBA")
+            
+            # Calcula a largura para estar no centro
+            width = (background.width - frontImage.width) // 2
+            
+            # Calcula a altura para estar no centro
+            height = (background.height - frontImage.height) // 2
+            
+            # Cole o frontImage em (largura, altura)
+            background.paste(frontImage, (width, height), frontImage)
 
-                imagem = ImageTk.PhotoImage(background)
+            imagem = ImageTk.PhotoImage(background)
 
-                self.Rosto_salva = background
+            self.Rosto_salva = background
 
-                self.image_label2.configure(image=imagem)
-                self.image_label2.image=imagem
-                self.janela2.destroy()
+            self.image_label2.configure(image=imagem)
+            self.image_label2.image=imagem
+            self.janela2.destroy()
 
+    def excluir_image(self):
+        self.image_label2.configure(image=self.img_image_label2_d)
+        self.image_label2.image=self.img_image_label2_d
 
     def gerar_miniatura(self):
         for count_photo_baixo in range(1, 5):
