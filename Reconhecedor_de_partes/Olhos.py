@@ -40,7 +40,7 @@ def reconhecimento_e_corte_Olhos(progressbar, valor):
             olho_direito = objetos[1]
             cont = 1
         except:
-            # print("vixx")
+            print(f"{imgi} + Precisa Redimensionar, Olhos")
             cont = 0
             img_corte = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
             # tranforma o tamanho da imagem, (redimensiona)
@@ -77,6 +77,7 @@ def reconhecimento_e_corte_Olhos(progressbar, valor):
                             [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]]
             # print(pontos)
             # print(pontos[0][0])
+            # print(pontos[0][1])
 
             if pontos[0][0] > pontos[0][1]:
                 olho_esquerdo = objetos[1]

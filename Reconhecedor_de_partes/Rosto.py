@@ -21,7 +21,7 @@ def reconhecimento_e_corte_Rosto(progressbar, valor):
         progressbar["value"] = valor_mapeado
         progressbar.update() 
 
-        classificador = cv2.CascadeClassifier(r"anexos/right_eye2.xml")
+        classificador = cv2.CascadeClassifier(r"anexos/eye.xml")
         img = cv2.imread(f"IMAGENS-{genero}/{imgi}")
         imgGray = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
         objetos = classificador.detectMultiScale(imgGray, minSize=(120,120), scaleFactor=1.1, minNeighbors=10, maxSize=(950,220))
@@ -30,7 +30,7 @@ def reconhecimento_e_corte_Rosto(progressbar, valor):
             olho_direito = objetos[1]
             cont = 1
         except:
-            # print("vixx, olho")
+            # print(f"{imgi} + Precisa Redimensionar, olho")
             cont = 0
             img_corte = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
             # tranforma o tamanho da imagem, (redimensiona)
@@ -40,21 +40,21 @@ def reconhecimento_e_corte_Rosto(progressbar, valor):
                 # Redimensiona
                 img_resized = img_corte.resize((659, 711))
                 #salva
-                img_resized.save(f"IMAGENS-{genero}/{imgi}")
+                # img_resized.save(f"IMAGENS-{genero}/{imgi}")
             img_corte = cv2.cvtColor(np.array(img_corte), cv2.COLOR_RGB2BGR)
             # Define os pontos dos vértices
-            pts = np.array([[159, 246], [159, 387], [524, 384], [524, 246]], np.int32)
+            pts_olhos = np.array([[159, 246], [159, 387], [524, 384], [524, 246]], np.int32)
 
             # Cria uma máscara com os pontos
             mask = np.zeros_like(img_corte)
-            cv2.fillPoly(mask, [pts], (255, 255, 255))
+            cv2.fillPoly(mask, [pts_olhos], (255, 255, 255))
 
             # Aplica a máscara na imagem original
             img_cortada = cv2.bitwise_and(img_corte, mask)
             part_cortada = cv2.bitwise_and(img_corte, cv2.bitwise_not(mask))
 
         if cont == 1:
-            pts = np.array( [[olho_direito[0], olho_direito[1]],  
+            pts_olhos = np.array( [[olho_direito[0], olho_direito[1]],  
                             [olho_direito[0], olho_direito[1]+olho_direito[3]], 
                             [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
                             [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]], np.int32)
@@ -68,7 +68,7 @@ def reconhecimento_e_corte_Rosto(progressbar, valor):
             if pontos[0][0] > pontos[0][1]:
                 olho_esquerdo = objetos[1]
                 olho_direito = objetos[0]
-                pts = np.array( [[olho_direito[0], olho_direito[1]],  
+                pts_olhos = np.array( [[olho_direito[0], olho_direito[1]],  
                     [olho_direito[0], olho_direito[1]+olho_direito[3]], 
                     [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
                     [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]], np.int32)
@@ -81,11 +81,10 @@ def reconhecimento_e_corte_Rosto(progressbar, valor):
                 # print(pontos)
             # Cria uma máscara com os pontos
             mask = np.zeros_like(img)
-            cv2.fillPoly(mask, [pts], (255, 255, 255))
+            cv2.fillPoly(mask, [pts_olhos], (255, 255, 255))
 
 
             # Aplica a máscara na imagem original
-            img_cortada = cv2.bitwise_and(img, mask)
             part_cortada = cv2.bitwise_and(img, cv2.bitwise_not(mask))
 
 
@@ -98,7 +97,7 @@ def reconhecimento_e_corte_Rosto(progressbar, valor):
             Nariz = objetos[0]
             cont = 1
         except:
-            # print("vixx, nariz")
+            # print(f"{imgi}, Precisa Redimensionar, nariz")
             cont = 0
             img_corte = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
             # tranforma o tamanho da imagem, (redimensiona)
@@ -139,7 +138,6 @@ def reconhecimento_e_corte_Rosto(progressbar, valor):
 
 
             # Aplica a máscara na imagem original
-            img_cortada = cv2.bitwise_and(img, mask)
             part_cortada = cv2.bitwise_and(img, cv2.bitwise_not(mask))
 
 
@@ -153,7 +151,7 @@ def reconhecimento_e_corte_Rosto(progressbar, valor):
             boca = objetos[0]
             cont = 1
         except:
-            # print("vixx, boca")
+            # print(f"{imgi} + Precisa Redimensionar, boca")
             cont = 0
             img_corte = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
             # tranforma o tamanho da imagem, (redimensiona)
@@ -163,7 +161,7 @@ def reconhecimento_e_corte_Rosto(progressbar, valor):
                 # Redimensiona
                 img_resized = img_corte.resize((659, 711))
                 #salva
-                img_resized.save(f"IMAGENS-{genero}/{imgi}")
+                # img_resized.save(f"IMAGENS-{genero}/{imgi}")
             img_corte = cv2.cvtColor(np.array(img_corte), cv2.COLOR_RGB2BGR)
             # Define os pontos dos vértices
             pts = np.array([[185, 486], [185, 614], [479, 614], [479, 486]], np.int32)
@@ -172,7 +170,6 @@ def reconhecimento_e_corte_Rosto(progressbar, valor):
             cv2.fillPoly(mask, [pts], (255, 255, 255))
 
             # Aplica a máscara na imagem original
-            img_cortada = cv2.bitwise_and(img_corte, mask)
             part_cortada = cv2.bitwise_and(img_corte, cv2.bitwise_not(mask))
 
 

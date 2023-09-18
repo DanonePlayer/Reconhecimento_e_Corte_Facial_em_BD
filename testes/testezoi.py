@@ -5,10 +5,8 @@ import cv2
 import numpy as np
 from PIL import Image
 
-from Reconhecedor_de_partes import Nariz
 
-
-def reconhecimento_e_corte_boca(progressbar):
+def reconhecimento_e_corte_Olhos():
     genero = "M"
     imagens = os.listdir(f"IMAGENS-{genero}")
     barra_carregamento_max = len(imagens) * 4
@@ -18,83 +16,90 @@ def reconhecimento_e_corte_boca(progressbar):
         # print(imgi)
         cont_barra_de_carregamento +=1
         valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
-        # print(valor_mapeado)
-        progressbar["value"] = valor_mapeado
-        progressbar.update() 
-        
-        # ProgressBar.iniciar_processamento(valor_mapeado)
-        classificador = cv2.CascadeClassifier(r"anexos/mouth.xml")
+
+        classificador = cv2.CascadeClassifier(r"anexos/right_eye2.xml")
         img = cv2.imread(f"IMAGENS-{genero}/{imgi}")
+
+        # print(imgi)
         imgGray = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
         # cv2.imshow('Imagem Cinza', imgGray)
-        objetos = classificador.detectMultiScale(imgGray, minSize=(90,90), scaleFactor=1.1, minNeighbors=190, maxSize=(950,220)) # ou maxSize
-
+        objetos = classificador.detectMultiScale(imgGray, minSize=(120,120), scaleFactor=1.1, minNeighbors=10, maxSize=(950,220))
         # print(objetos)
 
         for x,y,l,a in objetos:
             pass
-            # cv2.rectangle(img,(x-40,y),((x+40)+l,y+a),(255, 0, 0), 2)
-            
 
         try:
-            boca = objetos[0]
+            olho_esquerdo = objetos[0]
+            olho_direito = objetos[1]
             cont = 1
         except:
-            print(f"{imgi} + Precisa Redimensionar, Boca")
+            print("vixx")
             cont = 0
-            img_corte = Image.open(f"IMAGENS-{genero}/{imgi}")
+            img_corte = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
             # tranforma o tamanho da imagem, (redimensiona)
             if img_corte.width != 659 and img_corte.height != 711:
-                # print(f"{img_corte} + Precisa Redimensionar")
+                # print(f"{imgi} + Precisa Redimensionar")
 
                 # Redimensiona
-                img_resized = img_corte.resize((659, 711))
+                img_corte = img_corte.resize((659, 711))
                 #salva
-                img_resized.save(f"IMAGENS-{genero}/{imgi}")
+                img_corte.save(f"IMAGENS-{genero}/{imgi}")
 
-            img = cv2.imread(f"IMAGENS-{genero}/{imgi}")
-
+            img_corte = cv2.cvtColor(np.array(img_corte), cv2.COLOR_RGB2BGR)
             # Define os pontos dos vértices
-            pts = np.array([[185, 456], [185, 600], [479, 600], [479, 456]], np.int32)
+            pts = np.array([[159, 246], [159, 387], [524, 384], [524, 246]], np.int32)
+
+            # Cria uma máscara com os pontos
+            mask = np.zeros_like(img_corte)
+            cv2.fillPoly(mask, [pts], (255, 255, 255))
+
+            # Aplica a máscara na imagem original
+            img_cortada = cv2.bitwise_and(img_corte, mask)
+            part_cortada = cv2.bitwise_and(img_corte, cv2.bitwise_not(mask))
+
+
+        if cont == 1:
+            pts = np.array( [[olho_direito[0], olho_direito[1]],  
+                            [olho_direito[0], olho_direito[1]+olho_direito[3]], 
+                            [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
+                            [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]], np.int32)
+
+            pontos = [[olho_direito[0], olho_direito[1]],  
+                            [olho_direito[0], olho_direito[1]+olho_direito[3]], 
+                            [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
+                            [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]]
+            # print(pontos)
+            # print(pontos[0][0])
+
+            if pontos[0][0] > pontos[0][1]:
+                olho_esquerdo = objetos[1]
+                olho_direito = objetos[0]
+                pts = np.array( [[olho_direito[0], olho_direito[1]],  
+                    [olho_direito[0], olho_direito[1]+olho_direito[3]], 
+                    [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
+                    [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]], np.int32)
+
+                pontos = [[olho_direito[0], olho_direito[1]],  
+                    [olho_direito[0], olho_direito[1]+olho_direito[3]], 
+                    [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]+olho_esquerdo[3]], 
+                    [olho_esquerdo[0]+olho_esquerdo[2], olho_esquerdo[1]]]
+                
+                # print(pontos)
             # Cria uma máscara com os pontos
             mask = np.zeros_like(img)
             cv2.fillPoly(mask, [pts], (255, 255, 255))
+
 
             # Aplica a máscara na imagem original
             img_cortada = cv2.bitwise_and(img, mask)
             part_cortada = cv2.bitwise_and(img, cv2.bitwise_not(mask))
 
-
-        if cont == 1:
-
-            # img = cv2.imread("hascas/rosto.png")
-            pts = np.array( [[boca[0]-40, boca[1]],  
-                            [boca[0]-40, boca[1]+boca[3]], 
-                            [(boca[0]+40)+boca[2], boca[1]+boca[3]],
-                            [(boca[0]+40)+boca[2], boca[1]]], np.int32)
-            
-            pontos = [[boca[0]-40, boca[1]],  
-                            [boca[0]-40, boca[1]+boca[3]], 
-                            [(boca[0]+40)+boca[2], boca[1]+boca[3]],
-                            [(boca[0]+40)+boca[2], boca[1]]]
-            
-            # print(pontos)
-
-            # Cria uma máscara com os pontos
-            mask = np.zeros_like(img)
-            cv2.fillPoly(mask, [pts], (255, 255, 255))
-
-
-            # # Aplica a máscara na imagem original
-            img_cortada = cv2.bitwise_and(img, mask)
-            part_cortada = cv2.bitwise_and(img, cv2.bitwise_not(mask))
-
-
-
-        # Converta a imagem para o formato RGB para exibição com matplotlib
+            # Converta a imagem para o formato RGB para exibição com matplotlib
         img_cortada = cv2.cvtColor(img_cortada, cv2.COLOR_BGR2RGB)
         part_cortada = cv2.cvtColor(part_cortada, cv2.COLOR_BGR2RGB)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
 
         #aqui iremos transforma o redor da imagem em transparente
         # Crie uma imagem Pillow (PIL) a partir da imagem RGB
@@ -103,7 +108,7 @@ def reconhecimento_e_corte_boca(progressbar):
         rgba = img.convert("RGBA")
         # Isso obtém os dados de pixel da imagem, que incluirão informações sobre a cor e transparência de cada pixel.
         datas = rgba.getdata()
-        
+
         newData = []
         for item in datas:
             # encontrando a cor preta pelo seu valor RGB
@@ -117,7 +122,7 @@ def reconhecimento_e_corte_boca(progressbar):
         # Aqui, os novos dados de pixel são aplicados à imagem RGBA.
         rgba.putdata(newData)
         #A imagem editada é salva
-        rgba.save(f"Boca-{genero}\{imgi}", "PNG")
+        rgba.save(f"Olhos-{genero}\{imgi}", "PNG")
 
 
         # plt.imshow(img)
@@ -126,4 +131,4 @@ def reconhecimento_e_corte_boca(progressbar):
         # plt.axis('off')
         # plt.show()
 
-    Nariz.reconhecimento_e_corte_Nariz(progressbar, valor_mapeado)
+reconhecimento_e_corte_Olhos()

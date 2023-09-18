@@ -41,7 +41,7 @@ def reconhecimento_e_corte_Nariz(progressbar, valor):
             Nariz = objetos[0]
             cont = 1
         except:
-            # print("vixx")
+            print(f"{imgi} + Precisa Redimensionar, Nariz")
             cont = 0
             img_corte = Image.open(f"IMAGENS-{genero}/{imgi}")
             # tranforma o tamanho da imagem, (redimensiona)
