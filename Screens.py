@@ -5,6 +5,7 @@ from tkinter import SUNKEN, PhotoImage, ttk
 
 from PIL import Image, ImageTk
 
+import extrair
 from Reconhecedor_de_partes import Boca
 
 
@@ -25,10 +26,10 @@ class Interface:
         self.lbl_01 = tk.Label(self.frm_left,text="MENU",font=('Lato',16,'bold'), fg='#FFF', bg='#474444')
         self.lbl_01.grid(row=0, column=0, padx=30, pady=(30, 5))
 
-        self.btn = tk.Button(self.frm_left,width=15,height=1, bg='#D9D9D9',borderwidth=0, text='Extrair Imagens', font=('Arial',10,'bold'), fg='#474444', command='')
+        self.btn = tk.Button(self.frm_left,width=15,height=1, bg='#D9D9D9',borderwidth=0, text='Extrair Imagens', font=('Arial',10,'bold'), fg='#474444', command=self.Gerador)
         self.btn.grid(row=1, column=0, padx=30, pady=(30, 5))
 
-        self.btn_01 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9',borderwidth=0, text='Aplicar Cortes', font=('Arial',10,'bold'), fg='#474444', command=self.recortes)
+        self.btn_01 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9',borderwidth=0, text='Aplicar Cortes', font=('Arial',10,'bold'), fg='#474444', command=self.Recortes)
         self.btn_01.grid(row=2, column=0, padx=30, pady=5)
 
         ##Funções02
@@ -263,10 +264,9 @@ class Interface:
         self.main.destroy()
 
     def Gerador(self):
-        "extrair.Gerador_imagens()"
+        extrair.Gerador_imagens()
 
-    def recortes(self):
-        
+    def Recortes(self):
         self.ProgressBar()
         Boca.reconhecimento_e_corte_boca(self.progress_bar)
         
@@ -438,7 +438,9 @@ class Interface:
 
  
     def passa_direita(self, Parte):
-        if len(self.rostos_in_pasta) > self.termina:
+        minimo_divisao = (min((len(self.rostos_in_pasta)) // 6, (len(self.rostos_in_pasta))))
+        total_fotos_passa = minimo_divisao * 6
+        if total_fotos_passa > self.termina:
             self.começa += 6
             self.termina += 6
             self.StartImgs(Parte)
@@ -498,16 +500,18 @@ class Interface:
             self.Habilitar()
             self.janela2.destroy()
 
+            self.Criacao_Face_Salva = f"{arq}"
+            #print(arq)
+
 
             self.Rosto_salva = f"{arq}"
-            #print(arq)
             
         else:
             # Abrir imagem frontal
             img_front = arq
             
             # Abrir imagem de fundo
-            img_back = self.Rosto_salva 
+            img_back = self.Criacao_Face_Salva 
 
             frontImage = Image.open(img_front)
             frontImage = frontImage.resize((self.width, self.height))
@@ -534,7 +538,7 @@ class Interface:
 
             imagem = ImageTk.PhotoImage(background)
 
-            self.Rosto_salva = background
+            self.Criacao_Face_Salva = background
 
             self.image_label2.configure(image=imagem)
             self.image_label2.image=imagem
@@ -550,10 +554,10 @@ class Interface:
             print(count_photo_baixo)
             if count_photo_baixo == 1 and self.baixo1 == False:
                 try:
-                    self.Rosto_salva = Image.open(self.Rosto_salva)
+                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Rosto_salva.resize((110, 130))
+                img_resized = self.Criacao_Face_Salva.resize((110, 130))
                 # img_resized.save("IMAGENS-M/Lula.png")
                 # img_resized.show()
                 Imagem = ImageTk.PhotoImage(img_resized)
@@ -564,10 +568,10 @@ class Interface:
 
             elif count_photo_baixo == 2 and self.baixo2 == False:
                 try:
-                    self.Rosto_salva = Image.open(self.Rosto_salva)
+                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Rosto_salva.resize((110, 130))
+                img_resized = self.Criacao_Face_Salva.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_02.configure(image=Imagem)
                 self.Miniatura_02.image=Imagem
@@ -576,10 +580,10 @@ class Interface:
 
             elif count_photo_baixo == 3 and self.baixo3 == False:
                 try:
-                    self.Rosto_salva = Image.open(self.Rosto_salva)
+                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Rosto_salva.resize((110, 130))
+                img_resized = self.Criacao_Face_Salva.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_03.configure(image=Imagem)
                 self.Miniatura_03.image=Imagem
@@ -588,10 +592,10 @@ class Interface:
                 
             elif count_photo_baixo == 4 and self.baixo4 == False:
                 try:
-                    self.Rosto_salva = Image.open(self.Rosto_salva)
+                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Rosto_salva.resize((110, 130))
+                img_resized = self.Criacao_Face_Salva.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_04.configure(image=Imagem)
                 self.Miniatura_04.image=Imagem
@@ -599,10 +603,10 @@ class Interface:
                 break
             elif count_photo_baixo == 5 and self.baixo5 == False:
                 try:
-                    self.Rosto_salva = Image.open(self.Rosto_salva)
+                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Rosto_salva.resize((110, 130))
+                img_resized = self.Criacao_Face_Salva.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_05.configure(image=Imagem)
                 self.Miniatura_05.image=Imagem
@@ -610,10 +614,10 @@ class Interface:
                 break
             elif count_photo_baixo == 6 and self.baixo6 == False:
                 try:
-                    self.Rosto_salva = Image.open(self.Rosto_salva)
+                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Rosto_salva.resize((110, 130))
+                img_resized = self.Criacao_Face_Salva.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_06.configure(image=Imagem)
                 self.Miniatura_06.image=Imagem
@@ -621,10 +625,10 @@ class Interface:
                 break
             elif count_photo_baixo == 7 and self.baixo7 == False:
                 try:
-                    self.Rosto_salva = Image.open(self.Rosto_salva)
+                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Rosto_salva.resize((110, 130))
+                img_resized = self.Criacao_Face_Salva.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_07.configure(image=Imagem)
                 self.Miniatura_07.image=Imagem
@@ -632,10 +636,10 @@ class Interface:
                 break
             elif count_photo_baixo == 8 and self.baixo8 == False:
                 try:
-                    self.Rosto_salva = Image.open(self.Rosto_salva)
+                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Rosto_salva.resize((110, 130))
+                img_resized = self.Criacao_Face_Salva.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_08.configure(image=Imagem)
                 self.Miniatura_08.image=Imagem

@@ -45,9 +45,10 @@ def Gerador_imagens():
                     a = Pdfs[contador_arqs]
                     b = Docx[contador_arqs]
                 except:
+                    pass
                     #caso não for apenas printa para não parar o codigo
-                    print("Erro, há uma pasta a mais em pdf")
-                    print(contador_arqs)
+                    # print("Erro, há uma pasta a mais em pdf")
+                    # print(contador_arqs)
 
                 
 
@@ -60,8 +61,8 @@ def Gerador_imagens():
                 
                 if doc != pdf:
                     # print(contador_arqs)
-                    print(doc)
-                    print(pdf)
+                    # print(doc)
+                    # print(pdf)
                     
 
 
@@ -127,7 +128,7 @@ def Gerador_imagens():
                         if (shape.has_image) :
                             cont +=1
                             #pega a imagem 2
-                            if cont == 1:
+                            if cont == 2:
 
                                 # esse trecho de código estar trabalhando para limpar e normalizar o nome de um arquivo,
                                 # removendo acentos, caracteres especiais e caracteres não ASCII,
@@ -158,7 +159,7 @@ def Gerador_imagens():
                         if (shape.has_image) :
                             cont +=1
 
-                            if cont == 1:
+                            if cont == 2:
 
                                 retira = ".docx.pdf"
                                 Docx_name = Docx_name.translate(str.maketrans("", "", retira))
@@ -173,6 +174,3 @@ def Gerador_imagens():
 
                                 shape.image_data.save(f"IMAGENS-F/{imageFileName}")
             contador +=1
-
-
-Gerador_imagens()

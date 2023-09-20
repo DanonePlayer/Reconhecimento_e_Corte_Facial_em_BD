@@ -11,7 +11,7 @@ imagens = os.listdir(f"IMAGENS-{genero}")
 for imgi in imagens:
     img_verifica_dimensao = Image.open(f"IMAGENS-{genero}/{imgi}")
     # tranforma o tamanho da imagem, (redimensiona)
-    tamanho_atualizado = img_verifica_dimensao.width
+    tamanho_atualizado = img_verifica_dimensao.height
     if tamanho_atualizado > tamanho:
         tamanho = tamanho_atualizado
         dimensão_width = img_verifica_dimensao.width
