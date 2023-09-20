@@ -25,33 +25,33 @@ class Interface:
         self.lbl_01 = tk.Label(self.frm_left,text="MENU",font=('Lato',16,'bold'), fg='#FFF', bg='#474444')
         self.lbl_01.grid(row=0, column=0, padx=30, pady=(30, 5))
 
-        btn = tk.Button(self.frm_left,width=15,height=1, bg='#D9D9D9',borderwidth=0, text='Extrair Imagens', font=('Arial',10,'bold'), fg='#474444', command='')
-        btn.grid(row=1, column=0, padx=30, pady=(30, 5))
+        self.btn = tk.Button(self.frm_left,width=15,height=1, bg='#D9D9D9',borderwidth=0, text='Extrair Imagens', font=('Arial',10,'bold'), fg='#474444', command='')
+        self.btn.grid(row=1, column=0, padx=30, pady=(30, 5))
 
-        btn_01 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9',borderwidth=0, text='Aplicar Cortes', font=('Arial',10,'bold'), fg='#474444', command=self.recortes)
-        btn_01.grid(row=2, column=0, padx=30, pady=5)
+        self.btn_01 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9',borderwidth=0, text='Aplicar Cortes', font=('Arial',10,'bold'), fg='#474444', command=self.recortes)
+        self.btn_01.grid(row=2, column=0, padx=30, pady=5)
 
         ##Funções02
 
-        btn_02 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9',borderwidth=0, text='Especifico', font=('Arial',10,'bold'), fg='#474444',command='')
-        btn_02.grid(row=3, column=0, padx=30, pady=(30, 5))
+        self.btn_02 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9',borderwidth=0, text='Especifico', font=('Arial',10,'bold'), fg='#474444',command='')
+        self.btn_02.grid(row=3, column=0, padx=30, pady=(30, 5))
 
-        btn_03 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9',borderwidth=0, text='Todo Branco', font=('Arial',10,'bold'), fg='#474444',command='')
-        btn_03.grid(row=4, column=0, padx=30, pady=5)
+        self.btn_03 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9',borderwidth=0, text='Todo Branco', font=('Arial',10,'bold'), fg='#474444',command='')
+        self.btn_03.grid(row=4, column=0, padx=30, pady=5)
 
         ##Funções03
 
-        btn_04 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9', borderwidth=0, text='Rosto', font=('Arial',10,'bold'), fg='#474444', command=self.Rosto)
-        btn_04.grid(row=5, column=0, padx=30, pady=(30, 5))
+        self.btn_04 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9', borderwidth=0, text='Rosto', font=('Arial',10,'bold'), fg='#474444', command=self.Rosto)
+        self.btn_04.grid(row=5, column=0, padx=30, pady=(30, 5))
 
-        btn_05 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9', borderwidth=0, text='Olhos', font=('Arial',10,'bold'), fg='#474444', command=self.Olhos)
-        btn_05.grid(row=6, column=0, padx=30, pady=5)
+        self.btn_05 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9', borderwidth=0, text='Olhos', font=('Arial',10,'bold'), fg='#474444', command=self.Olhos)
+        self.btn_05.grid(row=6, column=0, padx=30, pady=5)
 
-        btn_06 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9', borderwidth=0, text='Nariz', font=('Arial',10,'bold'), fg='#474444', command=self.Nariz)
-        btn_06.grid(row=7, column=0, padx=30, pady=5)
+        self.btn_06 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9', borderwidth=0, text='Nariz', font=('Arial',10,'bold'), fg='#474444', command=self.Nariz)
+        self.btn_06.grid(row=7, column=0, padx=30, pady=5)
 
-        btn_07 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9', borderwidth=0, text='Boca', font=('Arial',10, 'bold'), fg='#474444', command=self.Boca)
-        btn_07.grid(row=8, column=0, padx=30, pady=5)
+        self.btn_07 = tk.Button(self.frm_left, width=15, height=1, bg='#D9D9D9', borderwidth=0, text='Boca', font=('Arial',10, 'bold'), fg='#474444', command=self.Boca)
+        self.btn_07.grid(row=8, column=0, padx=30, pady=5)
 
         #Funções_04
 
@@ -141,7 +141,7 @@ class Interface:
         canvas.pack(side=tk.LEFT ,fill=tk.BOTH, expand=True)
 
         scrollbar = ttk.Scrollbar(self.frm_bottom, orient=tk.VERTICAL, command=canvas.yview)
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y,padx=(20,0))
         canvas.configure(yscrollcommand=scrollbar.set)
 
         self.content_frame = tk.Frame(canvas, bg='#303030')
@@ -151,6 +151,8 @@ class Interface:
         self.Miniatura_01.pack(side=tk.TOP, padx=30,pady=10, expand=True)
         self.frame_bttn_01 = tk.Frame(self.content_frame,bg='#303030')
         self.frame_bttn_01.pack(side=tk.TOP, padx=10,pady=7,)
+        add_button_extra_01 = tk.Button(self.frame_bttn_01, image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A', borderwidth=0,command='')
+        add_button_extra_01.pack(side=tk.LEFT, padx=10, pady=7, expand=True)
         add_button_01 = tk.Button(self.frame_bttn_01,image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A',borderwidth=0)
         add_button_01.pack(side=tk.RIGHT, padx=10, pady=7,expand=True)
         clear_button_01 = tk.Button(self.frame_bttn_01, text='Limpar',borderwidth=0,font=('Arial',10, 'bold'), fg='#fff',bg='#5B5A5A', command=lambda: self.excluir_miniaturas(1))
@@ -160,6 +162,8 @@ class Interface:
         self.Miniatura_02.pack(side=tk.TOP, padx=30, pady=10, expand=True)
         self.frame_bttn_02 = tk.Frame(self.content_frame, bg='#303030')
         self.frame_bttn_02.pack(side=tk.TOP, padx=10, pady=7, )
+        add_button_extra_02 = tk.Button(self.frame_bttn_02, image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A', borderwidth=0,command='')
+        add_button_extra_02.pack(side=tk.LEFT, padx=10, pady=7, expand=True)
         clear_button_02 = tk.Button(self.frame_bttn_02, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A', command=lambda: self.excluir_miniaturas(2))
         clear_button_02.pack(side=tk.LEFT, padx=10, pady=7, )
         add_button_02 = tk.Button(self.frame_bttn_02, image=self.botão_adiciona_miniatura, fg='#fff', bg='#5B5A5A', borderwidth=0)
@@ -169,6 +173,8 @@ class Interface:
         self.Miniatura_03.pack(side=tk.TOP, padx=30, pady=10, expand=True)
         self.frame_bttn_03 = tk.Frame(self.content_frame, bg='#303030')
         self.frame_bttn_03.pack(side=tk.TOP, padx=10, pady=7, )
+        add_button_extra_03 = tk.Button(self.frame_bttn_03, image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A', borderwidth=0, command='')
+        add_button_extra_03.pack(side=tk.LEFT, padx=10, pady=7, expand=True)
         clear_button_03 = tk.Button(self.frame_bttn_03, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A', command=lambda: self.excluir_miniaturas(3))
         clear_button_03.pack(side=tk.LEFT, padx=10, pady=7, )
         add_button_03 = tk.Button(self.frame_bttn_03, image=self.botão_adiciona_miniatura, fg='#fff', bg='#5B5A5A', borderwidth=0)
@@ -178,6 +184,8 @@ class Interface:
         self.Miniatura_04.pack(side=tk.TOP, padx=30, pady=10, expand=True)
         self.frame_bttn_04 = tk.Frame(self.content_frame, bg='#303030')
         self.frame_bttn_04.pack(side=tk.TOP, padx=10, pady=7, )
+        add_button_extra_04 = tk.Button(self.frame_bttn_04, image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A', borderwidth=0, command='')
+        add_button_extra_04.pack(side=tk.LEFT, padx=10, pady=7, expand=True)
         clear_button_04 = tk.Button(self.frame_bttn_04, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A', command=lambda: self.excluir_miniaturas(4))
         clear_button_04.pack(side=tk.LEFT, padx=10, pady=7, )
         add_button_04 = tk.Button(self.frame_bttn_04, image=self.botão_adiciona_miniatura, fg='#fff', bg='#5B5A5A', borderwidth=0)
@@ -187,6 +195,8 @@ class Interface:
         self.Miniatura_05.pack(side=tk.TOP, padx=30, pady=10, expand=True)
         self.frame_bttn_05 = tk.Frame(self.content_frame, bg='#303030')
         self.frame_bttn_05.pack(side=tk.TOP, padx=10, pady=7, )
+        add_button_extra_05 = tk.Button(self.frame_bttn_05, image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A', borderwidth=0, command='')
+        add_button_extra_05.pack(side=tk.LEFT, padx=10, pady=7, expand=True)
         clear_button_05 = tk.Button(self.frame_bttn_05, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A', command=lambda: self.excluir_miniaturas(5))
         clear_button_05.pack(side=tk.LEFT, padx=10, pady=7, )
         add_button_05 = tk.Button(self.frame_bttn_05, image=self.botão_adiciona_miniatura, fg='#fff', bg='#5B5A5A', borderwidth=0)
@@ -196,6 +206,8 @@ class Interface:
         self.Miniatura_06.pack(side=tk.TOP, padx=30, pady=10, expand=True)
         self.frame_bttn_06 = tk.Frame(self.content_frame, bg='#303030')
         self.frame_bttn_06.pack(side=tk.TOP, padx=10, pady=7, )
+        add_button_extra_06 = tk.Button(self.frame_bttn_06, image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A', borderwidth=0, command='')
+        add_button_extra_06.pack(side=tk.LEFT, padx=10, pady=7, expand=True)
         clear_button_06 = tk.Button(self.frame_bttn_06, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A', command=lambda: self.excluir_miniaturas(6))
         clear_button_06.pack(side=tk.LEFT, padx=10, pady=7, )
         add_button_06 = tk.Button(self.frame_bttn_06, image=self.botão_adiciona_miniatura, fg='#fff', bg='#5B5A5A', borderwidth=0)
@@ -205,6 +217,8 @@ class Interface:
         self.Miniatura_07.pack(side=tk.TOP, padx=30, pady=10, expand=True)
         self.frame_bttn_07 = tk.Frame(self.content_frame, bg='#303030')
         self.frame_bttn_07.pack(side=tk.TOP, padx=10, pady=7, )
+        add_button_extra_07 = tk.Button(self.frame_bttn_07, image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A', borderwidth=0, command='')
+        add_button_extra_07.pack(side=tk.LEFT, padx=10, pady=7, expand=True)
         clear_button_07 = tk.Button(self.frame_bttn_07, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A', command=lambda: self.excluir_miniaturas(7))
         clear_button_07.pack(side=tk.LEFT, padx=10, pady=7, )
         add_button_07 = tk.Button(self.frame_bttn_07, image=self.botão_adiciona_miniatura, fg='#fff', bg='#5B5A5A', borderwidth=0)
@@ -214,6 +228,8 @@ class Interface:
         self.Miniatura_08.pack(side=tk.TOP, padx=30, pady=10, expand=True)
         self.frame_bttn_08 = tk.Frame(self.content_frame, bg='#303030')
         self.frame_bttn_08.pack(side=tk.TOP, padx=10, pady=7, )
+        add_button_extra_08 = tk.Button(self.frame_bttn_08, image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A', borderwidth=0, command='')
+        add_button_extra_08.pack(side=tk.LEFT, padx=10, pady=7, expand=True)
         clear_button_08 = tk.Button(self.frame_bttn_08, text='Limpar', borderwidth=0, font=('Arial', 10, 'bold'),fg='#fff', bg='#5B5A5A', command=lambda: self.excluir_miniaturas(8))
         clear_button_08.pack(side=tk.LEFT, padx=10, pady=7, )
         add_button_08 = tk.Button(self.frame_bttn_08, image=self.botão_adiciona_miniatura, fg='#fff', bg='#5B5A5A', borderwidth=0)
@@ -258,18 +274,25 @@ class Interface:
     def Rosto(self):
         Parte = "Rosto"
         self.ImgsClick(Parte)
+        self.Desabilitar()
+
 
     def Nariz(self):
         Parte = "Nariz"
         self.ImgsClick(Parte)
+        self.Desabilitar()
+
 
     def Boca(self):
         Parte = "Boca"
         self.ImgsClick(Parte)
+        self.Desabilitar()
+
 
     def Olhos(self):
         Parte = "Olhos"
         self.ImgsClick(Parte)
+        self.Desabilitar()
 
     def ProgressBar(self):
         self.progress_bar = ttk.Progressbar(self.frm_center_main, mode="determinate", maximum=100, length=150)
@@ -311,13 +334,27 @@ class Interface:
         self.imagem6 = ImageTk.PhotoImage(image6)
         self.arq_Image_6 = (f"{Parte}-M/{self.vetor_rostos[5]}")
 
+    def Habilitar(self):
+        self.btn_04.configure(state=tk.NORMAL)
+        self.btn_05.configure(state=tk.NORMAL)
+        self.btn_06.configure(state=tk.NORMAL)
+        self.btn_07.configure(state=tk.NORMAL)
+
+    def Desabilitar(self):
+        self.btn_04.configure(state=tk.DISABLED)
+        self.btn_05.configure(state=tk.DISABLED)
+        self.btn_06.configure(state=tk.DISABLED)
+        self.btn_07.configure(state=tk.DISABLED)
 
     def ImgsClick(self, Parte):
         self.StartImgs(Parte)
 
+
+
         self.janela2 = tk.Toplevel()
         self.janela2.title(Parte)
         self.janela2.resizable(width=False, height=False)
+        self.janela2.protocol("WM_DELETE_WINDOW", self.Habilitar)
 
 
         self.frm_rosto1 = tk.Frame(self.janela2, width=321, height=380, bg="#44284c")
@@ -454,7 +491,9 @@ class Interface:
         if Parte == "Rosto":
             self.image_label2.configure(image=event)
             self.image_label2.image=event
+            self.Habilitar()
             self.janela2.destroy()
+
 
             self.Rosto_salva = f"{arq}"
             #print(arq)
@@ -495,6 +534,7 @@ class Interface:
 
             self.image_label2.configure(image=imagem)
             self.image_label2.image=imagem
+            self.Habilitar()
             self.janela2.destroy()
 
     def excluir_image(self):
