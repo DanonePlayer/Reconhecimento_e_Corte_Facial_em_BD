@@ -346,6 +346,10 @@ class Interface:
         self.btn_06.configure(state=tk.DISABLED)
         self.btn_07.configure(state=tk.DISABLED)
 
+    def destruir(self):
+        self.janela2.destroy()
+        self.Habilitar()
+
     def ImgsClick(self, Parte):
         self.StartImgs(Parte)
 
@@ -354,7 +358,7 @@ class Interface:
         self.janela2 = tk.Toplevel()
         self.janela2.title(Parte)
         self.janela2.resizable(width=False, height=False)
-        self.janela2.protocol("WM_DELETE_WINDOW", self.Habilitar)
+        self.janela2.protocol("WM_DELETE_WINDOW", self.destruir)
 
 
         self.frm_rosto1 = tk.Frame(self.janela2, width=321, height=380, bg="#44284c")
