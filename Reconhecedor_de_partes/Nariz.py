@@ -49,22 +49,20 @@ def reconhecimento_e_corte_Nariz(progressbar, valor):
                 # print(f"{img_corte} + Precisa Redimensionar")
 
                 # Redimensiona
-                img_resized = img_corte.resize((659, 711))
+                img_corte = img_corte.resize((659, 711))
                 #salva
-                img_resized.save(f"IMAGENS-{genero}/{imgi}")
-
-            # img = cv2.imread(f"IMAGENS-{genero}/{imgi}")
-
+                img_corte.save(f"IMAGENS-{genero}/{imgi}")
+            img_corte = cv2.cvtColor(np.array(img_corte), cv2.COLOR_RGB2BGR)
             # Define os pontos dos vértices
             pts = np.array([[226, 221], [226, 498], [415, 498], [415, 221]], np.int32)
 
             # Cria uma máscara com os pontos
-            mask = np.zeros_like(img)
+            mask = np.zeros_like(img_corte)
             cv2.fillPoly(mask, [pts], (255, 255, 255))
 
             # Aplica a máscara na imagem original
-            img_cortada = cv2.bitwise_and(img, mask)
-            part_cortada = cv2.bitwise_and(img, cv2.bitwise_not(mask))
+            img_cortada = cv2.bitwise_and(img_corte, mask)
+            part_cortada = cv2.bitwise_and(img_corte, cv2.bitwise_not(mask))
 
         if cont == 1:
         

@@ -1,10 +1,10 @@
 # flake8: noqa
 import os
 import tkinter as tk
-from tkinter import SUNKEN, PhotoImage, ttk
+from tkinter import SUNKEN, PhotoImage, ttk, filedialog
 
 from PIL import Image, ImageTk
-
+import shutil
 import extrair
 from Reconhecedor_de_partes import Boca
 
@@ -67,7 +67,7 @@ class Interface:
         btn_10 = tk.Button(self.frm_left, width=15, height=1, bg='#5B5A5A', borderwidth=0, text='Exportar', font=('Arial',10, 'bold'), fg='#fff', command='')
         btn_10.grid(row=11, column=0, padx=30, pady=(30, 5))
 
-        btn_11 = tk.Button(self.frm_left, width=15, height=1, bg='#5B5A5A', borderwidth=0, text='Salvar', font=('Arial',10, 'bold'), fg='#fff', command='')
+        btn_11 = tk.Button(self.frm_left, width=15, height=1, bg='#5B5A5A', borderwidth=0, text='Salvar', font=('Arial',10, 'bold'), fg='#fff', command=self.Salvar)
         btn_11.grid(row=12, column=0, padx=30, pady=5)
 
         btn_12 = tk.Button(self.frm_left, width=15, height=1, bg='#5B5A5A', borderwidth=0, text='Carregar', font=('Arial',10, 'bold'), fg='#fff', command='')
@@ -502,9 +502,9 @@ class Interface:
 
             self.Criacao_Face_Salva = f"{arq}"
             #print(arq)
-
-
-            self.Rosto_salva = f"{arq}"
+            self.nariz_salva = None
+            self.olhos_salva = None
+            self.boca_salva = None 
             
         else:
             # Abrir imagem frontal
@@ -544,6 +544,17 @@ class Interface:
             self.image_label2.image=imagem
             self.Habilitar()
             self.janela2.destroy()
+
+        if Parte == "Nariz":
+            self.nariz_salva = f"{arq}"
+        elif Parte == "Boca":
+            self.boca_salva = f"{arq}"
+        elif Parte == "Olhos":
+            self.olhos_salva = f"{arq}"
+        elif Parte == "Rosto":
+            self.rosto_salva = f"{arq}"
+
+
 
     def excluir_image(self):
         self.image_label2.configure(image=self.img_image_label2_d)
@@ -683,10 +694,39 @@ class Interface:
             self.baixo8 = False
 
 
-
     def Salvar(self):
-        print(self.Rosto_salva)
+        pasta_destino = filedialog.askdirectory()
+        if pasta_destino:
+            if self.rosto_salva != None:
+                imagem = Image.open(self.rosto_salva)
+                nome_da_imagem = os.path.basename(self.rosto_salva)
+                imagem.save(f'{pasta_destino}/Rosto-{nome_da_imagem}.png')
+            if self.olhos_salva != None:
+                imagem = Image.open(self.olhos_salva)
+                nome_da_imagem = os.path.basename(self.olhos_salva)
+                imagem.save(f'{pasta_destino}/Olhos-{nome_da_imagem}.png')
+            if self.nariz_salva != None:
+                imagem = Image.open(self.nariz_salva)
+                nome_da_imagem = os.path.basename(self.nariz_salva)
+                imagem.save(f'{pasta_destino}/Nariz-{nome_da_imagem}.png')
+            if self.boca_salva != None:
+                imagem = Image.open(self.boca_salva)
+                nome_da_imagem = os.path.basename(self.boca_salva)
+                imagem.save(f'{pasta_destino}/Boca-{nome_da_imagem}.png')
 
+
+
+            # print(self.rosto_salva)
+            # print(self.olhos_salva)
+            # print(self.nariz_salva)
+            # print(self.boca_salva)
+            print("----------------------------------------")
+            # minha_classe.Salvar(pasta_destino)
+            # resultado_label.config(text=f"Imagens salvas em: {pasta_destino}")
+            # shutil.copy(self.rosto_salva, pasta_destino)
+            # shutil.copy(self.olhos_salva, pasta_destino)
+            # shutil.copy(self.nariz_salva, pasta_destino)
+            # shutil.copy(self.boca_salva, pasta_destino)
 
 janela = tk.Tk()
 Interface(janela)
