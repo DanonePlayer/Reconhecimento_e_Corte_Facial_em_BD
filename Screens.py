@@ -276,7 +276,7 @@ class Interface:
 
     def Genero(self, genero):
         self.genero = str(genero)
-        messagebox.showinfo("Aviso", "genero escolhido com sucesso")
+        messagebox.showinfo("Aviso", "Gênero escolhido com sucesso")
 
     def Rosto(self):
         if self.genero != None:
@@ -284,7 +284,7 @@ class Interface:
             self.ImgsClick(Parte)
             self.Desabilitar()
         else:
-            messagebox.showerror("Erro", "Primeiramente escolha o genero")
+            messagebox.showerror("Erro", "Primeiramente escolha o gênero")
 
 
     def Nariz(self):
@@ -293,7 +293,7 @@ class Interface:
             self.ImgsClick(Parte)
             self.Desabilitar()
         else:
-            messagebox.showerror("Erro", "Primeiramente escolha o genero")
+            messagebox.showerror("Erro", "Primeiramente escolha o gênero")
 
 
     def Boca(self):
@@ -302,7 +302,7 @@ class Interface:
             self.ImgsClick(Parte)
             self.Desabilitar()
         else:
-            messagebox.showerror("Erro", "Primeiramente escolha o genero")
+            messagebox.showerror("Erro", "Primeiramente escolha o gênero")
 
 
     def Olhos(self):
@@ -311,7 +311,7 @@ class Interface:
             self.ImgsClick(Parte)
             self.Desabilitar()
         else:
-            messagebox.showerror("Erro", "Primeiramente escolha o genero")
+            messagebox.showerror("Erro", "Primeiramente escolha o gênero")
 
     def ProgressBar(self):
         self.progress_bar = ttk.Progressbar(self.frm_center_main, mode="determinate", maximum=100, length=150)
