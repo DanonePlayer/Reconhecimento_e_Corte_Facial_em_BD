@@ -524,7 +524,7 @@ class Interface:
             self.nariz_salva = None
             self.olhos_salva = None
             self.boca_salva = None 
-            
+            self.rosto_salva = f"{arq}" 
         else:
             if self.Criacao_Face_Salva != None:
                 # Abrir imagem frontal
@@ -574,8 +574,6 @@ class Interface:
                 self.boca_salva = f"{arq}"
             elif Parte == "Olhos":
                 self.olhos_salva = f"{arq}"
-            elif Parte == "Rosto":
-                self.rosto_salva = f"{arq}"
 
 
 
