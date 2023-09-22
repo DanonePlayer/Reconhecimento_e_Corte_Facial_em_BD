@@ -1,7 +1,7 @@
 # flake8: noqa
 import os
 import tkinter as tk
-from tkinter import SUNKEN, PhotoImage, ttk, filedialog
+from tkinter import SUNKEN, PhotoImage, ttk, filedialog, messagebox
 
 from PIL import Image, ImageTk
 import shutil
@@ -56,10 +56,10 @@ class Interface:
 
         #Funções_04
 
-        btn_08 = tk.Button(self.frm_left, width=15, height=1, bg='#969696', borderwidth=0, text='Masculino', font=('Arial',10, 'bold'), fg='#fff', command='')
+        btn_08 = tk.Button(self.frm_left, width=15, height=1, bg='#969696', borderwidth=0, text='Masculino', font=('Arial',10, 'bold'), fg='#fff', command=lambda: self.Genero("M"))
         btn_08.grid(row=9, column=0, padx=30, pady=(30, 5))
 
-        btn_09 = tk.Button(self.frm_left, width=15, height=1, bg='#969696', borderwidth=0, text='Feminino', font=('Arial',10, 'bold'), fg='#fff', command='')
+        btn_09 = tk.Button(self.frm_left, width=15, height=1, bg='#969696', borderwidth=0, text='Feminino', font=('Arial',10, 'bold'), fg='#fff', command=lambda: self.Genero("F"))
         btn_09.grid(row=10, column=0, padx=30, pady=5)
 
         #Funções_05
@@ -260,6 +260,9 @@ class Interface:
         # Permita que o usuário role a janela
         canvas.bind_all("<MouseWheel>", lambda event, canvas=canvas: canvas.yview_scroll(-1 * (event.delta // 120), "units"))
 
+        self.Criacao_Face_Salva = None
+        self.genero = None
+
     def Sair(self):
         self.main.destroy()
 
@@ -269,30 +272,45 @@ class Interface:
     def Recortes(self):
         self.ProgressBar()
         Boca.reconhecimento_e_corte_boca(self.progress_bar)
-        
+
+    def Genero(self, genero):
+        self.genero = str(genero)
+        messagebox.showinfo("Aviso", "genero escolhido com sucesso")
 
     def Rosto(self):
-        Parte = "Rosto"
-        self.ImgsClick(Parte)
-        self.Desabilitar()
+        if self.genero != None:
+            Parte = "Rosto"
+            self.ImgsClick(Parte)
+            self.Desabilitar()
+        else:
+            messagebox.showerror("Erro", "Primeiramente escolha o genero")
 
 
     def Nariz(self):
-        Parte = "Nariz"
-        self.ImgsClick(Parte)
-        self.Desabilitar()
+        if self.genero != None:
+            Parte = "Nariz"
+            self.ImgsClick(Parte)
+            self.Desabilitar()
+        else:
+            messagebox.showerror("Erro", "Primeiramente escolha o genero")
 
 
     def Boca(self):
-        Parte = "Boca"
-        self.ImgsClick(Parte)
-        self.Desabilitar()
+        if self.genero != None:
+            Parte = "Boca"
+            self.ImgsClick(Parte)
+            self.Desabilitar()
+        else:
+            messagebox.showerror("Erro", "Primeiramente escolha o genero")
 
 
     def Olhos(self):
-        Parte = "Olhos"
-        self.ImgsClick(Parte)
-        self.Desabilitar()
+        if self.genero != None:
+            Parte = "Olhos"
+            self.ImgsClick(Parte)
+            self.Desabilitar()
+        else:
+            messagebox.showerror("Erro", "Primeiramente escolha o genero")
 
     def ProgressBar(self):
         self.progress_bar = ttk.Progressbar(self.frm_center_main, mode="determinate", maximum=100, length=150)
@@ -300,7 +318,7 @@ class Interface:
         self.progress_bar["value"] = 0
 
     def StartImgs(self, Parte):           
-        self.rostos_in_pasta = os.listdir(f"IMAGENS-M")
+        self.rostos_in_pasta = os.listdir(f"IMAGENS-{self.genero}")
         self.vetor_rostos = []
         for rosto in range(self.começa, self.termina):
             self.vetor_rostos.append(self.rostos_in_pasta[rosto])
@@ -309,30 +327,30 @@ class Interface:
         self.width = 350
         self.height = 400
 
-        image1 = (Image.open(f"{Parte}-M/{self.vetor_rostos[0]}"))
+        image1 = (Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[0]}"))
         image1 = image1.resize((self.width, self.height))
         self.imagem1 = ImageTk.PhotoImage(image1)
-        self.arq_Image_1 = (f"{Parte}-M/{self.vetor_rostos[0]}")
-        image2 = (Image.open(f"{Parte}-M/{self.vetor_rostos[1]}"))
+        self.arq_Image_1 = (f"{Parte}-{self.genero}/{self.vetor_rostos[0]}")
+        image2 = (Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[1]}"))
         image2 = image2.resize((self.width, self.height))
         self.imagem2 = ImageTk.PhotoImage(image2)
-        self.arq_Image_2 = (f"{Parte}-M/{self.vetor_rostos[1]}")
-        image3 = (Image.open(f"{Parte}-M/{self.vetor_rostos[2]}"))
+        self.arq_Image_2 = (f"{Parte}-{self.genero}/{self.vetor_rostos[1]}")
+        image3 = (Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[2]}"))
         image3 = image3.resize((self.width, self.height))
         self.imagem3 = ImageTk.PhotoImage(image3)
-        self.arq_Image_3 = (f"{Parte}-M/{self.vetor_rostos[2]}")
-        image4 = (Image.open(f"{Parte}-M/{self.vetor_rostos[3]}"))
+        self.arq_Image_3 = (f"{Parte}-{self.genero}/{self.vetor_rostos[2]}")
+        image4 = (Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[3]}"))
         image4 = image4.resize((self.width, self.height))
         self.imagem4 = (ImageTk.PhotoImage(image4))
-        self.arq_Image_4 = (f"{Parte}-M/{self.vetor_rostos[3]}")
-        image5 = (Image.open(f"{Parte}-M/{self.vetor_rostos[4]}"))
+        self.arq_Image_4 = (f"{Parte}-{self.genero}/{self.vetor_rostos[3]}")
+        image5 = (Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[4]}"))
         image5 = image5.resize((self.width, self.height))
         self.imagem5 = ImageTk.PhotoImage(image5)
-        self.arq_Image_5 = (f"{Parte}-M/{self.vetor_rostos[4]}")
-        image6 = (Image.open(f"{Parte}-M/{self.vetor_rostos[5]}"))
+        self.arq_Image_5 = (f"{Parte}-{self.genero}/{self.vetor_rostos[4]}")
+        image6 = (Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[5]}"))
         image6 = image6.resize((self.width, self.height))
         self.imagem6 = ImageTk.PhotoImage(image6)
-        self.arq_Image_6 = (f"{Parte}-M/{self.vetor_rostos[5]}")
+        self.arq_Image_6 = (f"{Parte}-{self.genero}/{self.vetor_rostos[5]}")
 
     def Habilitar(self):
         self.btn_04.configure(state=tk.NORMAL)
@@ -445,12 +463,12 @@ class Interface:
             self.termina += 6
             self.StartImgs(Parte)
 
-            imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[0]}").resize((self.width, self.height)))
-            imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[1]}").resize((self.width, self.height)))
-            imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[2]}").resize((self.width, self.height)))
-            imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[3]}").resize((self.width, self.height)))
-            imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[4]}").resize((self.width, self.height)))
-            imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[5]}").resize((self.width, self.height)))
+            imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[0]}").resize((self.width, self.height)))
+            imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[1]}").resize((self.width, self.height)))
+            imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[2]}").resize((self.width, self.height)))
+            imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[3]}").resize((self.width, self.height)))
+            imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[4]}").resize((self.width, self.height)))
+            imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[5]}").resize((self.width, self.height)))
 
             self.lbl_rosto1.configure(image=imagem1)
             self.lbl_rosto1.image=imagem1
@@ -472,12 +490,12 @@ class Interface:
             self.termina -= 6 
             self.StartImgs(Parte)
             
-            imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[0]}").resize((self.width, self.height)))
-            imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[1]}").resize((self.width, self.height)))
-            imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[2]}").resize((self.width, self.height)))
-            imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[3]}").resize((self.width, self.height)))
-            imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[4]}").resize((self.width, self.height)))
-            imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-M/{self.vetor_rostos[5]}").resize((self.width, self.height)))
+            imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[0]}").resize((self.width, self.height)))
+            imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[1]}").resize((self.width, self.height)))
+            imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[2]}").resize((self.width, self.height)))
+            imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[3]}").resize((self.width, self.height)))
+            imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[4]}").resize((self.width, self.height)))
+            imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[5]}").resize((self.width, self.height)))
 
             self.lbl_rosto1.configure(image=imagem1)
             self.lbl_rosto1.image=imagem1
@@ -507,52 +525,56 @@ class Interface:
             self.boca_salva = None 
             
         else:
-            # Abrir imagem frontal
-            img_front = arq
-            
-            # Abrir imagem de fundo
-            img_back = self.Criacao_Face_Salva 
+            if self.Criacao_Face_Salva != None:
+                # Abrir imagem frontal
+                img_front = arq
+                
+                # Abrir imagem de fundo
+                img_back = self.Criacao_Face_Salva 
 
-            frontImage = Image.open(img_front)
-            frontImage = frontImage.resize((self.width, self.height))
-            try:
-                img_back = Image.open(img_back)
-            except:
-                pass
-            background = img_back.resize((self.width, self.height))
+                frontImage = Image.open(img_front)
+                frontImage = frontImage.resize((self.width, self.height))
+                try:
+                    img_back = Image.open(img_back)
+                except:
+                    pass
+                background = img_back.resize((self.width, self.height))
 
-            # Converter imagem para RGBA
-            frontImage = frontImage.convert("RGBA")
-            
-            # Converter imagem para RGBA
-            background = background.convert("RGBA")
-            
-            # Calcula a largura para estar no centro
-            width = (background.width - frontImage.width) // 2
-            
-            # Calcula a altura para estar no centro
-            height = (background.height - frontImage.height) // 2
-            
-            # Cole o frontImage em (largura, altura)
-            background.paste(frontImage, (width, height), frontImage)
+                # Converter imagem para RGBA
+                frontImage = frontImage.convert("RGBA")
+                
+                # Converter imagem para RGBA
+                background = background.convert("RGBA")
+                
+                # Calcula a largura para estar no centro
+                width = (background.width - frontImage.width) // 2
+                
+                # Calcula a altura para estar no centro
+                height = (background.height - frontImage.height) // 2
+                
+                # Cole o frontImage em (largura, altura)
+                background.paste(frontImage, (width, height), frontImage)
 
-            imagem = ImageTk.PhotoImage(background)
+                imagem = ImageTk.PhotoImage(background)
 
-            self.Criacao_Face_Salva = background
+                self.Criacao_Face_Salva = background
 
-            self.image_label2.configure(image=imagem)
-            self.image_label2.image=imagem
-            self.Habilitar()
-            self.janela2.destroy()
-
-        if Parte == "Nariz":
-            self.nariz_salva = f"{arq}"
-        elif Parte == "Boca":
-            self.boca_salva = f"{arq}"
-        elif Parte == "Olhos":
-            self.olhos_salva = f"{arq}"
-        elif Parte == "Rosto":
-            self.rosto_salva = f"{arq}"
+                self.image_label2.configure(image=imagem)
+                self.image_label2.image=imagem
+                self.Habilitar()
+                self.janela2.destroy()
+            else:
+                messagebox.showerror("Erro", "Coloque primeiramente o Rosto")
+                self.Habilitar()
+                self.janela2.destroy()
+            if Parte == "Nariz":
+                self.nariz_salva = f"{arq}"
+            elif Parte == "Boca":
+                self.boca_salva = f"{arq}"
+            elif Parte == "Olhos":
+                self.olhos_salva = f"{arq}"
+            elif Parte == "Rosto":
+                self.rosto_salva = f"{arq}"
 
 
 
@@ -569,7 +591,7 @@ class Interface:
                 except:
                     pass
                 img_resized = self.Criacao_Face_Salva.resize((110, 130))
-                # img_resized.save("IMAGENS-M/Lula.png")
+                # img_resized.save("IMAGENS-{self.genero}/Lula.png")
                 # img_resized.show()
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_01.configure(image=Imagem)
@@ -713,20 +735,10 @@ class Interface:
                 imagem = Image.open(self.boca_salva)
                 nome_da_imagem = os.path.basename(self.boca_salva)
                 imagem.save(f'{pasta_destino}/Boca-{nome_da_imagem}.png')
-
-
-
-            # print(self.rosto_salva)
-            # print(self.olhos_salva)
-            # print(self.nariz_salva)
-            # print(self.boca_salva)
-            print("----------------------------------------")
-            # minha_classe.Salvar(pasta_destino)
-            # resultado_label.config(text=f"Imagens salvas em: {pasta_destino}")
-            # shutil.copy(self.rosto_salva, pasta_destino)
-            # shutil.copy(self.olhos_salva, pasta_destino)
-            # shutil.copy(self.nariz_salva, pasta_destino)
-            # shutil.copy(self.boca_salva, pasta_destino)
+            if self.rosto_salva == None and self.olhos_salva == None and self.nariz_salva == None and self.boca_salva == None:
+                messagebox.showerror("Erro", "Nenhuma Imagem para salvar")
+            else:
+                messagebox.showinfo("Aviso", "Salvo com sucesso")
 
 janela = tk.Tk()
 Interface(janela)
