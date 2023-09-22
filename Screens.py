@@ -267,7 +267,8 @@ class Interface:
         self.main.destroy()
 
     def Gerador(self):
-        extrair.Gerador_imagens()
+        self.ProgressBar()
+        extrair.Gerador_imagens(self.progress_bar)
 
     def Recortes(self):
         self.ProgressBar()

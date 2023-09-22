@@ -7,7 +7,7 @@ import PyPDF2
 from pdf2docx import Converter
 
 
-def Gerador_imagens():
+def Gerador_imagens(progressbar):
     #pegando as pastas destinos e listando os arquivos dentro delas
     Pdfs = os.listdir("Pdfs")
     Docx = os.listdir("Docx")
@@ -77,7 +77,12 @@ def Gerador_imagens():
         Docx = os.listdir("Docx")
         contador = 0
 
+        barra_carregamento_max = len(Docx)
         for Docx_name in Docx:
+            valor_mapeado = ((contador - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
+            print(valor_mapeado)
+            progressbar["value"] = valor_mapeado
+            progressbar.update() 
             # print(Docx_name)
             
             # carrega o documento Word
@@ -174,3 +179,4 @@ def Gerador_imagens():
 
                                 shape.image_data.save(f"IMAGENS-F/{imageFileName}")
             contador +=1
+    progressbar.destroy()
