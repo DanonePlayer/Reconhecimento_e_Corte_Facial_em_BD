@@ -1,10 +1,11 @@
 # flake8: noqa
 import os
+import shutil
 import tkinter as tk
-from tkinter import SUNKEN, PhotoImage, ttk, filedialog, messagebox
+from tkinter import SUNKEN, PhotoImage, filedialog, messagebox, ttk
 
 from PIL import Image, ImageTk
-import shutil
+
 import extrair
 from Reconhecedor_de_partes import Boca
 
@@ -280,6 +281,8 @@ class Interface:
 
     def Rosto(self):
         if self.genero != None:
+            self.começa = 0
+            self.termina = 6
             Parte = "Rosto"
             self.ImgsClick(Parte)
             self.Desabilitar()
@@ -289,6 +292,8 @@ class Interface:
 
     def Nariz(self):
         if self.genero != None:
+            self.começa = 0
+            self.termina = 6
             Parte = "Nariz"
             self.ImgsClick(Parte)
             self.Desabilitar()
@@ -298,6 +303,8 @@ class Interface:
 
     def Boca(self):
         if self.genero != None:
+            self.começa = 0
+            self.termina = 6
             Parte = "Boca"
             self.ImgsClick(Parte)
             self.Desabilitar()
@@ -307,6 +314,8 @@ class Interface:
 
     def Olhos(self):
         if self.genero != None:
+            self.começa = 0
+            self.termina = 6
             Parte = "Olhos"
             self.ImgsClick(Parte)
             self.Desabilitar()
@@ -586,12 +595,11 @@ class Interface:
             print(count_photo_baixo)
             if count_photo_baixo == 1 and self.baixo1 == False:
                 try:
-                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
+                    self.miniatura_imagem01 = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Criacao_Face_Salva.resize((110, 130))
-                # img_resized.save("IMAGENS-{self.genero}/Lula.png")
-                # img_resized.show()
+                self.miniatura_imagem01 = self.Criacao_Face_Salva
+                img_resized = self.miniatura_imagem01.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_01.configure(image=Imagem)
                 self.Miniatura_01.image=Imagem
@@ -600,10 +608,11 @@ class Interface:
 
             elif count_photo_baixo == 2 and self.baixo2 == False:
                 try:
-                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
+                    self.miniatura_imagem02 = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Criacao_Face_Salva.resize((110, 130))
+                self.miniatura_imagem02 = self.Criacao_Face_Salva
+                img_resized = self.miniatura_imagem02.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_02.configure(image=Imagem)
                 self.Miniatura_02.image=Imagem
@@ -612,10 +621,11 @@ class Interface:
 
             elif count_photo_baixo == 3 and self.baixo3 == False:
                 try:
-                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
+                    self.miniatura_imagem03 = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Criacao_Face_Salva.resize((110, 130))
+                self.miniatura_imagem03 = self.Criacao_Face_Salva
+                img_resized = self.miniatura_imagem03.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_03.configure(image=Imagem)
                 self.Miniatura_03.image=Imagem
@@ -624,10 +634,11 @@ class Interface:
                 
             elif count_photo_baixo == 4 and self.baixo4 == False:
                 try:
-                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
+                    self.miniatura_imagem04 = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Criacao_Face_Salva.resize((110, 130))
+                self.miniatura_imagem04 = self.Criacao_Face_Salva
+                img_resized = self.miniatura_imagem04.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_04.configure(image=Imagem)
                 self.Miniatura_04.image=Imagem
@@ -635,10 +646,11 @@ class Interface:
                 break
             elif count_photo_baixo == 5 and self.baixo5 == False:
                 try:
-                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
+                    self.miniatura_imagem05 = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Criacao_Face_Salva.resize((110, 130))
+                self.miniatura_imagem05 = self.Criacao_Face_Salva
+                img_resized = self.miniatura_imagem05.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_05.configure(image=Imagem)
                 self.Miniatura_05.image=Imagem
@@ -646,10 +658,11 @@ class Interface:
                 break
             elif count_photo_baixo == 6 and self.baixo6 == False:
                 try:
-                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
+                    self.miniatura_imagem06 = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Criacao_Face_Salva.resize((110, 130))
+                self.miniatura_imagem06 = self.Criacao_Face_Salva
+                img_resized = self.miniatura_imagem06.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_06.configure(image=Imagem)
                 self.Miniatura_06.image=Imagem
@@ -657,10 +670,11 @@ class Interface:
                 break
             elif count_photo_baixo == 7 and self.baixo7 == False:
                 try:
-                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
+                    self.miniatura_imagem07 = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Criacao_Face_Salva.resize((110, 130))
+                self.miniatura_imagem07 = self.Criacao_Face_Salva
+                img_resized = self.miniatura_imagem07.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_07.configure(image=Imagem)
                 self.Miniatura_07.image=Imagem
@@ -668,10 +682,11 @@ class Interface:
                 break
             elif count_photo_baixo == 8 and self.baixo8 == False:
                 try:
-                    self.Criacao_Face_Salva = Image.open(self.Criacao_Face_Salva)
+                    self.miniatura_imagem08 = Image.open(self.Criacao_Face_Salva)
                 except:
                     pass
-                img_resized = self.Criacao_Face_Salva.resize((110, 130))
+                self.miniatura_imagem08 = self.Criacao_Face_Salva
+                img_resized = self.miniatura_imagem08.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_08.configure(image=Imagem)
                 self.Miniatura_08.image=Imagem
