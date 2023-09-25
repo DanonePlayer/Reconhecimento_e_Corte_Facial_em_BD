@@ -153,9 +153,9 @@ class Interface:
         self.Miniatura_01.pack(side=tk.TOP, padx=30,pady=10, expand=True)
         self.frame_bttn_01 = tk.Frame(self.content_frame,bg='#303030')
         self.frame_bttn_01.pack(side=tk.TOP, padx=10,pady=7,)
-        add_button_extra_01 = tk.Button(self.frame_bttn_01, image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A', borderwidth=0,command='')
+        add_button_extra_01 = tk.Button(self.frame_bttn_01, image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A', borderwidth=0,command=self.Botao_esquerdo_miniatura)
         add_button_extra_01.pack(side=tk.LEFT, padx=10, pady=7, expand=True)
-        add_button_01 = tk.Button(self.frame_bttn_01,image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A',borderwidth=0)
+        add_button_01 = tk.Button(self.frame_bttn_01, image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A', borderwidth=0, command="")
         add_button_01.pack(side=tk.RIGHT, padx=10, pady=7,expand=True)
         clear_button_01 = tk.Button(self.frame_bttn_01, text='Limpar',borderwidth=0,font=('Arial',10, 'bold'), fg='#fff',bg='#5B5A5A', command=lambda: self.excluir_miniaturas(1))
         clear_button_01.pack(side=tk.LEFT, padx=10,pady=7,)
@@ -326,6 +326,12 @@ class Interface:
         self.progress_bar = ttk.Progressbar(self.frm_center_main, mode="determinate", maximum=100, length=150)
         self.progress_bar.pack(padx=20, pady=20)
         self.progress_bar["value"] = 0
+
+    def Botao_esquerdo_miniatura(self):
+        Imagem = self.miniatura_imagem01.resize((350, 400))
+        Imagem = ImageTk.PhotoImage(Imagem)
+        self.image_label1.configure(image=Imagem)
+        self.image_label1.image=Imagem
 
     def StartImgs(self, Parte):           
         self.rostos_in_pasta = os.listdir(f"IMAGENS-{self.genero}")
@@ -597,8 +603,7 @@ class Interface:
                 try:
                     self.miniatura_imagem01 = Image.open(self.Criacao_Face_Salva)
                 except:
-                    pass
-                self.miniatura_imagem01 = self.Criacao_Face_Salva
+                    self.miniatura_imagem01 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem01.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_01.configure(image=Imagem)
@@ -610,8 +615,7 @@ class Interface:
                 try:
                     self.miniatura_imagem02 = Image.open(self.Criacao_Face_Salva)
                 except:
-                    pass
-                self.miniatura_imagem02 = self.Criacao_Face_Salva
+                    self.miniatura_imagem02 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem02.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_02.configure(image=Imagem)
@@ -623,8 +627,7 @@ class Interface:
                 try:
                     self.miniatura_imagem03 = Image.open(self.Criacao_Face_Salva)
                 except:
-                    pass
-                self.miniatura_imagem03 = self.Criacao_Face_Salva
+                    self.miniatura_imagem03 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem03.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_03.configure(image=Imagem)
@@ -636,8 +639,7 @@ class Interface:
                 try:
                     self.miniatura_imagem04 = Image.open(self.Criacao_Face_Salva)
                 except:
-                    pass
-                self.miniatura_imagem04 = self.Criacao_Face_Salva
+                    self.miniatura_imagem04 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem04.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_04.configure(image=Imagem)
@@ -648,8 +650,7 @@ class Interface:
                 try:
                     self.miniatura_imagem05 = Image.open(self.Criacao_Face_Salva)
                 except:
-                    pass
-                self.miniatura_imagem05 = self.Criacao_Face_Salva
+                    self.miniatura_imagem05 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem05.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_05.configure(image=Imagem)
@@ -660,8 +661,7 @@ class Interface:
                 try:
                     self.miniatura_imagem06 = Image.open(self.Criacao_Face_Salva)
                 except:
-                    pass
-                self.miniatura_imagem06 = self.Criacao_Face_Salva
+                    self.miniatura_imagem06 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem06.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_06.configure(image=Imagem)
@@ -672,8 +672,7 @@ class Interface:
                 try:
                     self.miniatura_imagem07 = Image.open(self.Criacao_Face_Salva)
                 except:
-                    pass
-                self.miniatura_imagem07 = self.Criacao_Face_Salva
+                    self.miniatura_imagem07 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem07.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_07.configure(image=Imagem)
@@ -684,8 +683,7 @@ class Interface:
                 try:
                     self.miniatura_imagem08 = Image.open(self.Criacao_Face_Salva)
                 except:
-                    pass
-                self.miniatura_imagem08 = self.Criacao_Face_Salva
+                    self.miniatura_imagem08 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem08.resize((110, 130))
                 Imagem = ImageTk.PhotoImage(img_resized)
                 self.Miniatura_08.configure(image=Imagem)
