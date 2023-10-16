@@ -155,10 +155,11 @@ class Interface:
         self.frame_bttn_01.pack(side=tk.TOP, padx=10,pady=7,)
         add_button_extra_01 = tk.Button(self.frame_bttn_01, image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A', borderwidth=0,command=lambda: self.Botao_esquerdo_miniatura(1))
         add_button_extra_01.pack(side=tk.LEFT, padx=10, pady=7, expand=True)
+        clear_button_01 = tk.Button(self.frame_bttn_01, text='Limpar', borderwidth=0,font=('Arial',10, 'bold'), fg='#fff',bg='#5B5A5A', command=lambda: self.excluir_miniaturas(1))
+        clear_button_01.pack(side=tk.LEFT, padx=10,pady=7,)
         add_button_01 = tk.Button(self.frame_bttn_01, image=self.botão_adiciona_miniatura, fg='#fff',bg='#5B5A5A', borderwidth=0, command=lambda: self.Botao_direito_miniatura(1))
         add_button_01.pack(side=tk.RIGHT, padx=10, pady=7,expand=True)
-        clear_button_01 = tk.Button(self.frame_bttn_01, text='Limpar',borderwidth=0,font=('Arial',10, 'bold'), fg='#fff',bg='#5B5A5A', command=lambda: self.excluir_miniaturas(1))
-        clear_button_01.pack(side=tk.LEFT, padx=10,pady=7,)
+
 
         self.Miniatura_02 = tk.Label(self.content_frame, bg='#474444', image=self.image_miniatura)
         self.Miniatura_02.pack(side=tk.TOP, padx=30, pady=10, expand=True)
@@ -256,6 +257,11 @@ class Interface:
         self.começa = 0
         self.termina = 6
 
+        self.nariz_salva = None
+        self.olhos_salva = None
+        self.boca_salva = None 
+        self.rosto_salva = None
+
         self.content_frame.update_idletasks()
         canvas.config(scrollregion=canvas.bbox("all"))
         # Permita que o usuário role a janela
@@ -330,25 +336,47 @@ class Interface:
     def Botao_esquerdo_miniatura(self, valor):
         if valor == 1 and self.baixo1 == True:
             Imagem = self.miniatura_imagem01.resize((350, 400))
+            miniatura = self.salva_imgs_miniaturas1
         if valor == 2 and self.baixo2 == True:
             Imagem = self.miniatura_imagem02.resize((350, 400))
+            miniatura = self.salva_imgs_miniaturas2
         if valor == 3 and self.baixo3 == True:
             Imagem = self.miniatura_imagem03.resize((350, 400))
+            miniatura = self.salva_imgs_miniaturas3
         if valor == 4 and self.baixo4 == True:
             Imagem = self.miniatura_imagem04.resize((350, 400))
+            miniatura = self.salva_imgs_miniaturas4
         if valor == 5 and self.baixo5 == True:
             Imagem = self.miniatura_imagem05.resize((350, 400))
+            miniatura = self.salva_imgs_miniaturas5
         if valor == 6 and self.baixo6 == True:
             Imagem = self.miniatura_imagem06.resize((350, 400))
+            miniatura = self.salva_imgs_miniaturas6
         if valor == 7 and self.baixo7 == True:
             Imagem = self.miniatura_imagem07.resize((350, 400))
+            miniatura = self.salva_imgs_miniaturas7
         if valor == 8 and self.baixo8 == True:
             Imagem = self.miniatura_imagem08.resize((350, 400))
+            miniatura = self.salva_imgs_miniaturas8
  
         try:
             Imagem = ImageTk.PhotoImage(Imagem)
             self.image_label1.configure(image=Imagem)
             self.image_label1.image=Imagem
+
+            for caminho in miniatura:
+                if "Rosto-" in caminho:
+                    self.rosto_salva = caminho
+                    print(self.rosto_salva)
+                if "Olhos-" in caminho:
+                    self.olhos_salva = caminho
+                    print(self.olhos_salva)
+                if "Nariz-" in caminho:
+                    self.nariz_salva = caminho
+                    print(self.nariz_salva)
+                if "Boca-" in caminho:
+                    self.boca_salva = caminho
+                    print(self.boca_salva)
         except:
             print("Nenhuma miniatura neste local")
 
@@ -580,10 +608,10 @@ class Interface:
 
             self.Criacao_Face_Salva = f"{arq}"
             #print(arq)
-            self.nariz_salva = None
-            self.olhos_salva = None
-            self.boca_salva = None 
-            self.rosto_salva = f"{arq}" 
+            self.nariz_salva_p_miniaturas = None
+            self.olhos_salva_p_miniaturas = None
+            self.boca_salva_p_miniaturas = None 
+            self.rosto_salva_p_miniaturas = f"{arq}" 
         else:
             if self.Criacao_Face_Salva != None:
                 # Abrir imagem frontal
@@ -628,11 +656,11 @@ class Interface:
                 self.Habilitar()
                 self.janela2.destroy()
             if Parte == "Nariz":
-                self.nariz_salva = f"{arq}"
+                self.nariz_salva_p_miniaturas = f"{arq}"
             elif Parte == "Boca":
-                self.boca_salva = f"{arq}"
+                self.boca_salva_p_miniaturas = f"{arq}"
             elif Parte == "Olhos":
-                self.olhos_salva = f"{arq}"
+                self.olhos_salva_p_miniaturas = f"{arq}"
 
 
 
@@ -653,6 +681,17 @@ class Interface:
                 self.Miniatura_01.configure(image=Imagem)
                 self.Miniatura_01.image=Imagem
                 self.baixo1 = True
+
+                self.salva_imgs_miniaturas1 = []
+                if self.rosto_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas1.append(self.rosto_salva_p_miniaturas)
+                if self.olhos_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas1.append(self.olhos_salva_p_miniaturas)
+                if self.nariz_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas1.append(self.nariz_salva_p_miniaturas)
+                if self.boca_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas1.append(self.boca_salva_p_miniaturas)
+                # print(self.salva_imgs_miniaturas1)
                 break
 
             elif count_photo_baixo == 2 and self.baixo2 == False:
@@ -665,6 +704,17 @@ class Interface:
                 self.Miniatura_02.configure(image=Imagem)
                 self.Miniatura_02.image=Imagem
                 self.baixo2 = True
+
+                self.salva_imgs_miniaturas2 = []
+                if self.rosto_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas2.append(self.rosto_salva_p_miniaturas)
+                if self.olhos_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas2.append(self.olhos_salva_p_miniaturas)
+                if self.nariz_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas2.append(self.nariz_salva_p_miniaturas)
+                if self.boca_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas2.append(self.boca_salva_p_miniaturas)
+                # print(self.salva_imgs_miniaturas2)
                 break
 
             elif count_photo_baixo == 3 and self.baixo3 == False:
@@ -677,6 +727,17 @@ class Interface:
                 self.Miniatura_03.configure(image=Imagem)
                 self.Miniatura_03.image=Imagem
                 self.baixo3 = True
+
+                self.salva_imgs_miniaturas3 = []
+                if self.rosto_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas3.append(self.rosto_salva_p_miniaturas)
+                if self.olhos_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas3.append(self.olhos_salva_p_miniaturas)
+                if self.nariz_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas3.append(self.nariz_salva_p_miniaturas)
+                if self.boca_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas3.append(self.boca_salva_p_miniaturas)
+                # print(self.salva_imgs_miniaturas3)
                 break
                 
             elif count_photo_baixo == 4 and self.baixo4 == False:
@@ -689,6 +750,17 @@ class Interface:
                 self.Miniatura_04.configure(image=Imagem)
                 self.Miniatura_04.image=Imagem
                 self.baixo4 = True
+
+                self.salva_imgs_miniaturas4 = []
+                if self.rosto_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas4.append(self.rosto_salva_p_miniaturas)
+                if self.olhos_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas4.append(self.olhos_salva_p_miniaturas)
+                if self.nariz_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas4.append(self.nariz_salva_p_miniaturas)
+                if self.boca_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas4.append(self.boca_salva_p_miniaturas)
+                # print(self.salva_imgs_miniaturas4)
                 break
             elif count_photo_baixo == 5 and self.baixo5 == False:
                 try:
@@ -700,6 +772,17 @@ class Interface:
                 self.Miniatura_05.configure(image=Imagem)
                 self.Miniatura_05.image=Imagem
                 self.baixo5 = True
+
+                self.salva_imgs_miniaturas5 = []
+                if self.rosto_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas5.append(self.rosto_salva_p_miniaturas)
+                if self.olhos_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas5.append(self.olhos_salva_p_miniaturas)
+                if self.nariz_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas5.append(self.nariz_salva_p_miniaturas)
+                if self.boca_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas5.append(self.boca_salva_p_miniaturas)
+                # print(self.salva_imgs_miniaturas5)                
                 break
             elif count_photo_baixo == 6 and self.baixo6 == False:
                 try:
@@ -711,6 +794,17 @@ class Interface:
                 self.Miniatura_06.configure(image=Imagem)
                 self.Miniatura_06.image=Imagem
                 self.baixo6 = True
+
+                self.salva_imgs_miniaturas6 = []
+                if self.rosto_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas6.append(self.rosto_salva_p_miniaturas)
+                if self.olhos_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas6.append(self.olhos_salva_p_miniaturas)
+                if self.nariz_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas6.append(self.nariz_salva_p_miniaturas)
+                if self.boca_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas6.append(self.boca_salva_p_miniaturas)
+                # print(self.salva_imgs_miniaturas6)
                 break
             elif count_photo_baixo == 7 and self.baixo7 == False:
                 try:
@@ -722,6 +816,17 @@ class Interface:
                 self.Miniatura_07.configure(image=Imagem)
                 self.Miniatura_07.image=Imagem
                 self.baixo7 = True
+
+                self.salva_imgs_miniaturas7 = []
+                if self.rosto_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas7.append(self.rosto_salva_p_miniaturas)
+                if self.olhos_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas7.append(self.olhos_salva_p_miniaturas)
+                if self.nariz_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas7.append(self.nariz_salva_p_miniaturas)
+                if self.boca_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas7.append(self.boca_salva_p_miniaturas)
+                # print(self.salva_imgs_miniaturas7)
                 break
             elif count_photo_baixo == 8 and self.baixo8 == False:
                 try:
@@ -733,6 +838,17 @@ class Interface:
                 self.Miniatura_08.configure(image=Imagem)
                 self.Miniatura_08.image=Imagem
                 self.baixo8 = True
+
+                self.salva_imgs_miniaturas8 = []
+                if self.rosto_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas8.append(self.rosto_salva_p_miniaturas)
+                if self.olhos_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas8.append(self.olhos_salva_p_miniaturas)
+                if self.nariz_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas8.append(self.nariz_salva_p_miniaturas)
+                if self.boca_salva_p_miniaturas != None:
+                    self.salva_imgs_miniaturas8.append(self.boca_salva_p_miniaturas)
+                # print(self.salva_imgs_miniaturas8)
                 break
 
                 
