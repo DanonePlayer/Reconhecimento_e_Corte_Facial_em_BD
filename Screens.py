@@ -6,6 +6,7 @@ from tkinter import SUNKEN, PhotoImage, filedialog, messagebox, ttk
 
 from PIL import Image, ImageTk
 
+# import BD as bd
 import extrair
 from Reconhecedor_de_partes import Boca
 

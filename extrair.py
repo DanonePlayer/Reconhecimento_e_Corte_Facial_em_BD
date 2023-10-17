@@ -1,3 +1,4 @@
+import io
 import os
 import unicodedata
 from tkinter import messagebox
@@ -5,6 +6,8 @@ from tkinter import messagebox
 import aspose.words as aw
 import PyPDF2
 from pdf2docx import Converter
+
+import BD as bd
 
 
 def Gerador_imagens(progressbar):
@@ -80,7 +83,7 @@ def Gerador_imagens(progressbar):
         barra_carregamento_max = len(Docx)
         for Docx_name in Docx:
             valor_mapeado = ((contador - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
-            print(valor_mapeado)
+            # print(valor_mapeado)
             progressbar["value"] = valor_mapeado
             progressbar.update() 
             # print(Docx_name)
@@ -156,6 +159,16 @@ def Gerador_imagens(progressbar):
                                 # save image
                                 shape.image_data.save(f"IMAGENS-M/{imageFileName}")
 
+                                # Converte os dados da imagem em um formato que possa ser armazenado no banco de dados
+                                dados_imagem = io.BytesIO()
+                                shape.image_data.save(dados_imagem)
+
+                                query = "INSERT INTO Pessoas (Nome, Sexo, Imagem) VALUES (?, ?, ?)"
+
+                                valores = (imageFileName, "Masculino", dados_imagem.getvalue())
+
+                                bd.inserirImg(query, valores)
+
                 elif palavras == "FEMININO":
                     cont = 0
                     # loop through shapes
@@ -178,5 +191,14 @@ def Gerador_imagens(progressbar):
                                 # print(imageFileName)
 
                                 shape.image_data.save(f"IMAGENS-F/{imageFileName}")
+
+                                dados_imagem = io.BytesIO()
+                                shape.image_data.save(dados_imagem)
+
+                                query = "INSERT INTO Pessoas (Nome, Sexo, Imagem) VALUES (?, ?, ?)"
+
+                                valores = (imageFileName, "Feminino", dados_imagem.getvalue())
+
+                                bd.inserirImg(query, valores)
             contador +=1
     progressbar.destroy()
