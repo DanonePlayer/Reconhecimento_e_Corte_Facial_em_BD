@@ -155,19 +155,24 @@ def Gerador_imagens(progressbar):
                                 # associada a esse tipo de imagem.
                                 imageFileName = f"{Docx_name}{aw.FileFormatUtil.image_type_to_extension(shape.image_data.image_type)}"
                                 # print(imageFileName)
+                                
+                                # print((str(imageFileName).strip(".png")))
+                                query = f"SELECT id From Pessoas Where Nome = '{(str(imageFileName).strip('.png'))}'"
+                                dados = bd.consultar(query)
+                                # print(dados)
 
-                                # save image
-                                shape.image_data.save(f"IMAGENS-M/{imageFileName}")
+                                if dados == []:
+                                     # save image
+                                    # shape.image_data.save(f"IMAGENS-M/{imageFileName}")
+                                    # Converte os dados da imagem em um formato que possa ser armazenado no banco de dados
+                                    dados_imagem = io.BytesIO()
+                                    shape.image_data.save(dados_imagem)
 
-                                # Converte os dados da imagem em um formato que possa ser armazenado no banco de dados
-                                dados_imagem = io.BytesIO()
-                                shape.image_data.save(dados_imagem)
+                                    query = "INSERT INTO Pessoas (Nome, Sexo, Imagem) VALUES (?, ?, ?)"
 
-                                query = "INSERT INTO Pessoas (Nome, Sexo, Imagem) VALUES (?, ?, ?)"
+                                    valores = ((str(imageFileName).strip(".png")), "Masculino", dados_imagem.getvalue())
 
-                                valores = (imageFileName, "Masculino", dados_imagem.getvalue())
-
-                                bd.inserirImg(query, valores)
+                                    bd.inserir(query, valores)
 
                 elif palavras == "FEMININO":
                     cont = 0
@@ -189,16 +194,23 @@ def Gerador_imagens(progressbar):
 
                                 imageFileName = f"{Docx_name}{aw.FileFormatUtil.image_type_to_extension(shape.image_data.image_type)}"
                                 # print(imageFileName)
+                                
+                                # print((str(imageFileName).strip(".png")))
+                                query = f"SELECT id From Pessoas Where Nome = '{(str(imageFileName).strip('.png'))}'"
+                                dados = bd.consultar(query)
+                                # print(dados)
 
-                                shape.image_data.save(f"IMAGENS-F/{imageFileName}")
+                                if dados == []:
 
-                                dados_imagem = io.BytesIO()
-                                shape.image_data.save(dados_imagem)
+                                    # shape.image_data.save(f"IMAGENS-F/{imageFileName}")
 
-                                query = "INSERT INTO Pessoas (Nome, Sexo, Imagem) VALUES (?, ?, ?)"
+                                    dados_imagem = io.BytesIO()
+                                    shape.image_data.save(dados_imagem)
 
-                                valores = (imageFileName, "Feminino", dados_imagem.getvalue())
+                                    query = "INSERT INTO Pessoas (Nome, Sexo, Imagem) VALUES (?, ?, ?)"
 
-                                bd.inserirImg(query, valores)
+                                    valores = ((str(imageFileName).strip(".png")), "Feminino", dados_imagem.getvalue())
+
+                                    bd.inserir(query, valores)
             contador +=1
     progressbar.destroy()

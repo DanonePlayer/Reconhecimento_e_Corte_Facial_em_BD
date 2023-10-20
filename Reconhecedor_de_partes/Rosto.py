@@ -1,33 +1,50 @@
 #USA O rosto.png COMO EXEMPLO DE TESTE, ELE É MAIS COMO UMA BASE, É PARECIDO COM MUITAS DAS IMAGENS DA BASE QUE VAMOS USAR
+import io
 import os
 
 import cv2
 import numpy as np
 from PIL import Image
 
+import BD as bd
+
 
 def reconhecimento_e_corte_Rosto(progressbar, valor):
-    imagens_cont_M = os.listdir(f"IMAGENS-M")
-    imagens_cont_F = os.listdir(f"IMAGENS-F")
-    barra_carregamento_max = (len(imagens_cont_M) + len(imagens_cont_F)) * 4
+    query = f"SELECT id From Pessoas"
+    dados = bd.consultar(query)
+
+    barra_carregamento_max = len(dados) * 4
     cont_barra_de_carregamento = 0
-    for teste in range(2):
-        if teste == 0:
-            genero = "M"
-        else:
-            genero = "F"
-        imagens = os.listdir(f"IMAGENS-{genero}")
-        for imgi in imagens:
-            # print(imgi)
-            cont_barra_de_carregamento +=1
-            valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
-            valor_mapeado += valor
-            print(valor_mapeado)
-            progressbar["value"] = valor_mapeado
-            progressbar.update() 
+
+    query = f"SELECT Imagem From Pessoas"
+    dados = bd.consultar(query)
+    
+    for imgi in dados:
+        # print(imgi)
+
+        query_nomes = f"SELECT Nome FROM Pessoas WHERE Imagem = ?"
+        dados_nomes = bd.consultar(query_nomes, (imgi[0],))
+        nome_img = dados_nomes[0][0]
+
+        query_ids_nomes = f"SELECT id FROM Pessoas WHERE Imagem = ?"
+        dados_ids_nomes = bd.consultar(query_ids_nomes, (imgi[0],))
+        id_nome = dados_ids_nomes[0][0]
+
+        query = f"SELECT id From Rosto Where pessoa_id = {id_nome}"
+        dados_old = bd.consultar(query)
+        # print(dados_old)
+
+        cont_barra_de_carregamento +=1
+        valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
+        valor_mapeado += valor
+        # print(valor_mapeado)
+        progressbar["value"] = valor_mapeado
+        progressbar.update() 
+
+        if dados_old == []:
 
             classificador = cv2.CascadeClassifier(r"anexos/right_eye2.xml")
-            img = cv2.imread(f"IMAGENS-{genero}/{imgi}")
+            img = cv2.imdecode(np.frombuffer(imgi[0], np.uint8), cv2.IMREAD_COLOR)
             imgGray = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
             objetos = classificador.detectMultiScale(imgGray, minSize=(120,120), scaleFactor=1.1, minNeighbors=10, maxSize=(950,220))
             try:
@@ -104,7 +121,6 @@ def reconhecimento_e_corte_Rosto(progressbar, valor):
                 boca = objetos[0]
                 cont = 1
             except:
-                # print(f"{imgi} + Precisa Redimensionar, boca")
                 cont = 0
                 # Define os pontos dos vértices
                 pts_boca = np.array([[185, 486], [185, 614], [479, 614], [479, 486]], np.int32)
@@ -169,7 +185,12 @@ def reconhecimento_e_corte_Rosto(progressbar, valor):
             # Aqui, os novos dados de pixel são aplicados à imagem RGBA.
             rgba.putdata(newData)
             #A imagem editada é salva
-            rgba.save(f"Rosto-{genero}\{imgi}", "PNG")
+            dados_imagem = io.BytesIO()
+            rgba.save(dados_imagem, format='PNG')
+            query = "INSERT INTO Rosto (Imagem, pessoa_id) VALUES (?, ?)"
+            valores = (dados_imagem.getvalue(), id_nome)
+            bd.inserir(query, valores)
+            # rgba.save(f"Rosto-{genero}\{imgi}", "PNG")
 
 
             # plt.imshow(img)
@@ -177,5 +198,5 @@ def reconhecimento_e_corte_Rosto(progressbar, valor):
             # plt.imshow(part_cortada)
             # plt.axis('off')
             # plt.show()
-        
+
     progressbar.destroy()

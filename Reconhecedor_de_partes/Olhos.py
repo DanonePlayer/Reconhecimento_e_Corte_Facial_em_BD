@@ -1,35 +1,51 @@
 #USA O rosto.png COMO EXEMPLO DE TESTE, ELE É MAIS COMO UMA BASE, É PARECIDO COM MUITAS DAS IMAGENS DA BASE QUE VAMOS USAR
+import io
 import os
 
 import cv2
 import numpy as np
 from PIL import Image
 
+import BD as bd
 from Reconhecedor_de_partes import Rosto
 
 
 def reconhecimento_e_corte_Olhos(progressbar, valor):
-    imagens_cont_M = os.listdir(f"IMAGENS-M")
-    imagens_cont_F = os.listdir(f"IMAGENS-F")
-    barra_carregamento_max = (len(imagens_cont_M) + len(imagens_cont_F)) * 4
+    query = f"SELECT id From Pessoas"
+    dados = bd.consultar(query)
+
+    barra_carregamento_max = len(dados) * 4
     cont_barra_de_carregamento = 0
-    for teste in range(2):
-        if teste == 0:
-            genero = "M"
-        else:
-            genero = "F"
-        imagens = os.listdir(f"IMAGENS-{genero}")
-        for imgi in imagens:
-            # print(imgi)
-            cont_barra_de_carregamento +=1
-            valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
-            valor_mapeado += valor
-            print(valor_mapeado)
-            progressbar["value"] = valor_mapeado
-            progressbar.update() 
+
+    query = f"SELECT Imagem From Pessoas"
+    dados = bd.consultar(query)
+    
+    for imgi in dados:
+        # print(imgi)
+
+        query_nomes = f"SELECT Nome FROM Pessoas WHERE Imagem = ?"
+        dados_nomes = bd.consultar(query_nomes, (imgi[0],))
+        nome_img = dados_nomes[0][0]
+
+        query_ids_nomes = f"SELECT id FROM Pessoas WHERE Imagem = ?"
+        dados_ids_nomes = bd.consultar(query_ids_nomes, (imgi[0],))
+        id_nome = dados_ids_nomes[0][0]
+
+        query = f"SELECT id From Olhos Where pessoa_id = {id_nome}"
+        dados_old = bd.consultar(query)
+        # print(dados_old)
+
+        cont_barra_de_carregamento +=1
+        valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
+        valor_mapeado += valor
+        # print(valor_mapeado)
+        progressbar["value"] = valor_mapeado
+        progressbar.update() 
+
+        if dados_old == []:
 
             classificador = cv2.CascadeClassifier(r"anexos/right_eye2.xml")
-            img = cv2.imread(f"IMAGENS-{genero}/{imgi}")
+            img = cv2.imdecode(np.frombuffer(imgi[0], np.uint8), cv2.IMREAD_COLOR)
 
             # print(imgi)
             imgGray = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
@@ -45,7 +61,7 @@ def reconhecimento_e_corte_Olhos(progressbar, valor):
                 olho_direito = objetos[1]
                 cont = 1
             except:
-                print(f"{imgi} + Precisa Redimensionar, Olhos")
+                print(f"{nome_img} + Precisa Redimensionar, Olhos")
                 cont = 0
                 img_corte = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
                 # tranforma o tamanho da imagem, (redimensiona)
@@ -55,7 +71,13 @@ def reconhecimento_e_corte_Olhos(progressbar, valor):
                     # Redimensiona
                     img_corte = img_corte.resize((659, 711))
                     #salva
-                    img_corte.save(f"IMAGENS-{genero}/{imgi}")
+                    dados_imagem = io.BytesIO()
+                    img_corte.save(dados_imagem, format='PNG')
+                    query = "UPDATE Pessoas SET Imagem = ? WHERE id = ?"
+                    valores = (dados_imagem.getvalue(), id_nome)
+                    bd.atualizar(query, valores)
+
+                    # img_corte.save(f"IMAGENS-{genero}/{imgi}")
 
                 img_corte = cv2.cvtColor(np.array(img_corte), cv2.COLOR_RGB2BGR)
                 # Define os pontos dos vértices
@@ -134,7 +156,13 @@ def reconhecimento_e_corte_Olhos(progressbar, valor):
             # Aqui, os novos dados de pixel são aplicados à imagem RGBA.
             rgba.putdata(newData)
             #A imagem editada é salva
-            rgba.save(f"Olhos-{genero}\{imgi}", "PNG")
+            dados_imagem = io.BytesIO()
+            rgba.save(dados_imagem, format='PNG')
+            query = "INSERT INTO Olhos (Imagem, pessoa_id) VALUES (?, ?)"
+            valores = (dados_imagem.getvalue(), id_nome)
+            bd.inserir(query, valores)
+
+            # rgba.save(f"Olhos-{genero}\{imgi}", "PNG")
 
 
             # plt.imshow(img)
@@ -142,5 +170,6 @@ def reconhecimento_e_corte_Olhos(progressbar, valor):
             # plt.imshow(part_cortada)
             # plt.axis('off')
             # plt.show()
+
 
     Rosto.reconhecimento_e_corte_Rosto(progressbar, valor_mapeado)

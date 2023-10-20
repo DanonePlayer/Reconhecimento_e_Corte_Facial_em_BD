@@ -12,32 +12,28 @@ def conexao_banco():
         return con
     except Error as error:
         print(error)
-def inserir(insert):
+def inserir(insert, parametros=None):
     try:
         con = conexao_banco()
         cursor = con.cursor()
-        cursor.execute(insert)
-        con.commit()
-        con.close()
-        print("Inserido com sucesso")
-    except Error as error:
-        print(error)
-def inserirImg(insert, valores):
-    try:
-        con = conexao_banco()
-        cursor = con.cursor()
-        cursor.execute(insert, valores)
+        if parametros:
+            cursor.execute(insert, parametros)
+        else:
+            cursor.execute(insert)
         con.commit()
         con.close()
         print("Inserido com sucesso")
     except Error as error:
         print(error)
 
-def atualizar(update):
+def atualizar(update, parametros=None):
     try:
         con = conexao_banco()
         cursor = con.cursor()
-        cursor.execute(update)
+        if parametros:
+            cursor.execute(update, parametros)
+        else:
+            cursor.execute(update)
         con.commit()
         con.close()
         print("Atualizado com sucesso")
@@ -55,14 +51,18 @@ def deletar(delete):
     except Error as error:
         print(error)
 
-def consultar(consultar):
+def consultar(consultar, parametros=None):
     try:
         con = conexao_banco()
         cursor = con.cursor()
-        cursor.execute(consultar)
+        if parametros:
+            cursor.execute(consultar, parametros)
+        else:
+            cursor.execute(consultar)
         valores = cursor.fetchall()
         con.close()
-        print("consuta feita com sucesso")
+        # print("consuta feita com sucesso")
+        return valores
     except Error as error:
         print(error)
 
@@ -118,7 +118,7 @@ else:
 
 # valores = ('Teste-1', "Masculino", dados_imagem)
 
-# inserirImg(query, valores)
+# inserir(query, valores)
 
 
 

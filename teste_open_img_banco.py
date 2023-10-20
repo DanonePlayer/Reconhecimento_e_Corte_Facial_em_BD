@@ -1,19 +1,13 @@
+import io
+
+from PIL import Image
+
 import BD as bd
 
-query = ("SELECT dados FROM imagens WHERE id=1")
-
-dados = bd.consultar(query)
-
-
-import cv2
-import numpy as np
-
-if dados:
-    dados_binarios = dados[0][0]
-    imagem = cv2.imdecode(np.frombuffer(dados_binarios, np.uint8), cv2.IMREAD_COLOR)
-
-    # Agora 'imagem' contém a imagem recuperada
-
-    cv2.imshow("Imagem", imagem)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+vet = []
+for id in range(1, 10):
+    query = f"SELECT id From Rosto WHERE id = {id}"
+    dados = bd.consultar(query)
+    vet.append(dados[0])
+print(vet[0][0])
+# image1 = Image.open(io.BytesIO(dados[0][0]))

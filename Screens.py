@@ -1,4 +1,5 @@
 # flake8: noqa
+import io
 import os
 import shutil
 import tkinter as tk
@@ -6,7 +7,7 @@ from tkinter import SUNKEN, PhotoImage, filedialog, messagebox, ttk
 
 from PIL import Image, ImageTk
 
-# import BD as bd
+import BD as bd
 import extrair
 from Reconhecedor_de_partes import Boca
 
@@ -58,10 +59,10 @@ class Interface:
 
         #Funções_04
 
-        btn_08 = tk.Button(self.frm_left, width=15, height=1, bg='#969696', borderwidth=0, text='Masculino', font=('Arial',10, 'bold'), fg='#fff', command=lambda: self.Genero("M"))
+        btn_08 = tk.Button(self.frm_left, width=15, height=1, bg='#969696', borderwidth=0, text='Masculino', font=('Arial',10, 'bold'), fg='#fff', command=lambda: self.Genero("Masculino"))
         btn_08.grid(row=9, column=0, padx=30, pady=(30, 5))
 
-        btn_09 = tk.Button(self.frm_left, width=15, height=1, bg='#969696', borderwidth=0, text='Feminino', font=('Arial',10, 'bold'), fg='#fff', command=lambda: self.Genero("F"))
+        btn_09 = tk.Button(self.frm_left, width=15, height=1, bg='#969696', borderwidth=0, text='Feminino', font=('Arial',10, 'bold'), fg='#fff', command=lambda: self.Genero("Feminino"))
         btn_09.grid(row=10, column=0, padx=30, pady=5)
 
         #Funções_05
@@ -368,18 +369,19 @@ class Interface:
             for caminho in miniatura:
                 if "Rosto-" in caminho:
                     self.rosto_salva = caminho
-                    print(self.rosto_salva)
+                    # print(self.rosto_salva)
                 if "Olhos-" in caminho:
                     self.olhos_salva = caminho
-                    print(self.olhos_salva)
+                    # print(self.olhos_salva)
                 if "Nariz-" in caminho:
                     self.nariz_salva = caminho
-                    print(self.nariz_salva)
+                    # print(self.nariz_salva)
                 if "Boca-" in caminho:
                     self.boca_salva = caminho
-                    print(self.boca_salva)
+                    # print(self.boca_salva)
         except:
-            print("Nenhuma miniatura neste local")
+            messagebox.showerror("Aviso, Nenhuma miniatura neste local")
+            # print("Nenhuma miniatura neste local")
 
     def Botao_direito_miniatura(self, valor):
         if valor == 1 and self.baixo1 == True:
@@ -404,42 +406,52 @@ class Interface:
             self.image_label2.configure(image=Imagem)
             self.image_label2.image=Imagem
         except:
-            print("Nenhuma miniatura neste local")
+            messagebox.showerror("Aviso, Nenhuma miniatura neste local")
+            # print("Nenhuma miniatura neste local")
 
-    def StartImgs(self, Parte):           
-        self.rostos_in_pasta = os.listdir(f"IMAGENS-{self.genero}")
+    def StartImgs(self, Parte):
+        
+        query = f"SELECT id From Pessoas WHERE Sexo = '{self.genero}'"
+        self.rostos_in_pasta = bd.consultar(query)
+        # print(self.rostos_in_pasta)
+
         self.vetor_rostos = []
         for rosto in range(self.começa, self.termina):
-            self.vetor_rostos.append(self.rostos_in_pasta[rosto])
+            self.vetor_rostos.append(self.rostos_in_pasta[rosto][0])
         # print(len(self.vetor_rostos))
 
         self.width = 350
         self.height = 400
-
-        image1 = (Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[0]}"))
+        dados = []
+        for id in self.vetor_rostos:
+            query = f"SELECT Imagem From {Parte} WHERE id = {id}"
+            dados1 = bd.consultar(query)
+            dados.append(dados1[0])
+        # print(dados)
+        image1 = Image.open(io.BytesIO(dados[0][0]))
         image1 = image1.resize((self.width, self.height))
         self.imagem1 = ImageTk.PhotoImage(image1)
-        self.arq_Image_1 = (f"{Parte}-{self.genero}/{self.vetor_rostos[0]}")
-        image2 = (Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[1]}"))
+        self.arq_Image_1 = self.vetor_rostos[0]
+        image2 = Image.open(io.BytesIO(dados[1][0]))
         image2 = image2.resize((self.width, self.height))
         self.imagem2 = ImageTk.PhotoImage(image2)
-        self.arq_Image_2 = (f"{Parte}-{self.genero}/{self.vetor_rostos[1]}")
-        image3 = (Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[2]}"))
+        self.arq_Image_2 = self.vetor_rostos[1]
+        image3 = Image.open(io.BytesIO(dados[2][0]))
         image3 = image3.resize((self.width, self.height))
         self.imagem3 = ImageTk.PhotoImage(image3)
-        self.arq_Image_3 = (f"{Parte}-{self.genero}/{self.vetor_rostos[2]}")
-        image4 = (Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[3]}"))
+        self.arq_Image_3 = self.vetor_rostos[2]
+        image4 = Image.open(io.BytesIO(dados[3][0]))
         image4 = image4.resize((self.width, self.height))
         self.imagem4 = (ImageTk.PhotoImage(image4))
-        self.arq_Image_4 = (f"{Parte}-{self.genero}/{self.vetor_rostos[3]}")
-        image5 = (Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[4]}"))
+        self.arq_Image_4 = self.vetor_rostos[3]
+        image5 = Image.open(io.BytesIO(dados[4][0]))
         image5 = image5.resize((self.width, self.height))
         self.imagem5 = ImageTk.PhotoImage(image5)
-        self.arq_Image_5 = (f"{Parte}-{self.genero}/{self.vetor_rostos[4]}")
-        image6 = (Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[5]}"))
+        self.arq_Image_5 = self.vetor_rostos[4]
+        image6 = Image.open(io.BytesIO(dados[5][0]))
         image6 = image6.resize((self.width, self.height))
         self.imagem6 = ImageTk.PhotoImage(image6)
-        self.arq_Image_6 = (f"{Parte}-{self.genero}/{self.vetor_rostos[5]}")
+        self.arq_Image_6 = self.vetor_rostos[5]
 
     def Habilitar(self):
         self.btn_04.configure(state=tk.NORMAL)
@@ -552,12 +564,18 @@ class Interface:
             self.termina += 6
             self.StartImgs(Parte)
 
-            imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[0]}").resize((self.width, self.height)))
-            imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[1]}").resize((self.width, self.height)))
-            imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[2]}").resize((self.width, self.height)))
-            imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[3]}").resize((self.width, self.height)))
-            imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[4]}").resize((self.width, self.height)))
-            imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[5]}").resize((self.width, self.height)))
+            dados = []
+            for id in self.vetor_rostos:
+                query = f"SELECT Imagem From {Parte} WHERE id = {id}"
+                dados1 = bd.consultar(query)
+                dados.append(dados1[0])
+
+            imagem1 = ImageTk.PhotoImage(Image.open(io.BytesIO(dados[0][0])).resize((self.width, self.height)))
+            imagem2 = ImageTk.PhotoImage(Image.open(io.BytesIO(dados[1][0])).resize((self.width, self.height)))
+            imagem3 = ImageTk.PhotoImage(Image.open(io.BytesIO(dados[2][0])).resize((self.width, self.height)))
+            imagem4 = ImageTk.PhotoImage(Image.open(io.BytesIO(dados[3][0])).resize((self.width, self.height)))
+            imagem5 = ImageTk.PhotoImage(Image.open(io.BytesIO(dados[4][0])).resize((self.width, self.height)))
+            imagem6 = ImageTk.PhotoImage(Image.open(io.BytesIO(dados[5][0])).resize((self.width, self.height)))
 
             self.lbl_rosto1.configure(image=imagem1)
             self.lbl_rosto1.image=imagem1
@@ -579,12 +597,18 @@ class Interface:
             self.termina -= 6 
             self.StartImgs(Parte)
             
-            imagem1 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[0]}").resize((self.width, self.height)))
-            imagem2 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[1]}").resize((self.width, self.height)))
-            imagem3 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[2]}").resize((self.width, self.height)))
-            imagem4 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[3]}").resize((self.width, self.height)))
-            imagem5 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[4]}").resize((self.width, self.height)))
-            imagem6 = ImageTk.PhotoImage(Image.open(f"{Parte}-{self.genero}/{self.vetor_rostos[5]}").resize((self.width, self.height)))
+            dados = []
+            for id in self.vetor_rostos:
+                query = f"SELECT Imagem From {Parte} WHERE id = {id}"
+                dados1 = bd.consultar(query)
+                dados.append(dados1[0])
+            
+            imagem1 = ImageTk.PhotoImage(Image.open(io.BytesIO(dados[0][0])).resize((self.width, self.height)))
+            imagem2 = ImageTk.PhotoImage(Image.open(io.BytesIO(dados[1][0])).resize((self.width, self.height)))
+            imagem3 = ImageTk.PhotoImage(Image.open(io.BytesIO(dados[2][0])).resize((self.width, self.height)))
+            imagem4 = ImageTk.PhotoImage(Image.open(io.BytesIO(dados[3][0])).resize((self.width, self.height)))
+            imagem5 = ImageTk.PhotoImage(Image.open(io.BytesIO(dados[4][0])).resize((self.width, self.height)))
+            imagem6 = ImageTk.PhotoImage(Image.open(io.BytesIO(dados[5][0])).resize((self.width, self.height)))
 
             self.lbl_rosto1.configure(image=imagem1)
             self.lbl_rosto1.image=imagem1
@@ -616,16 +640,21 @@ class Interface:
         else:
             if self.Criacao_Face_Salva != None:
                 # Abrir imagem frontal
-                img_front = arq
-                
-                # Abrir imagem de fundo
-                img_back = self.Criacao_Face_Salva 
+                query = f"SELECT Imagem From {Parte} WHERE id = {arq}"
+                dados = bd.consultar(query)
+                img_front = dados[0][0]
 
-                frontImage = Image.open(img_front)
-                frontImage = frontImage.resize((self.width, self.height))
+                frontImage = Image.open(io.BytesIO(img_front)).resize((self.width, self.height))
+
                 try:
-                    img_back = Image.open(img_back)
+                    # Abrir imagem de fundo
+                    query = f"SELECT Imagem From Rosto WHERE id = {self.Criacao_Face_Salva}"
+                    dados = bd.consultar(query)
+                    img_back = dados[0][0]
+
+                    img_back = Image.open(io.BytesIO(img_back))
                 except:
+                    img_back = self.Criacao_Face_Salva
                     pass
                 background = img_back.resize((self.width, self.height))
 
@@ -671,10 +700,12 @@ class Interface:
 
     def gerar_miniatura(self):
         for count_photo_baixo in range(1, 9):
-            print(count_photo_baixo)
+            # print(count_photo_baixo)
             if count_photo_baixo == 1 and self.baixo1 == False:
                 try:
-                    self.miniatura_imagem01 = Image.open(self.Criacao_Face_Salva)
+                    query = f"SELECT Imagem From Rosto WHERE id = {self.Criacao_Face_Salva}"
+                    dados = bd.consultar(query)
+                    self.miniatura_imagem01 = Image.open(io.BytesIO(dados[0][0]))
                 except:
                     self.miniatura_imagem01 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem01.resize((110, 130))
@@ -697,7 +728,9 @@ class Interface:
 
             elif count_photo_baixo == 2 and self.baixo2 == False:
                 try:
-                    self.miniatura_imagem02 = Image.open(self.Criacao_Face_Salva)
+                    query = f"SELECT Imagem From Rosto WHERE id = {self.Criacao_Face_Salva}"
+                    dados = bd.consultar(query)
+                    self.miniatura_imagem02 = Image.open(io.BytesIO(dados[0][0]))
                 except:
                     self.miniatura_imagem02 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem02.resize((110, 130))
@@ -720,7 +753,9 @@ class Interface:
 
             elif count_photo_baixo == 3 and self.baixo3 == False:
                 try:
-                    self.miniatura_imagem03 = Image.open(self.Criacao_Face_Salva)
+                    query = f"SELECT Imagem From Rosto WHERE id = {self.Criacao_Face_Salva}"
+                    dados = bd.consultar(query)
+                    self.miniatura_imagem03 = Image.open(io.BytesIO(dados[0][0]))
                 except:
                     self.miniatura_imagem03 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem03.resize((110, 130))
@@ -743,7 +778,9 @@ class Interface:
                 
             elif count_photo_baixo == 4 and self.baixo4 == False:
                 try:
-                    self.miniatura_imagem04 = Image.open(self.Criacao_Face_Salva)
+                    query = f"SELECT Imagem From Rosto WHERE id = {self.Criacao_Face_Salva}"
+                    dados = bd.consultar(query)
+                    self.miniatura_imagem04 = Image.open(io.BytesIO(dados[0][0]))
                 except:
                     self.miniatura_imagem04 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem04.resize((110, 130))
@@ -765,7 +802,9 @@ class Interface:
                 break
             elif count_photo_baixo == 5 and self.baixo5 == False:
                 try:
-                    self.miniatura_imagem05 = Image.open(self.Criacao_Face_Salva)
+                    query = f"SELECT Imagem From Rosto WHERE id = {self.Criacao_Face_Salva}"
+                    dados = bd.consultar(query)
+                    self.miniatura_imagem05 = Image.open(io.BytesIO(dados[0][0]))
                 except:
                     self.miniatura_imagem05 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem05.resize((110, 130))
@@ -787,7 +826,9 @@ class Interface:
                 break
             elif count_photo_baixo == 6 and self.baixo6 == False:
                 try:
-                    self.miniatura_imagem06 = Image.open(self.Criacao_Face_Salva)
+                    query = f"SELECT Imagem From Rosto WHERE id = {self.Criacao_Face_Salva}"
+                    dados = bd.consultar(query)
+                    self.miniatura_imagem06 = Image.open(io.BytesIO(dados[0][0]))
                 except:
                     self.miniatura_imagem06 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem06.resize((110, 130))
@@ -809,7 +850,9 @@ class Interface:
                 break
             elif count_photo_baixo == 7 and self.baixo7 == False:
                 try:
-                    self.miniatura_imagem07 = Image.open(self.Criacao_Face_Salva)
+                    query = f"SELECT Imagem From Rosto WHERE id = {self.Criacao_Face_Salva}"
+                    dados = bd.consultar(query)
+                    self.miniatura_imagem07 = Image.open(io.BytesIO(dados[0][0]))
                 except:
                     self.miniatura_imagem07 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem07.resize((110, 130))
@@ -831,7 +874,9 @@ class Interface:
                 break
             elif count_photo_baixo == 8 and self.baixo8 == False:
                 try:
-                    self.miniatura_imagem08 = Image.open(self.Criacao_Face_Salva)
+                    query = f"SELECT Imagem From Rosto WHERE id = {self.Criacao_Face_Salva}"
+                    dados = bd.consultar(query)
+                    self.miniatura_imagem08 = Image.open(io.BytesIO(dados[0][0]))
                 except:
                     self.miniatura_imagem08 = self.Criacao_Face_Salva
                 img_resized = self.miniatura_imagem08.resize((110, 130))

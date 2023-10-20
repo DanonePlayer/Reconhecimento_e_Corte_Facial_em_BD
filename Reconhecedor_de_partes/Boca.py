@@ -1,35 +1,51 @@
 #USA O rosto.png COMO EXEMPLO DE TESTE, ELE É MAIS COMO UMA BASE, É PARECIDO COM MUITAS DAS IMAGENS DA BASE QUE VAMOS USAR
+import io
 import os
 
 import cv2
 import numpy as np
 from PIL import Image
 
+import BD as bd
 from Reconhecedor_de_partes import Nariz
 
 
 def reconhecimento_e_corte_boca(progressbar):
-    imagens_cont_M = os.listdir(f"IMAGENS-M")
-    imagens_cont_F = os.listdir(f"IMAGENS-F")
-    barra_carregamento_max = (len(imagens_cont_M) + len(imagens_cont_F)) * 4
+    query = f"SELECT id From Pessoas"
+    dados = bd.consultar(query)
+
+    barra_carregamento_max = len(dados) * 4
     cont_barra_de_carregamento = 0
-    for teste in range(2):
-        if teste == 0:
-            genero = "M"
-        else:
-            genero = "F"
-        imagens = os.listdir(f"IMAGENS-{genero}")
-        for imgi in imagens:
-            # print(imgi)
-            cont_barra_de_carregamento +=1
-            valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
-            print(valor_mapeado)
-            progressbar["value"] = valor_mapeado
-            progressbar.update() 
+
+    query = f"SELECT Imagem From Pessoas"
+    dados = bd.consultar(query)
+    
+    for imgi in dados:
+        # print(imgi)
+
+        query_nomes = f"SELECT Nome FROM Pessoas WHERE Imagem = ?"
+        dados_nomes = bd.consultar(query_nomes, (imgi[0],))
+        nome_img = dados_nomes[0][0]
+
+        query_ids_nomes = f"SELECT id FROM Pessoas WHERE Imagem = ?"
+        dados_ids_nomes = bd.consultar(query_ids_nomes, (imgi[0],))
+        id_nome = dados_ids_nomes[0][0]
+
+        query = f"SELECT id From Boca Where pessoa_id = {id_nome}"
+        dados_old = bd.consultar(query)
+        # print(dados_old)
+
+        cont_barra_de_carregamento +=1
+        valor_mapeado = ((cont_barra_de_carregamento - 0) / (barra_carregamento_max - 0)) * (101 - 0)  # Mapeia para 0 a 100
+        # print(valor_mapeado)
+        progressbar["value"] = valor_mapeado
+        progressbar.update() 
+
+        if dados_old == []:
             
             # ProgressBar.iniciar_processamento(valor_mapeado)
             classificador = cv2.CascadeClassifier(r"anexos/mouth.xml")
-            img = cv2.imread(f"IMAGENS-{genero}/{imgi}")
+            img = cv2.imdecode(np.frombuffer(imgi[0], np.uint8), cv2.IMREAD_COLOR)
             imgGray = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
             # cv2.imshow('Imagem Cinza', imgGray)
             objetos = classificador.detectMultiScale(imgGray, minSize=(90,90), scaleFactor=1.1, minNeighbors=190, maxSize=(950,220)) # ou maxSize
@@ -45,7 +61,7 @@ def reconhecimento_e_corte_boca(progressbar):
                 boca = objetos[0]
                 cont = 1
             except:
-                print(f"{imgi} + Precisa Redimensionar, Boca")
+                # print(f"{nome_img} + Precisa Redimensionar, Boca")
                 cont = 0
                 img_corte = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
                 # tranforma o tamanho da imagem, (redimensiona)
@@ -55,7 +71,13 @@ def reconhecimento_e_corte_boca(progressbar):
                     # Redimensiona
                     img_corte = img_corte.resize((659, 711))
                     #salva
-                    img_corte.save(f"IMAGENS-{genero}/{imgi}")
+                    dados_imagem = io.BytesIO()
+                    img_corte.save(dados_imagem, format='PNG')
+                    query = "UPDATE Pessoas SET Imagem = ? WHERE id = ?"
+                    valores = (dados_imagem.getvalue(), id_nome)
+                    bd.atualizar(query, valores)
+
+                    # img_corte.save(f"IMAGENS-{genero}/{imgi}")
                 img_corte = cv2.cvtColor(np.array(img_corte), cv2.COLOR_RGB2BGR)
                 # Define os pontos dos vértices
                 pts = np.array([[185, 456], [185, 600], [479, 600], [479, 456]], np.int32)
@@ -110,7 +132,7 @@ def reconhecimento_e_corte_boca(progressbar):
             newData = []
             for item in datas:
                 # encontrando a cor preta pelo seu valor RGB
-                if item[0] == 0 and item[1] == 0 and item[2] == 0:  
+                if item[0] == 0 and item[1] == 0 and item[2] == 0:
                     # Se o pixel for preto, ele é substituído por um pixel totalmente transparente
                     #  (branco com alfa 0), indicando que ele será tornando transparente.
                     newData.append((255, 255, 255, 0))
@@ -120,7 +142,15 @@ def reconhecimento_e_corte_boca(progressbar):
             # Aqui, os novos dados de pixel são aplicados à imagem RGBA.
             rgba.putdata(newData)
             #A imagem editada é salva
-            rgba.save(f"Boca-{genero}\{imgi}", "PNG")
+
+
+            dados_imagem = io.BytesIO()
+            rgba.save(dados_imagem, format='PNG')
+            query = "INSERT INTO Boca (Imagem, pessoa_id) VALUES (?, ?)"
+            valores = (dados_imagem.getvalue(), id_nome)
+            bd.inserir(query, valores)
+
+            # rgba.save(f"Boca-{genero}\{imgi}", "PNG")
 
 
             # plt.imshow(img)
@@ -129,4 +159,7 @@ def reconhecimento_e_corte_boca(progressbar):
             # plt.axis('off')
             # plt.show()
 
-    Nariz.reconhecimento_e_corte_Nariz(progressbar, valor_mapeado)
+    if dados == []:
+        print("tem nada")
+    else:
+        Nariz.reconhecimento_e_corte_Nariz(progressbar, valor_mapeado)
