@@ -136,7 +136,7 @@ def Gerador_imagens(progressbar):
                         if (shape.has_image) :
                             cont +=1
                             #pega a imagem 2
-                            if cont == 1:
+                            if cont == 2:
 
                                 # esse trecho de código estar trabalhando para limpar e normalizar o nome de um arquivo,
                                 # removendo acentos, caracteres especiais e caracteres não ASCII,
@@ -182,7 +182,7 @@ def Gerador_imagens(progressbar):
                         if (shape.has_image) :
                             cont +=1
 
-                            if cont == 1:
+                            if cont == 2:
 
                                 retira = ".docx.pdf"
                                 Docx_name = Docx_name.translate(str.maketrans("", "", retira))

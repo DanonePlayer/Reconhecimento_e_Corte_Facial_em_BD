@@ -368,16 +368,16 @@ class Interface:
 
             for caminho in miniatura:
                 if "Rosto-" in caminho:
-                    self.rosto_salva = caminho
+                    self.rosto_salva = caminho.strip("Rosto-")
                     # print(self.rosto_salva)
                 if "Olhos-" in caminho:
-                    self.olhos_salva = caminho
+                    self.olhos_salva = caminho.strip("Olhos-")
                     # print(self.olhos_salva)
                 if "Nariz-" in caminho:
-                    self.nariz_salva = caminho
+                    self.nariz_salva = caminho.strip("Nariz-")
                     # print(self.nariz_salva)
                 if "Boca-" in caminho:
-                    self.boca_salva = caminho
+                    self.boca_salva = caminho.strip("Boca-")
                     # print(self.boca_salva)
         except:
             messagebox.showerror("Aviso, Nenhuma miniatura neste local")
@@ -716,13 +716,13 @@ class Interface:
 
                 self.salva_imgs_miniaturas1 = []
                 if self.rosto_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas1.append(self.rosto_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas1.append(f"Rosto-{self.rosto_salva_p_miniaturas}")
                 if self.olhos_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas1.append(self.olhos_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas1.append(f"Olhos-{self.olhos_salva_p_miniaturas}")
                 if self.nariz_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas1.append(self.nariz_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas1.append(f"Nariz-{self.nariz_salva_p_miniaturas}")
                 if self.boca_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas1.append(self.boca_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas1.append(f"Boca-{self.boca_salva_p_miniaturas}")
                 # print(self.salva_imgs_miniaturas1)
                 break
 
@@ -741,13 +741,13 @@ class Interface:
 
                 self.salva_imgs_miniaturas2 = []
                 if self.rosto_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas2.append(self.rosto_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas2.append(f"Rosto-{self.rosto_salva_p_miniaturas}")
                 if self.olhos_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas2.append(self.olhos_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas2.append(f"Olhos-{self.olhos_salva_p_miniaturas}")
                 if self.nariz_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas2.append(self.nariz_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas2.append(f"Nariz-{self.nariz_salva_p_miniaturas}")
                 if self.boca_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas2.append(self.boca_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas2.append(f"Boca-{self.boca_salva_p_miniaturas}")
                 # print(self.salva_imgs_miniaturas2)
                 break
 
@@ -766,13 +766,13 @@ class Interface:
 
                 self.salva_imgs_miniaturas3 = []
                 if self.rosto_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas3.append(self.rosto_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas3.append(f"Rosto-{self.rosto_salva_p_miniaturas}")
                 if self.olhos_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas3.append(self.olhos_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas3.append(f"Olhos-{self.olhos_salva_p_miniaturas}")
                 if self.nariz_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas3.append(self.nariz_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas3.append(f"Nariz-{self.nariz_salva_p_miniaturas}")
                 if self.boca_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas3.append(self.boca_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas3.append(f"Boca-{self.boca_salva_p_miniaturas}")
                 # print(self.salva_imgs_miniaturas3)
                 break
                 
@@ -791,13 +791,13 @@ class Interface:
 
                 self.salva_imgs_miniaturas4 = []
                 if self.rosto_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas4.append(self.rosto_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas4.append(f"Rosto-{self.rosto_salva_p_miniaturas}")
                 if self.olhos_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas4.append(self.olhos_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas4.append(f"Olhos-{self.olhos_salva_p_miniaturas}")
                 if self.nariz_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas4.append(self.nariz_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas4.append(f"Nariz-{self.nariz_salva_p_miniaturas}")
                 if self.boca_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas4.append(self.boca_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas4.append(f"Boca-{self.boca_salva_p_miniaturas}")
                 # print(self.salva_imgs_miniaturas4)
                 break
             elif count_photo_baixo == 5 and self.baixo5 == False:
@@ -815,13 +815,13 @@ class Interface:
 
                 self.salva_imgs_miniaturas5 = []
                 if self.rosto_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas5.append(self.rosto_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas5.append(f"Rosto-{self.rosto_salva_p_miniaturas}")
                 if self.olhos_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas5.append(self.olhos_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas5.append(f"Olhos-{self.olhos_salva_p_miniaturas}")
                 if self.nariz_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas5.append(self.nariz_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas5.append(f"Nariz-{self.nariz_salva_p_miniaturas}")
                 if self.boca_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas5.append(self.boca_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas5.append(f"Boca-{self.boca_salva_p_miniaturas}")
                 # print(self.salva_imgs_miniaturas5)                
                 break
             elif count_photo_baixo == 6 and self.baixo6 == False:
@@ -839,13 +839,13 @@ class Interface:
 
                 self.salva_imgs_miniaturas6 = []
                 if self.rosto_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas6.append(self.rosto_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas6.append(f"Rosto-{self.rosto_salva_p_miniaturas}")
                 if self.olhos_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas6.append(self.olhos_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas6.append(f"Olhos-{self.olhos_salva_p_miniaturas}")
                 if self.nariz_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas6.append(self.nariz_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas6.append(f"Nariz-{self.nariz_salva_p_miniaturas}")
                 if self.boca_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas6.append(self.boca_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas6.append(f"Boca-{self.boca_salva_p_miniaturas}")
                 # print(self.salva_imgs_miniaturas6)
                 break
             elif count_photo_baixo == 7 and self.baixo7 == False:
@@ -863,13 +863,13 @@ class Interface:
 
                 self.salva_imgs_miniaturas7 = []
                 if self.rosto_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas7.append(self.rosto_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas7.append(f"Rosto-{self.rosto_salva_p_miniaturas}")
                 if self.olhos_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas7.append(self.olhos_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas7.append(f"Olhos-{self.olhos_salva_p_miniaturas}")
                 if self.nariz_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas7.append(self.nariz_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas7.append(f"Nariz-{self.nariz_salva_p_miniaturas}")
                 if self.boca_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas7.append(self.boca_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas7.append(f"Boca-{self.boca_salva_p_miniaturas}")
                 # print(self.salva_imgs_miniaturas7)
                 break
             elif count_photo_baixo == 8 and self.baixo8 == False:
@@ -887,13 +887,13 @@ class Interface:
 
                 self.salva_imgs_miniaturas8 = []
                 if self.rosto_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas8.append(self.rosto_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas8.append(f"Rosto-{self.rosto_salva_p_miniaturas}")
                 if self.olhos_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas8.append(self.olhos_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas8.append(f"Olhos-{self.olhos_salva_p_miniaturas}")
                 if self.nariz_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas8.append(self.nariz_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas8.append(f"Nariz-{self.nariz_salva_p_miniaturas}")
                 if self.boca_salva_p_miniaturas != None:
-                    self.salva_imgs_miniaturas8.append(self.boca_salva_p_miniaturas)
+                    self.salva_imgs_miniaturas8.append(f"Boca-{self.boca_salva_p_miniaturas}")
                 # print(self.salva_imgs_miniaturas8)
                 break
 
@@ -938,20 +938,38 @@ class Interface:
         pasta_destino = filedialog.askdirectory()
         if pasta_destino:
             if self.rosto_salva != None:
-                imagem = Image.open(self.rosto_salva)
-                nome_da_imagem = os.path.basename(self.rosto_salva)
+                query = f"SELECT Imagem From Rosto WHERE id = {self.rosto_salva}"
+                dados = bd.consultar(query)
+                imagem = Image.open(io.BytesIO(dados[0][0]))
+                query = f"SELECT Nome From Pessoas WHERE id = {self.rosto_salva}"
+                dados = bd.consultar(query)
+
+                nome_da_imagem = dados[0][0]
                 imagem.save(f'{pasta_destino}/Rosto-{nome_da_imagem}.png')
             if self.olhos_salva != None:
-                imagem = Image.open(self.olhos_salva)
-                nome_da_imagem = os.path.basename(self.olhos_salva)
+                query = f"SELECT Imagem From Olhos WHERE id = {self.olhos_salva}"
+                dados = bd.consultar(query)
+                imagem = Image.open(io.BytesIO(dados[0][0]))
+                query = f"SELECT Nome From Pessoas WHERE id = {self.olhos_salva}"
+                dados = bd.consultar(query)
+                nome_da_imagem = dados[0][0]
                 imagem.save(f'{pasta_destino}/Olhos-{nome_da_imagem}.png')
+
             if self.nariz_salva != None:
-                imagem = Image.open(self.nariz_salva)
-                nome_da_imagem = os.path.basename(self.nariz_salva)
+                query = f"SELECT Imagem From Nariz WHERE id = {self.nariz_salva}"
+                dados = bd.consultar(query)
+                imagem = Image.open(io.BytesIO(dados[0][0]))
+                query = f"SELECT Nome From Pessoas WHERE id = {self.nariz_salva}"
+                dados = bd.consultar(query)
+                nome_da_imagem = dados[0][0]
                 imagem.save(f'{pasta_destino}/Nariz-{nome_da_imagem}.png')
             if self.boca_salva != None:
-                imagem = Image.open(self.boca_salva)
-                nome_da_imagem = os.path.basename(self.boca_salva)
+                query = f"SELECT Imagem From Boca WHERE id = {self.boca_salva}"
+                dados = bd.consultar(query)
+                imagem = Image.open(io.BytesIO(dados[0][0]))
+                query = f"SELECT Nome From Pessoas WHERE id = {self.boca_salva}"
+                dados = bd.consultar(query)
+                nome_da_imagem = dados[0][0]
                 imagem.save(f'{pasta_destino}/Boca-{nome_da_imagem}.png')
             if self.rosto_salva == None and self.olhos_salva == None and self.nariz_salva == None and self.boca_salva == None:
                 messagebox.showerror("Erro", "Nenhuma Imagem para salvar")
